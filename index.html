@@ -28,9 +28,16 @@ body {
 
 /* Header */
 .header {
+  display: flex; justify-content: space-between; align-items: flex-end;
   background: linear-gradient(135deg, #1a1f35 0%, #161b22 100%);
   border-bottom: 1px solid var(--border); padding: 24px 40px;
 }
+.header-credit {
+  color: var(--text-dim); font-size: 13px; white-space: nowrap;
+  padding-bottom: 2px;
+}
+.header-credit a { color: var(--accent); text-decoration: none; }
+.header-credit a:hover { text-decoration: underline; }
 .header h1 { font-size: 28px; font-weight: 700; background: linear-gradient(90deg, var(--accent), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .header p { color: var(--text-dim); margin-top: 6px; font-size: 14px; }
 
@@ -196,8 +203,8 @@ th.num { text-align: right; }
 <body>
 
 <div class="header">
-  <h1>北交所数据分析</h1>
-  <p>北京证券交易所 · 新股打新数据 & 上市首日表现 · 2025—2026</p>
+  <div><h1>北交所数据分析</h1><p>北京证券交易所 · 新股打新数据 & 上市首日表现 · 2025—2026</p></div>
+  <div class="header-credit">本网页由（公众号：花生芦荟）制作</div>
 </div>
 
 <div class="tabs">

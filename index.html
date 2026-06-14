@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北交所数据分析 · 打新 & 上市首日表现</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="data.js"></script>
+<style>
+:root {
+  --bg: #0d1117;
+  --bg-card: #161b22;
+  --bg-hover: #1c2333;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-dim: #8b949e;
+  --accent: #58a6ff;
+  --green: #3fb950;
+  --red: #f85149;
+  --orange: #d2991d;
+  --purple: #a371f7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #1a1f35 0%, #161b22 100%);
+  border-bottom: 1px solid var(--border); padding: 24px 40px;
+}
+.header h1 { font-size: 28px; font-weight: 700; background: linear-gradient(90deg, var(--accent), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.header p { color: var(--text-dim); margin-top: 6px; font-size: 14px; }
+
+/* Tabs */
+.tabs {
+  display: flex; gap: 0; background: var(--bg-card); border-bottom: 1px solid var(--border);
+  padding: 0 40px; position: sticky; top: 0; z-index: 100;
+}
+.tab-btn {
+  padding: 14px 32px; border: none; background: none; color: var(--text-dim);
+  font-size: 15px; font-weight: 500; cursor: pointer; position: relative;
+  transition: color .2s; border-bottom: 2px solid transparent;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* Stats Cards */
+.stats-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; padding: 24px 40px;
+}
+.stat-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+  padding: 20px; transition: transform .15s, box-shadow .15s;
+}
+.stat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.stat-label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.stat-value { font-size: 28px; font-weight: 700; }
+.stat-value.up { color: var(--red); }
+.stat-value.down { color: var(--green); }
+.stat-value.neutral { color: var(--accent); }
+
+/* Charts Row */
+.charts-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 40px 20px;
+}
+.chart-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+  padding: 20px;
+}
+.chart-title { font-size: 14px; font-weight: 600; color: var(--text-dim); margin-bottom: 12px; letter-spacing: .3px; }
+.chart-wrap { position: relative; height: 340px; }
+
+/* Table Section */
+.table-section { padding: 0 40px 40px; }
+.table-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+  flex-wrap: wrap; gap: 12px;
+}
+.table-title { font-size: 16px; font-weight: 600; }
+.table-controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.table-controls input, .table-controls select {
+  background: var(--bg-card); border: 1px solid var(--border); color: var(--text);
+  padding: 8px 14px; border-radius: 6px; font-size: 13px; outline: none;
+}
+.table-controls input:focus { border-color: var(--accent); }
+.table-controls input::placeholder { color: var(--text-dim); }
+
+.table-wrap {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+  overflow: hidden;
+}
+.table-scroll { overflow-x: auto; max-height: 600px; overflow-y: auto; }
+table {
+  width: 100%; border-collapse: collapse; font-size: 13px; white-space: nowrap;
+}
+thead { position: sticky; top: 0; z-index: 10; }
+th {
+  background: #1c2333; padding: 12px 16px; text-align: left; font-weight: 600;
+  color: var(--text-dim); font-size: 12px; cursor: pointer; user-select: none;
+  border-bottom: 1px solid var(--border); transition: color .15s;
+}
+th:hover { color: var(--text); }
+th .sort-icon { margin-left: 4px; font-size: 10px; }
+th.sorted-asc .sort-icon::after { content: ' ▲'; }
+th.sorted-desc .sort-icon::after { content: ' ▼'; }
+td { padding: 10px 16px; border-bottom: 1px solid rgba(48,54,61,0.4); }
+tr:hover { background: var(--bg-hover); }
+
+/* Value Colors */
+.val-up { color: var(--red); font-weight: 600; }
+.val-down { color: var(--green); font-weight: 600; }
+.val-warn { color: var(--orange); }
+.val-code { color: var(--accent); font-family: 'SF Mono', 'Consolas', monospace; font-size: 12px; }
+.badge {
+  display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 600;
+}
+.badge-up { background: rgba(248,81,73,0.15); color: var(--red); }
+.badge-down { background: rgba(63,185,80,0.15); color: var(--green); }
+.badge-t1up { background: rgba(248,81,73,0.15); color: var(--red); }
+.badge-t1down { background: rgba(63,185,80,0.15); color: var(--green); }
+.badge-1stop { background: rgba(210,153,29,0.15); color: var(--orange); }
+.badge-2stop { background: rgba(248,81,73,0.15); color: var(--red); }
+.badge-nostop { background: rgba(139,148,158,0.1); color: var(--text-dim); }
+.pagination { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--bg-card); border-top: 1px solid var(--border); font-size: 13px; color: var(--text-dim); }
+.pagination button {
+  background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 6px 14px;
+  border-radius: 6px; cursor: pointer; font-size: 13px; transition: all .15s;
+}
+.pagination button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+.pagination span { margin: 0 8px; }
+
+/* Footer */
+.footer { text-align: center; padding: 24px; color: var(--text-dim); font-size: 12px; border-top: 1px solid var(--border); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header, .tabs, .stats-row, .charts-row, .table-section { padding-left: 16px; padding-right: 16px; }
+  .charts-row { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .tabs { overflow-x: auto; }
+}
+
+/* Loading */
+.loading { display: flex; justify-content: center; align-items: center; height: 200px; color: var(--text-dim); }
+
+.page { display: none; }
+.page.active { display: block; }
+
+/* Extra link coloring for perf table */
+.perf-link { color: var(--accent); text-decoration: none; cursor: pointer; }
+.perf-link:hover { text-decoration: underline; }
+
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+th.num { text-align: right; }
+
+.btn-detail {
+  background: rgba(88,166,255,0.15);
+  color: var(--accent);
+  border: 1px solid rgba(88,166,255,0.3);
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.btn-detail:hover {
+  background: rgba(88,166,255,0.25);
+  border-color: var(--accent);
+}
+
+.btn-detail {
+  background: rgba(88,166,255,0.15);
+  color: var(--accent);
+  border: 1px solid rgba(88,166,255,0.3);
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.btn-detail:hover {
+  background: rgba(88,166,255,0.25);
+  border-color: var(--accent);
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>北交所数据分析</h1>
+  <p>北京证券交易所 · 新股打新数据 & 上市首日表现 · 2025—2026</p>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="page-ipo">📊 打新数据</button>
+  <button class="tab-btn" data-tab="page-perf">🚀 上市首日表现</button>
+</div>
+
+<!-- ==================== PAGE 1: 打新数据 ==================== -->
+<div id="page-ipo" class="page active">
+  <div class="stats-row" id="ipo-stats"></div>
+  <div class="charts-row">
+    <div class="chart-card"><div class="chart-title">打新资金趋势 (亿元)</div><div class="chart-wrap"><canvas id="chart-fund"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">有效申购户数趋势</div><div class="chart-wrap"><canvas id="chart-users"></canvas></div></div>
+  </div>
+  <div class="table-section">
+    <div class="table-header">
+      <div class="table-title">📋 全部打新记录</div>
+      <div class="table-controls">
+        <input type="text" id="ipo-search" placeholder="搜索代码/简称..." oninput="filterIPOTable()">
+        <select id="ipo-sort" onchange="filterIPOTable()">
+          <option value="申购日期">按申购日期</option>
+          <option value="打新资金(亿元)">按打新资金</option>
+          <option value="上市首日涨跌幅%">按首日涨跌幅</option>
+          <option value="中签100股门槛（万）">按中签门槛</option>
+        </select>
+        <select id="ipo-order" onchange="filterIPOTable()">
+          <option value="desc">降序</option>
+          <option value="asc">升序</option>
+        </select>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table id="ipo-table">
+          <thead>
+            <tr>
+              <th>代码</th><th>简称</th><th>申购日期</th><th>上市日期</th>
+              <th class="num">顶格资金(万)</th><th class="num">中签门槛(万)</th>
+              <th>碎股门槛(万)</th><th class="num">中签股数</th>
+              <th class="num">有效申购户数</th><th class="num">获配户数</th>
+              <th class="num">打新资金(亿)</th><th class="num">首日涨跌幅%</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <span id="ipo-count">共 0 条</span>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 2: 上市首日表现 ==================== -->
+<div id="page-perf" class="page">
+  <div class="stats-row" id="perf-stats"></div>
+  <div class="charts-row">
+    <div class="chart-card"><div class="chart-title">上市首日涨跌幅分布</div><div class="chart-wrap"><canvas id="chart-perf-dist"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">月度平均涨跌幅趋势</div><div class="chart-wrap"><canvas id="chart-perf-monthly"></canvas></div></div>
+  </div>
+  <div class="charts-row">
+    <div class="chart-card"><div class="chart-title">首日涨跌幅 vs 换手率</div><div class="chart-wrap"><canvas id="chart-perf-scatter"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">T+1 涨跌幅分布</div><div class="chart-wrap"><canvas id="chart-t1"></canvas></div></div>
+  </div>
+
+  <div class="table-section">
+    <div class="table-header">
+      <div class="table-title">📋 上市首日表现完整记录</div>
+      <div class="table-controls">
+        <input type="text" id="perf-search" placeholder="搜索代码/名称..." oninput="filterPerfTable()">
+        <select id="perf-sort" onchange="filterPerfTable()">
+          <option value="上市日期">按上市日期</option>
+          <option value="上市首日涨跌幅%">按首日涨跌幅</option>
+          <option value="换手率">按换手率</option>
+          <option value="T+1涨跌幅%">按T+1涨跌幅</option>
+        </select>
+        <select id="perf-order" onchange="filterPerfTable()">
+          <option value="desc">降序</option>
+          <option value="asc">升序</option>
+        </select>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table id="perf-table">
+          <thead>
+            <tr>
+              <th>证券代码</th><th>证券名称</th><th>上市日期</th>
+              <th class="num">首发价</th><th class="num">开盘价</th>
+              <th class="num">最高价</th><th class="num">最低价</th><th class="num">收盘价</th><th class="num">均价</th>
+              <th class="num">涨跌幅%</th><th class="num">最高涨幅%</th><th class="num">均价涨幅%</th>
+              <th class="num">换手率%</th><th>临停</th><th class="num">T+1涨跌幅%</th>
+              <th>详细分时</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <span id="perf-count">共 0 条</span>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  数据来源：北交所公开数据 · 数据区间 2025-2026 · 仅供参考，不构成投资建议
+</div>
+
+<script>
+// ======================== GLOBAL STATE ========================
+let ipoFiltered = [...IPO_DATA];
+let perfFiltered = [...PERF_DATA];
+let charts = {};
+
+function destroyChart(key) {
+  if (charts[key]) { charts[key].destroy(); delete charts[key]; }
+}
+function destroyAllCharts() {
+  Object.keys(charts).forEach(k => { try { charts[k].destroy(); } catch(e) {} });
+  charts = {};
+}
+
+// ======================== TAB SWITCHING ========================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    destroyAllCharts();
+    if (btn.dataset.tab === 'page-ipo') {
+      renderIPOStats(); renderIPOCharts();
+    } else {
+      renderPerfStats(); renderPerfCharts();
+    }
+  });
+});
+
+// ======================== STATS HELPER ========================
+function fmtNum(n, d=0) {
+  if (n == null || isNaN(n)) return '-';
+  return Number(n).toLocaleString('zh-CN', {minimumFractionDigits: d, maximumFractionDigits: d});
+}
+function fmtPct(n) {
+  if (n == null || isNaN(n)) return '-';
+  const v = Number(n);
+  return (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
+}
+function fmtColor(n) {
+  if (n == null || isNaN(n)) return '';
+  return Number(n) >= 0 ? 'val-up' : 'val-down';
+}
+function pctColorClass(n) {
+  if (n == null || isNaN(n)) return '';
+  return Number(n) >= 0 ? 'badge-up' : 'badge-down';
+}
+function t1ColorClass(n) {
+  if (n == null || isNaN(n)) return '';
+  return Number(n) >= 0 ? 'badge-t1up' : 'badge-t1down';
+}
+
+// ======================== PAGE 1: IPO DATA ========================
+function renderIPOStats() {
+  const d = IPO_DATA;
+  const total = d.length;
+  const avgFund = d.reduce((s, r) => s + (parseFloat(r['打新资金(亿元)'])||0), 0) / total;
+  const avgUsers = d.reduce((s, r) => s + (parseFloat(r['有效申购户数'])||0), 0) / total;
+  const avgThreshold = d.reduce((s, r) => {
+    const v = parseFloat(r['中签100股门槛（万）']) || 0;
+    return s + v;
+  }, 0) / total;
+  const maxGain = Math.max(...d.map(r => parseFloat(r['上市首日涨跌幅%']) || 0));
+  const minGain = Math.min(...d.map(r => parseFloat(r['上市首日涨跌幅%']) || Infinity));
+  const avgAllotRate = d.reduce((s, r) => {
+    const n1 = parseFloat(r['获配户数']) || 0;
+    const n2 = parseFloat(r['有效申购户数']) || 1;
+    return s + (n1/n2*100);
+  }, 0) / total;
+
+  document.getElementById('ipo-stats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">新股数量</div>
+      <div class="stat-value neutral">${total}<span style="font-size:14px;font-weight:400;color:var(--text-dim)"> 只</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">平均打新资金</div>
+      <div class="stat-value neutral">${(avgFund/10000).toFixed(4)}<span style="font-size:14px;font-weight:400;color:var(--text-dim)"> 万亿</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">平均有效申购户数</div>
+      <div class="stat-value neutral">${fmtNum(Math.round(avgUsers))}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">平均中签门槛</div>
+      <div class="stat-value neutral">${avgThreshold.toFixed(1)}<span style="font-size:14px;font-weight:400;color:var(--text-dim)"> 万</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">首日最高涨幅</div>
+      <div class="stat-value up">${fmtPct(maxGain)}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">平均获配率</div>
+      <div class="stat-value neutral">${avgAllotRate.toFixed(2)}<span style="font-size:14px;font-weight:400;color:var(--text-dim)">%</span></div>
+    </div>
+  `;
+}
+
+function renderIPOCharts() {
+  const d = [...IPO_DATA];
+  d.sort((a,b) => (a['申购日期']||'').localeCompare(b['申购日期']||''));
+
+  const labels = d.map(r => r['简称']);
+  const fundData = d.map(r => parseFloat(r['打新资金(亿元)'])||0);
+  const userData = d.map(r => parseFloat(r['有效申购户数'])||0);
+
+  // Chart 1: 打新资金趋势
+  const ctx1 = document.getElementById('chart-fund').getContext('2d');
+  charts.fund = new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: '打新资金 (亿元)',
+        data: fundData,
+        backgroundColor: fundData.map(v => v > 8000 ? 'rgba(88,166,255,0.7)' : 'rgba(88,166,255,0.35)'),
+        borderColor: 'rgba(88,166,255,0.9)',
+        borderWidth: 1,
+        borderRadius: 3
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#8b949e', maxRotation: 45, font: { size: 10 }, autoSkip: true, maxTicksLimit: 20 } },
+        y: { ticks: { color: '#8b949e' }, grid: { color: 'rgba(48,54,61,0.4)' } }
+      }
+    }
+  });
+
+  // Chart 2: 有效申购户数
+  const ctx2 = document.getElementById('chart-users').getContext('2d');
+  charts.users = new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: '有效申购户数',
+        data: userData,
+        borderColor: '#a371f7',
+        backgroundColor: 'rgba(163,113,247,0.1)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 2,
+        pointBackgroundColor: '#a371f7'
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#8b949e', maxRotation: 45, font: { size: 10 }, autoSkip: true, maxTicksLimit: 20 } },
+        y: { ticks: { color: '#8b949e' }, grid: { color: 'rgba(48,54,61,0.4)' } }
+      }
+    }
+  });
+
+  // Table
+  filterIPOTable();
+}
+
+function filterIPOTable() {
+  const search = (document.getElementById('ipo-search')?.value || '').toLowerCase();
+  const sortKey = document.getElementById('ipo-sort')?.value || '申购日期';
+  const order = document.getElementById('ipo-order')?.value || 'desc';
+
+  let filtered = IPO_DATA.filter(r => {
+    if (!search) return true;
+    return (r['代码']||'').toLowerCase().includes(search) || (r['简称']||'').toLowerCase().includes(search);
+  });
+
+  filtered.sort((a, b) => {
+    let va = a[sortKey], vb = b[sortKey];
+    if (sortKey === '申购日期' || sortKey === '上市日期') {
+      va = va || ''; vb = vb || '';
+    } else {
+      va = parseFloat(String(va).replace('（顶格）','')) || 0;
+      vb = parseFloat(String(vb).replace('（顶格）','')) || 0;
+    }
+    if (va < vb) return order === 'asc' ? -1 : 1;
+    if (va > vb) return order === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  ipoFiltered = filtered;
+  renderIPOTablePage();
+}
+
+function renderIPOTablePage() {
+  const tbody = document.querySelector('#ipo-table tbody');
+  const page = ipoFiltered;
+  tbody.innerHTML = page.map(r => {
+    const gain = parseFloat(r['上市首日涨跌幅%']);
+    const gainStr = isNaN(gain) ? '<span style="color:var(--text-dim)">待上市</span>' : `<span class="${fmtColor(gain)}">${fmtPct(gain)}</span>`;
+    const thresholdStr = r['碎股门槛（万）'] || '-';
+    const thresholdDisplay = String(thresholdStr).includes('（顶格）') ? `<span class="val-warn">${thresholdStr}</span>` : thresholdStr;
+    return `<tr>
+      <td><span class="val-code">${r['代码']||''}</span></td>
+      <td><strong>${r['简称']||''}</strong></td>
+      <td>${r['申购日期']||''}</td>
+      <td>${r['上市日期']||''}</td>
+      <td class="num">${fmtNum(r['顶格打新所需要资金（万）'])}</td>
+      <td class="num">${fmtNum(r['中签100股门槛（万）'])}</td>
+      <td>${thresholdDisplay}</td>
+      <td class="num">${r['顶格打新中签股数']||'-'}</td>
+      <td class="num">${fmtNum(r['有效申购户数'])}</td>
+      <td class="num">${fmtNum(r['获配户数'])}</td>
+      <td class="num">${fmtNum(parseFloat(r['打新资金(亿元)'])||0)}</td>
+      <td class="num">${gainStr}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('ipo-count').textContent = `共 ${ipoFiltered.length} 条`;
+}
+
+// ======================== PAGE 2: PERF DATA ========================
+function renderPerfStats() {
+  const d = PERF_DATA;
+  const total = d.length;
+  const avgGain = d.reduce((s, r) => s + (parseFloat(r['上市首日涨跌幅%'])||0), 0) / total;
+  const avgHigh = d.reduce((s, r) => s + (parseFloat(r['最高价涨幅%'])||0), 0) / total;
+  const avgTurnover = d.reduce((s, r) => s + (parseFloat(r['换手率'])||0), 0) / total;
+  const avgT1 = d.reduce((s, r) => s + (parseFloat(r['T+1涨跌幅%'])||0), 0) / total;
+  const maxGain = Math.max(...d.map(r => parseFloat(r['上市首日涨跌幅%'])||0));
+  const stopCount = d.filter(r => (r['是否触发临停']||'').includes('二次')).length;
+  const stop1Count = d.filter(r => (r['是否触发临停']||'').includes('一次') && !(r['是否触发临停']||'').includes('二次')).length;
+
+  document.getElementById('perf-stats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">新股数量</div>
+      <div class="stat-value neutral">${total}<span style="font-size:14px;font-weight:400;color:var(--text-dim)"> 只</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">平均首日涨跌幅</div>
+      <div class="stat-value up">${fmtPct(avgGain)}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">平均最高涨幅</div>
+      <div class="stat-value up">${fmtPct(avgHigh)}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">首日最高涨幅(单只)</div>
+      <div class="stat-value up">${fmtPct(maxGain)}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">平均换手率</div>
+      <div class="stat-value neutral">${avgTurnover.toFixed(1)}<span style="font-size:14px;font-weight:400;color:var(--text-dim)">%</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">平均 T+1 涨跌幅</div>
+      <div class="stat-value ${avgT1 >= 0 ? 'up' : 'down'}">${fmtPct(avgT1)}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">触发临停</div>
+      <div class="stat-value neutral">一次${stop1Count}<span style="font-size:14px;color:var(--text-dim)"> / </span>二次${stopCount}</div>
+    </div>
+  `;
+}
+
+function renderPerfCharts() {
+  const d = [...PERF_DATA].sort((a,b) => (a['上市日期']||'').localeCompare(b['上市日期']||''));
+
+  // Chart 1: 首日涨跌幅柱状图
+  const labels = d.map(r => r['证券名称']);
+  const gainData = d.map(r => parseFloat(r['上市首日涨跌幅%'])||0);
+  const ctx1 = document.getElementById('chart-perf-dist').getContext('2d');
+  charts.perfDist = new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: '首日涨跌幅%',
+        data: gainData,
+        backgroundColor: gainData.map(v => v > 500 ? 'rgba(248,81,73,0.8)' : v > 200 ? 'rgba(210,153,29,0.7)' : v > 100 ? 'rgba(88,166,255,0.7)' : 'rgba(63,185,80,0.7)'),
+        borderWidth: 0,
+        borderRadius: 3
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.raw.toFixed(2) + '%' } }
+      },
+      scales: {
+        x: { ticks: { color: '#8b949e', maxRotation: 45, font: { size: 9 }, autoSkip: true, maxTicksLimit: 20 } },
+        y: { ticks: { color: '#8b949e', callback: v => v + '%' }, grid: { color: 'rgba(48,54,61,0.4)' } }
+      }
+    }
+  });
+
+  // Chart 2: 月度平均涨跌幅
+  const monthly = {};
+  d.forEach(r => {
+    const m = (r['上市日期']||'').substring(0, 7);
+    if (!m) return;
+    if (!monthly[m]) monthly[m] = { sum: 0, count: 0 };
+    monthly[m].sum += parseFloat(r['上市首日涨跌幅%'])||0;
+    monthly[m].count++;
+  });
+  const mlabels = Object.keys(monthly).sort();
+  const mdata = mlabels.map(m => monthly[m].sum / monthly[m].count);
+  const ctx2 = document.getElementById('chart-perf-monthly').getContext('2d');
+  charts.perfMonthly = new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: mlabels,
+      datasets: [{
+        label: '月度平均涨跌幅%',
+        data: mdata,
+        borderColor: '#d2991d',
+        backgroundColor: 'rgba(210,153,29,0.15)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: '#d2991d',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.raw.toFixed(2) + '%' } } },
+      scales: {
+        x: { ticks: { color: '#8b949e' } },
+        y: { ticks: { color: '#8b949e', callback: v => v + '%' }, grid: { color: 'rgba(48,54,61,0.4)' } }
+      }
+    }
+  });
+
+  // Chart 3: 涨跌幅 vs 换手率 散点图
+  const scatterData = d.map(r => ({
+    x: parseFloat(r['换手率'])||0,
+    y: parseFloat(r['上市首日涨跌幅%'])||0,
+    label: r['证券名称']
+  }));
+  const ctx3 = document.getElementById('chart-perf-scatter').getContext('2d');
+  charts.perfScatter = new Chart(ctx3, {
+    type: 'scatter',
+    data: {
+      datasets: [{
+        label: '首日涨跌幅 vs 换手率',
+        data: scatterData,
+        backgroundColor: scatterData.map(p => {
+          if (p.y > 500) return 'rgba(248,81,73,0.7)';
+          if (p.y > 200) return 'rgba(210,153,29,0.7)';
+          return 'rgba(88,166,255,0.7)';
+        }),
+        pointRadius: 5,
+        pointHoverRadius: 8
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#8b949e', usePointStyle: true } },
+        tooltip: { callbacks: { label: ctx => `${ctx.raw.label}: 换手${ctx.raw.x}%, 涨幅${ctx.raw.y}%` } }
+      },
+      scales: {
+        x: { title: { display: true, text: '换手率%', color: '#8b949e' }, ticks: { color: '#8b949e' }, grid: { color: 'rgba(48,54,61,0.4)' } },
+        y: { title: { display: true, text: '涨跌幅%', color: '#8b949e' }, ticks: { color: '#8b949e', callback: v => v + '%' }, grid: { color: 'rgba(48,54,61,0.4)' } }
+      }
+    }
+  });
+
+  // Chart 4: T+1 涨跌幅分布
+  const t1Data = d.map(r => parseFloat(r['T+1涨跌幅%'])||0);
+  const ctx4 = document.getElementById('chart-t1').getContext('2d');
+  charts.t1 = new Chart(ctx4, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'T+1涨跌幅%',
+        data: t1Data,
+        backgroundColor: t1Data.map(v => v >= 0 ? 'rgba(248,81,73,0.7)' : 'rgba(63,185,80,0.7)'),
+        borderWidth: 0,
+        borderRadius: 3
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.raw.toFixed(2) + '%' } } },
+      scales: {
+        x: { ticks: { color: '#8b949e', maxRotation: 45, font: { size: 9 }, autoSkip: true, maxTicksLimit: 20 } },
+        y: { ticks: { color: '#8b949e', callback: v => v + '%' }, grid: { color: 'rgba(48,54,61,0.4)' } }
+      }
+    }
+  });
+
+  filterPerfTable();
+}
+
+function filterPerfTable() {
+  const search = (document.getElementById('perf-search')?.value || '').toLowerCase();
+  const sortKey = document.getElementById('perf-sort')?.value || '上市日期';
+  const order = document.getElementById('perf-order')?.value || 'desc';
+
+  let filtered = PERF_DATA.filter(r => {
+    if (!search) return true;
+    return (r['证券代码']||'').toLowerCase().includes(search) || (r['证券名称']||'').toLowerCase().includes(search);
+  });
+
+  filtered.sort((a, b) => {
+    let va = a[sortKey], vb = b[sortKey];
+    if (sortKey === '上市日期') {
+      va = va || ''; vb = vb || '';
+    } else {
+      va = parseFloat(va) || 0;
+      vb = parseFloat(vb) || 0;
+    }
+    if (va < vb) return order === 'asc' ? -1 : 1;
+    if (va > vb) return order === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  perfFiltered = filtered;
+  renderPerfTablePage();
+}
+
+function renderPerfTablePage() {
+  const tbody = document.querySelector('#perf-table tbody');
+  const page = perfFiltered;
+  tbody.innerHTML = page.map(r => {
+    const gain = parseFloat(r['上市首日涨跌幅%']);
+    const highGain = parseFloat(r['最高价涨幅%']);
+    const avgGain = parseFloat(r['均价涨幅%']);
+    const t1 = parseFloat(r['T+1涨跌幅%']);
+    const stop = r['是否触发临停'] || '否';
+    let stopClass = 'badge-nostop';
+    if (stop.includes('二次')) stopClass = 'badge-2stop';
+    else if (stop.includes('一次')) stopClass = 'badge-1stop';
+
+    return `<tr>
+      <td><span class="val-code">${r['证券代码']||''}</span></td>
+      <td><strong>${r['证券名称']||''}</strong></td>
+      <td>${r['上市日期']||''}</td>
+      <td class="num">${r['首发价格']||'-'}</td>
+      <td class="num">${r['开盘价']||'-'}</td>
+      <td class="num">${r['最高价']||'-'}</td>
+      <td class="num">${r['最低价']||'-'}</td>
+      <td class="num">${r['收盘价']||'-'}</td>
+      <td class="num">${r['均价']||'-'}</td>
+      <td class="num"><span class="${pctColorClass(gain)}">${fmtPct(gain)}</span></td>
+      <td class="num"><span class="${pctColorClass(highGain)}">${fmtPct(highGain)}</span></td>
+      <td class="num"><span class="${pctColorClass(avgGain)}">${fmtPct(avgGain)}</span></td>
+      <td class="num">${fmtNum(r['换手率'])}%</td>
+      <td><span class="badge ${stopClass}">${stop}</span></td>
+      <td class="num"><span class="${t1ColorClass(t1)}">${fmtPct(t1)}</span></td>
+      <td><button class="btn-detail" data-code="${r['证券代码']||''}" data-name="${r['证券名称']||''}" onclick="openDetail('${r['证券代码']||''}', '${r['证券名称']||''}')">📈 分时</button></td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('perf-count').textContent = `共 ${perfFiltered.length} 条`;
+}
+
+
+function openDetail(code, name) {
+  // Navigate to detail page
+  window.open('detail_' + code.replace('.BJ','') + '.html', '_blank');
+}
+
+
+// ======================== INIT ========================
+renderIPOStats();
+renderIPOCharts();
+</script>
+</body>
+</html>

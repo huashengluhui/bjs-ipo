@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金戈新材 920007 · 上市首日1分钟K线</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script src="detail_data_920007.js"></script>
+<script src="stock_order.js"></script>
+<style>
+:root {
+  --bg: #0d1117;
+  --bg-card: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-dim: #8b949e;
+  --accent: #58a6ff;
+  --green: #3fb950;
+  --red: #f85149;
+  --orange: #d2991d;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh; padding: 20px;
+}
+.header {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px 24px;
+}
+.header .name { font-size: 24px; font-weight: 700; }
+.header .code { color: var(--text-dim); font-size: 16px; font-family: 'SF Mono', 'Consolas', monospace; }
+.header .date { color: var(--text-dim); font-size: 13px; margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.header .back {
+  background: rgba(88,166,255,0.1); color: var(--accent); border: 1px solid rgba(88,166,255,0.3);
+  padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; text-decoration: none;
+  transition: background 0.15s;
+}
+.header .back:hover { background: rgba(88,166,255,0.2); }
+
+.nav-btn {
+  background: rgba(88,166,255,0.08);
+  color: var(--text-dim);
+  border: 1px solid rgba(48,54,61,0.8);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 24px;
+  text-decoration: none;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.nav-btn:hover { background: rgba(88,166,255,0.15); color: var(--text); border-color: var(--accent); }
+.nav-btn.disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+
+.stats-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px; margin-bottom: 20px;
+}
+.stat-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px 20px;
+}
+.stat-label { color: var(--text-dim); font-size: 12px; margin-bottom: 6px; }
+.stat-value { font-size: 20px; font-weight: 700; }
+.val-up { color: var(--red); }
+.val-down { color: var(--green); }
+.val-neutral { color: var(--text); }
+
+.chart-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px; margin-bottom: 20px;
+}
+.chart-title { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+.chart-wrap { height: 500px; }
+
+.footer {
+  text-align: center; color: var(--text-dim); font-size: 12px;
+  padding: 20px 0 10px; border-top: 1px solid var(--border); margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="back">← 返回</a>
+  <div style="flex:1;">
+    <div style="display:flex;align-items:baseline;gap:12px;">
+      <div class="name" id="info-name"></div>
+      <span class="code" id="info-date" style="font-size:18px;color:#d2991d;"></span>
+    </div>
+    <div class="code" id="info-code"></div>
+  </div>
+  <div class="date">
+    <a class="nav-btn disabled" id="nav-prev" title="上一个">◀ 上一个</a>
+    <a class="nav-btn" id="nav-next" title="下一个">下一个 ▶</a>
+  </div>
+</div>
+
+<div class="stats-row" id="stats"></div>
+
+<div class="chart-card">
+  <div class="chart-title">📊 1分钟K线图</div>
+  <div class="chart-wrap" id="chart-kline"></div>
+</div>
+
+<div class="chart-card">
+  <div class="chart-title">📈 累计换手率 (%)</div>
+  <div class="chart-wrap" id="chart-turnover"></div>
+</div>
+
+<div class="footer">
+  数据来源：北交所 1分钟数据 · 仅供参考，不构成投资建议
+</div>
+
+<script>
+const info = DETAIL_INFO;
+const rawData = DETAIL_DATA;
+
+// Header
+document.getElementById('info-name').textContent = info.name;
+document.getElementById('info-code').textContent = info.code + ' · 上市首日1分钟K线';
+document.getElementById('info-date').textContent = info.ipoDate;
+
+// Navigation
+const curCode = info.code.replace('.BJ', '');
+const curIdx = STOCK_ORDER.indexOf(curCode);
+if (curIdx <= 0) {
+  document.getElementById('nav-prev').classList.add('disabled');
+} else {
+  const prevCode = STOCK_ORDER[curIdx - 1];
+  const prevName = STOCK_NAMES[prevCode] || prevCode;
+  const btn = document.getElementById('nav-prev');
+  btn.classList.remove('disabled');
+  btn.href = 'detail_' + prevCode + '.html';
+  btn.title = prevName;
+  btn.textContent = '◀ ' + prevName;
+}
+if (curIdx >= STOCK_ORDER.length - 1 || curIdx < 0) {
+  document.getElementById('nav-next').classList.add('disabled');
+} else {
+  const nextCode = STOCK_ORDER[curIdx + 1];
+  const nextName = STOCK_NAMES[nextCode] || nextCode;
+  const btn = document.getElementById('nav-next');
+  btn.classList.remove('disabled');
+  btn.href = 'detail_' + nextCode + '.html';
+  btn.title = nextName;
+  btn.textContent = nextName + ' ▶';
+}
+
+// Stats
+const lastPrice = rawData[rawData.length - 1];
+const firstPrice = rawData[0];
+// Need 9:25 data (pre-open) to show change from listing price
+// But our data starts at 9:30, so use first bar open vs IPO price
+const changePct = ((lastPrice.c - info.ipoPrice) / info.ipoPrice * 100).toFixed(2);
+const totalVol = rawData.reduce((s, d) => s + d.v, 0);
+const totalAmt = rawData.reduce((s, d) => s + d.a, 0);
+const finalTo = rawData[rawData.length - 1].to;
+
+document.getElementById('stats').innerHTML = `
+  <div class="stat-card">
+    <div class="stat-label">首发价</div>
+    <div class="stat-value val-neutral">${info.ipoPrice}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">开盘价</div>
+    <div class="stat-value val-neutral">${info.open}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">最高价</div>
+    <div class="stat-value val-up">${info.max}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">最低价</div>
+    <div class="stat-value val-down">${info.min}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">收盘价</div>
+    <div class="stat-value val-neutral">${info.close}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">首日涨幅</div>
+    <div class="stat-value ${info.gain >= 0 ? 'val-up' : 'val-down'}">${info.gain >= 0 ? '+' : ''}${info.gain}%</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">换手率</div>
+    <div class="stat-value val-neutral">${info.turnover}%</div>
+  </div>
+`;
+
+// Prepare data for ECharts candlestick
+const dates = rawData.map(d => d.t);
+const ohlc = rawData.map(d => [d.o, d.c, d.l, d.h]);
+const volumes = rawData.map(d => d.v);
+const turnoverRates = rawData.map(d => d.to);
+
+// Calculate VWAP (均价 = cumulative成交额 / cumulative成交量)
+let cumVol = 0, cumAmt = 0;
+const vwap = rawData.map(d => {
+  cumVol += d.v;
+  cumAmt += d.a;
+  return cumVol > 0 ? (cumAmt / cumVol).toFixed(2) : null;
+});
+
+// Find highest high and lowest low
+let hiIdx = 0, loIdx = 0;
+rawData.forEach((d, i) => {
+  if (d.h > rawData[hiIdx].h) hiIdx = i;
+  if (d.l < rawData[loIdx].l) loIdx = i;
+});
+
+// Compute price axis range with padding
+const prices = rawData.flatMap(d => [d.o, d.h, d.l, d.c]);
+const pMin = Math.min(...prices);
+const pMax = Math.max(...prices);
+const pPad = (pMax - pMin) * 0.08;
+
+// ==================== CANDLESTICK CHART ====================
+const klineDom = document.getElementById('chart-kline');
+const klineChart = echarts.init(klineDom, 'dark');
+
+klineChart.setOption({
+  backgroundColor: '#161b22',
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: { type: 'cross' },
+    formatter: function(params) {
+      const d = params.find(p => p.seriesName === 'K线');
+      if (!d) return '';
+      const i = d.dataIndex;
+      const r = rawData[i];
+      const change = ((r.c - info.ipoPrice) / info.ipoPrice * 100).toFixed(2);
+      const sign = change >= 0 ? '+' : '';
+      const vp = vwap[i];
+      return `<b>${r.t}</b><br/>
+        开: ${r.o} &nbsp; 高: ${r.h} &nbsp; 低: ${r.l} &nbsp; 收: ${r.c}<br/>
+        均价: ${vp}<br/>
+        涨幅: ${sign}${change}% (vs 首发价 ${info.ipoPrice})<br/>
+        成交量: ${(r.v/10000).toFixed(0)}万 &nbsp; 成交额: ${(r.a/10000).toFixed(0)}万<br/>
+        换手率: ${r.to}%`;
+    }
+  },
+  axisPointer: {
+    link: [{ xAxisIndex: 'all' }],
+    label: { backgroundColor: '#30363d' }
+  },
+  grid: [
+    { left: '8%', right: '6%', top: '8%', height: '69%' },
+    { left: '8%', right: '6%', top: '82%', height: '14%' }
+  ],
+  xAxis: [
+    {
+      type: 'category',
+      data: dates,
+      axisLine: { lineStyle: { color: '#30363d' } },
+      axisLabel: {
+        color: '#8b949e',
+        interval: 29,
+        rotate: 30,
+        fontSize: 10,
+        formatter: v => v.substring(11, 16)
+      },
+      gridIndex: 0
+    },
+    {
+      type: 'category',
+      data: dates,
+      axisLine: { lineStyle: { color: '#30363d' } },
+      axisLabel: { show: false },
+      gridIndex: 1
+    }
+  ],
+  yAxis: [
+    {
+      scale: false,
+      min: pMin - pPad,
+      max: pMax + pPad,
+      splitLine: { lineStyle: { color: 'rgba(48,54,61,0.5)' } },
+      axisLabel: { color: '#8b949e', fontSize: 11 },
+      gridIndex: 0
+    },
+    {
+      scale: true,
+      splitLine: { show: false },
+      axisLabel: { color: '#8b949e', fontSize: 10, formatter: v => (v/10000).toFixed(0) + '万' },
+      gridIndex: 1
+    },
+    {
+      scale: false,
+      min: pMin - pPad,
+      max: pMax + pPad,
+      position: 'right',
+      name: 'vs 开盘 ' + info.open,
+      nameTextStyle: { color: '#f0b37e', fontSize: 11 },
+      splitLine: { show: false },
+      axisLabel: {
+        color: '#f0b37e',
+        fontSize: 10,
+        formatter: v => {
+          const pct = ((v - info.open) / info.open * 100);
+          return (pct >= 0 ? '+' : '') + pct.toFixed(0) + '%';
+        }
+      },
+      gridIndex: 0
+    }
+  ],
+  series: [
+    {
+      name: 'K线',
+      type: 'candlestick',
+      data: ohlc,
+      itemStyle: {
+        color: '#f85149',
+        color0: '#3fb950',
+        borderColor: '#f85149',
+        borderColor0: '#3fb950'
+      },
+      markPoint: {
+        symbol: 'pin',
+        symbolSize: 48,
+        label: { color: '#fff', fontSize: 11, fontWeight: 'bold' },
+        data: [
+          { name: '最高', coord: [hiIdx, rawData[hiIdx].h], value: rawData[hiIdx].h, itemStyle: { color: '#f85149' }, label: { formatter: '最高\n{c}' } },
+          { name: '最低', coord: [loIdx, rawData[loIdx].l], value: rawData[loIdx].l, itemStyle: { color: '#3fb950' }, label: { formatter: '最低\n{c}' } }
+        ]
+      },
+      markLine: {
+        silent: true,
+        symbol: 'none',
+        data: [
+          { yAxis: info.ipoPrice, label: { formatter: '首发价 ' + info.ipoPrice, color: '#d2991d', fontSize: 11 }, lineStyle: { color: '#d2991d', type: 'dashed', width: 1.5 } }
+        ]
+      },
+      xAxisIndex: 0,
+      yAxisIndex: 0
+    },
+    {
+      name: '均价',
+      type: 'line',
+      data: vwap,
+      symbol: 'none',
+      lineStyle: { color: '#d2991d', width: 1.5, type: 'dashed' },
+      xAxisIndex: 0,
+      yAxisIndex: 0
+    },
+    {
+      name: '成交量',
+      type: 'bar',
+      data: volumes,
+      itemStyle: {
+        color: function(params) {
+          const d = rawData[params.dataIndex];
+          return d.c >= d.o ? '#f85149' : '#3fb950';
+        }
+      },
+      xAxisIndex: 1,
+      yAxisIndex: 1
+    }
+  ]
+});
+
+// Responsive
+window.addEventListener('resize', () => klineChart.resize());
+
+// ==================== TURNOVER CHART ====================
+const toDom = document.getElementById('chart-turnover');
+const toChart = echarts.init(toDom, 'dark');
+
+toChart.setOption({
+  backgroundColor: '#161b22',
+  tooltip: {
+    trigger: 'axis',
+    formatter: function(params) {
+      const p = params[0];
+      if (!p) return '';
+      const i = p.dataIndex;
+      const r = rawData[i];
+      return `<b>${r.t}</b><br/>累计换手率: <b style="color:#58a6ff">${r.to}%</b><br/>累计成交量: ${(r.cv/10000).toFixed(0)}万`;
+    }
+  },
+  grid: { left: '8%', right: '6%', top: '5%', bottom: '10%' },
+  xAxis: {
+    type: 'category',
+    data: dates,
+    axisLabel: { color: '#8b949e', interval: 29, rotate: 30, fontSize: 10, formatter: v => v.substring(11, 16) },
+    axisLine: { lineStyle: { color: '#30363d' } }
+  },
+  yAxis: {
+    type: 'value',
+    name: '%',
+    axisLabel: { color: '#8b949e', formatter: '{value}%' },
+    splitLine: { lineStyle: { color: 'rgba(48,54,61,0.5)' } }
+  },
+  series: [{
+    name: '累计换手率',
+    type: 'line',
+    data: turnoverRates,
+    smooth: false,
+    symbol: 'none',
+    lineStyle: { color: '#58a6ff', width: 1.5 },
+    areaStyle: {
+      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+        { offset: 0, color: 'rgba(88,166,255,0.25)' },
+        { offset: 1, color: 'rgba(88,166,255,0.02)' }
+      ])
+    },
+    markLine: {
+      silent: true,
+      symbol: 'none',
+      data: [
+        { yAxis: 25, label: { formatter: '25%', color: '#8b949e', fontSize: 10 }, lineStyle: { color: 'rgba(139,148,158,0.4)', type: 'dashed' } },
+        { yAxis: 50, label: { formatter: '50%', color: '#8b949e', fontSize: 10 }, lineStyle: { color: 'rgba(139,148,158,0.4)', type: 'dashed' } },
+        { yAxis: 75, label: { formatter: '75%', color: '#d2991d', fontSize: 10 }, lineStyle: { color: 'rgba(210,153,29,0.4)', type: 'dashed' } },
+        { yAxis: info.turnover, label: { formatter: '最终 ' + info.turnover + '%', color: '#3fb950', fontSize: 11 }, lineStyle: { color: '#3fb950', type: 'dashed', width: 1.5 } }
+      ]
+    }
+  }]
+});
+
+window.addEventListener('resize', () => { klineChart.resize(); toChart.resize(); });
+
+// Link kline and turnover crosshairs
+klineChart.group = 'detail';
+toChart.group = 'detail';
+echarts.connect('detail');
+</script>
+</body>
+</html>

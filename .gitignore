@@ -1,5 +1,8 @@
-﻿*.xlsx
+*.xlsx
 *.py
 *.zip
 *.cmd
 *.ps1
+data.js
+stock_order.js
+detail_data_*.js

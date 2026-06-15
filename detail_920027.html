@@ -200,7 +200,7 @@ document.getElementById('stats').innerHTML = `
 const dates = rawData.map(d => d.t);
 const ohlc = rawData.map(d => [d.o, d.c, d.l, d.h]);
 const volumes = rawData.map(d => d.v);
-const turnoverRates = rawData.map(d => d.to);
+const lastTo = rawData[rawData.length-1].to; const toScale = lastTo > 0 ? info.turnover / lastTo : 1; const turnoverRates = rawData.map(d => +(d.to * toScale).toFixed(2));
 
 // Calculate VWAP (均价 = cumulative成交额 / cumulative成交量)
 let cumVol = 0, cumAmt = 0;
@@ -383,7 +383,7 @@ toChart.setOption({
       if (!p) return '';
       const i = p.dataIndex;
       const r = rawData[i];
-      return `<b>${r.t}</b><br/>累计换手率: <b style="color:#58a6ff">${r.to}%</b><br/>累计成交量: ${(r.cv/10000).toFixed(0)}万`;
+      const scaledTo = (r.to * toScale).toFixed(2); return `<b>${r.t}</b><br/>累计换手率: <b style="color:#58a6ff">${scaledTo}%</b><br/>累计成交量: ${(r.cv/10000).toFixed(0)}万`;
     }
   },
   grid: { left: '8%', right: '6%', top: '5%', bottom: '10%' },

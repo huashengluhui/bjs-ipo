@@ -764,7 +764,7 @@ toChart.setOption({
     name: '累计换手率',
     type: 'line',
     data: turnoverRates,
-    smooth: false,
+    smooth: false, endLabel: { show: true, formatter: '个股', color: '#58a6ff', fontSize: 11, offset: [5, 0] }, 
     symbol: 'none',
     lineStyle: { color: '#58a6ff', width: 1.5 },
     areaStyle: {
@@ -788,7 +788,7 @@ toChart.setOption({
     name: '平均换手率(去低3)',
     type: 'line',
     data: AVG_TURNOVER,
-    smooth: false,
+    smooth: false, endLabel: { show: true, formatter: '均值(去低3)', color: '#d2991d', fontSize: 11, offset: [5, 0] }, 
     symbol: 'none',
     lineStyle: { color: '#d2991d', width: 1.5, type: 'dashed' },
     z: 2

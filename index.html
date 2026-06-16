@@ -153,65 +153,111 @@ tr:hover { background: var(--bg-hover); }
 .footer { text-align: center; padding: 24px; color: var(--text-dim); font-size: 12px; border-top: 1px solid var(--border); }
 
 /* Responsive */
+
+/* =============================================
+   Mobile Responsive — < 768px
+   ============================================= */
 @media (max-width: 768px) {
-  .header, .tabs, .stats-row, .charts-row, .table-section { padding-left: 16px; padding-right: 16px; }
-  .charts-row { grid-template-columns: 1fr; }
-  .stats-row { grid-template-columns: repeat(2, 1fr); }
-  .tabs { overflow-x: auto; }
+  /* Header */
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 16px 12px;
+    gap: 10px;
+  }
+  .header-logo {
+    height: 80px !important;   /* shrink from 144px */
+    width: auto !important;
+    flex-shrink: 0;
+  }
+  .header-title {
+    flex-grow: unset;
+    width: 100%;
+  }
+  .header h1 { font-size: 20px !important; }
+  .header p   { font-size: 13px !important; margin-top: 4px; }
+  .header-credit { font-size: 14px !important; margin-top: 4px; }
+  .header-qrcode { display: none; }   /* hide QR on mobile */
+
+  /* Tabs */
+  .tabs {
+    padding: 0 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Stats */
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
+    padding: 16px 16px 12px;
+  }
+  .stat-card { padding: 14px 12px; }
+  .stat-label { font-size: 12px; }
+  .stat-value { font-size: 20px; }
+
+  /* Charts */
+  .charts-row {
+    grid-template-columns: 1fr !important;
+    padding: 0 16px 16px;
+    gap: 12px;
+  }
+  .chart-wrap { height: 240px; }
+  .chart-card { padding: 14px; }
+
+  /* Table */
+  .table-section { padding: 0 16px 24px; }
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .table-controls {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .table-controls input,
+  .table-controls select {
+    font-size: 13px;
+    padding: 7px 10px;
+    flex: 1 1 auto;
+    min-width: 120px;
+  }
+  .table-scroll { max-height: 400px; }
+  table { font-size: 13px !important; }
+  th { padding: 8px 10px; font-size: 13px !important; }
+  td { padding: 7px 10px; }
+
+  /* Footer */
+  .footer { font-size: 11px; padding: 16px; }
 }
 
-/* Loading */
-.loading { display: flex; justify-content: center; align-items: center; height: 200px; color: var(--text-dim); }
-
-.page { display: none; }
-.page.active { display: block; }
-
-/* Extra link coloring for perf table */
-.perf-link { color: var(--accent); text-decoration: none; cursor: pointer; }
-.perf-link:hover { text-decoration: underline; }
-
-td.num { text-align: right; font-variant-numeric: tabular-nums; }
-th.num { text-align: right; }
-
-.btn-detail {
-  background: rgba(88,166,255,0.15);
-  color: var(--accent);
-  border: 1px solid rgba(88,166,255,0.3);
-  padding: 4px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: all 0.15s;
-}
-.btn-detail:hover {
-  background: rgba(88,166,255,0.25);
-  border-color: var(--accent);
+/* =============================================
+   Small Mobile — < 480px
+   ============================================= */
+@media (max-width: 480px) {
+  .header-logo { height: 64px !important; }
+  .header h1 { font-size: 17px !important; }
+  .header p   { font-size: 12px !important; }
+  .stat-value { font-size: 18px; }
+  .chart-wrap { height: 200px; }
+  table { font-size: 12px !important; }
+  th    { font-size: 12px !important; padding: 7px 8px; }
+  td    { padding: 6px 8px; }
+  .badge { font-size: 10px; padding: 2px 7px; }
+  .btn-detail { font-size: 12px; padding: 3px 8px; }
+  .pagination { font-size: 12px; padding: 10px 12px; }
+  .pagination button { font-size: 12px; padding: 5px 10px; }
 }
 
-.btn-detail {
-  background: rgba(88,166,255,0.15);
-  color: var(--accent);
-  border: 1px solid rgba(88,166,255,0.3);
-  padding: 4px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: all 0.15s;
-}
-.btn-detail:hover {
-  background: rgba(88,166,255,0.25);
-  border-color: var(--accent);
-}
-
-    .header-logo {
-      height: 144px;
-      width: auto;
-      flex-shrink: 0;
-    }
 </style>
 </head>
 <body>

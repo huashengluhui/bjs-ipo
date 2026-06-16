@@ -496,12 +496,12 @@ toChart.setOption({
       const isAbove = parseFloat(scaledTo) > (AVG_TURNOVER[i] || 0);
       const diffColor = isAbove ? '#3fb950' : '#f85149';
       const diffSign = isAbove ? '+' : '';
-      return `<b>${r.t}</b><br/>
-        <span style="color:#58a6ff">● 个股: <b>${scaledTo}%</b></span><br/>
-        <span style="color:#d2991d">◆ 均值(去低3): <b>${avgVal}%</b></span><br/>
-        <span style="color:${diffColor}">${diffSign}${diff}% ${isAbove?'↑高于均值':'↓低于均值'}</span><br/>
-        累计成交: ${(r.cv/10000).toFixed(0)}万`;
-    }
+      return '<b>' + r.t + '</b><br/>'
+        + '<span style="color:#58a6ff">● 个股: <b>' + scaledTo + '%</b></span><br/>'
+        + '<span style="color:#d2991d">◆ 均值(去低3): <b>' + avgVal + '%</b></span><br/>'
+        + '<span style="color:' + diffColor + '">' + diffSign + diff + '% '
+        + (isAbove ? '↑高于均值' : '↓低于均值') + '</span><br/>'
+        + '累计成交: ' + (r.cv/10000).toFixed(0) + '万';
     }
   },
   grid: { left: '8%', right: '6%', top: '5%', bottom: '10%' },
@@ -540,7 +540,17 @@ toChart.setOption({
         { yAxis: info.turnover, label: { formatter: '最终 ' + info.turnover + '%', color: '#3fb950', fontSize: 11 }, lineStyle: { color: '#3fb950', type: 'dashed', width: 1.5 } }
       ]
     }
-  }, { name: '平均换手率(去低3)', type: 'line', data: AVG_TURNOVER, smooth: false, symbol: 'none', lineStyle: { color: '#d2991d', width: 1.5, type: 'dashed' }, z: 2 }]
+  }
+    , {
+    name: '平均换手率(去低3)',
+    type: 'line',
+    data: AVG_TURNOVER,
+    smooth: false,
+    symbol: 'none',
+    lineStyle: { color: '#d2991d', width: 1.5, type: 'dashed' },
+    z: 2
+  }
+  ]
 });
 
 window.addEventListener('resize', () => { klineChart.resize(); toChart.resize(); });

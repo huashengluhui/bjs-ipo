@@ -279,7 +279,6 @@ tr:hover { background: var(--bg-hover); }
 <div class="tabs">
   <button class="tab-btn active" data-tab="page-ipo">📊 打新数据</button>
   <button class="tab-btn" data-tab="page-perf">🚀 上市首日表现</button>
-  <button class="tab-btn" data-tab="page-live">📈 新股上市首日看板（测试）</button>
 </div>
 
 <!-- ==================== PAGE 1: 打新数据 ==================== -->
@@ -378,22 +377,6 @@ tr:hover { background: var(--bg-hover); }
   </div>
 </div>
 
-<!-- ==================== PAGE 3: 实时看板 ==================== -->
-<div id="page-live" class="page">
-  <div id="live-container" style="width:100%;height:calc(100vh - 140px);display:flex;align-items:center;justify-content:center">
-    <iframe src="http://localhost:8090/" style="width:100%;height:100%;border:none;" allow="clipboard-write"></iframe>
-  </div>
-</div>
-<script>
-(function(){
-  var host = location.hostname;
-  if (host !== 'localhost' && host !== '127.0.0.1' && !host.startsWith('192.168.')) {
-    var el = document.getElementById('live-container');
-    if (el) el.innerHTML = '<p style="color:var(--text-dim);font-size:16px">📈 实时看板仅限本地访问<br><small>请在本机打开 http://localhost:8080/ 查看</small></p>';
-  }
-})();
-</script>
-
 <div class="footer">
   数据来源：北交所公开数据 · 数据区间 2025-2026 · 仅供参考，不构成投资建议
 </div>
@@ -419,7 +402,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById(btn.dataset.tab).classList.add('active');
-    if (btn.dataset.tab !== 'page-live') destroyAllCharts();
+    destroyAllCharts();
     if (btn.dataset.tab === 'page-ipo') {
       renderIPOStats(); renderIPOCharts();
     } else if (btn.dataset.tab === 'page-perf') {

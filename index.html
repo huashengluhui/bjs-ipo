@@ -1337,7 +1337,7 @@ function t1ColorClass(n) {
 
 // ======================== PAGE 1: IPO DATA ========================
 function renderIPOStats() {
-  const d = IPO_DATA;
+  const d = IPO_DATA.filter(r => r['上市日期'] && r['上市日期'].trim() !== '');
   const total = d.length;
   const avgFund = d.reduce((s, r) => s + (parseFloat(r['打新资金(亿元)'])||0), 0) / total;
   const avgUsers = d.reduce((s, r) => s + (parseFloat(r['有效申购户数'])||0), 0) / total;

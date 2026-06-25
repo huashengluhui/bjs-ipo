@@ -9,10 +9,25 @@
 <script>
 const IPO_DATA = [
   {
+    "代码": "920222.BJ",
+    "简称": "益坤电气",
+    "申购日期": "2026-06-21",
+    "上市日期": null,
+    "顶格打新所需要资金（万）": 584,
+    "中签100股门槛（万）": 663,
+    "碎股门槛（万）": 450,
+    "顶格打新中签股数": 100,
+    "有效申购户数": 585113,
+    "获配户数": 115624,
+    "打新资金(亿元)": 7669,
+    "网上发行数量（万股）": 1156,
+    "上市首日涨跌幅%": null
+  },
+  {
     "代码": "920193.BJ",
     "简称": "吉和昌",
     "申购日期": "2026-06-17",
-    "上市日期": "",
+    "上市日期": null,
     "顶格打新所需要资金（万）": 1076,
     "中签100股门槛（万）": 388,
     "碎股门槛（万）": 883,
@@ -27,7 +42,7 @@ const IPO_DATA = [
     "代码": "920072.BJ",
     "简称": "科莱瑞迪",
     "申购日期": "2026-06-15",
-    "上市日期": "",
+    "上市日期": null,
     "顶格打新所需要资金（万）": 416,
     "中签100股门槛（万）": 865,
     "碎股门槛（万）": "416（顶格）",
@@ -996,6 +1011,14 @@ body {
 .stat-value.up { color: var(--red); }
 .stat-value.down { color: var(--green); }
 .stat-value.neutral { color: var(--accent); }
+.val-up { color: var(--red); font-weight:600; }
+.val-down { color: var(--green); font-weight:600; }
+.stat-value-group { display:flex; flex-direction:column; gap:4px; }
+.stat-value-group .stat-row { display:flex; align-items:center; gap:8px; font-size:17px; font-weight:600; color:var(--text); }
+.stat-value-group .stat-row.muted { font-size:17px; font-weight:600; color:#fff; border-top:1px solid var(--border); padding-top:4px; margin-top:2px; }
+.year-badge { display:inline-block; padding:1px 8px; border-radius:4px; font-size:12px; font-weight:700; color:#fff; min-width:48px; text-align:center; }
+.y25 { background: linear-gradient(135deg, #d2991d, #f0883e); }
+.y26 { background: linear-gradient(135deg, #58a6ff, #3fb950); }
 
 /* Charts Row */
 .charts-row {
@@ -1351,47 +1374,69 @@ function t1ColorClass(n) {
 }
 
 // ======================== PAGE 1: IPO DATA ========================
-function renderIPOStats() {
-  const d = IPO_DATA;
-  const total = d.length;
-  const avgFund = d.reduce((s, r) => s + (parseFloat(r['打新资金(亿元)'])||0), 0) / total;
-  const avgUsers = d.reduce((s, r) => s + (parseFloat(r['有效申购户数'])||0), 0) / total;
-  const avgThreshold = d.reduce((s, r) => {
-    const v = parseFloat(r['中签100股门槛（万）']) || 0;
-    return s + v;
-  }, 0) / total;
-  const maxGain = Math.max(...d.map(r => parseFloat(r['上市首日涨跌幅%']) || 0));
-  const minGain = Math.min(...d.map(r => parseFloat(r['上市首日涨跌幅%']) || Infinity));
+function ipoYearStats(d) {
+  const n = d.length;
+  if (n === 0) return { count: 0 };
+  const avgFund = d.reduce((s, r) => s + (parseFloat(r['打新资金(亿元)'])||0), 0) / n;
+  const avgUsers = d.reduce((s, r) => s + (parseFloat(r['有效申购户数'])||0), 0) / n;
+  const avgThreshold = d.reduce((s, r) => s + (parseFloat(r['中签100股门槛（万）']) || 0), 0) / n;
   const avgAllotRate = d.reduce((s, r) => {
     const n1 = parseFloat(r['获配户数']) || 0;
     const n2 = parseFloat(r['有效申购户数']) || 1;
     return s + (n1/n2*100);
-  }, 0) / total;
+  }, 0) / n;
+  return { count: n, avgFund, avgUsers, avgThreshold, avgAllotRate };
+}
+
+function renderIPOStats() {
+  const d = IPO_DATA;
+  const d25 = d.filter(r => (r['申购日期']||'').startsWith('2025'));
+  const d26 = d.filter(r => (r['申购日期']||'').startsWith('2026'));
+  const s = ipoYearStats(d), s25 = ipoYearStats(d25), s26 = ipoYearStats(d26);
+  function statRow(label, v25, v26, suffix) {
+    return `<div class="stat-group"><div class="stat-group-label">${label}</div><div class="stat-group-row"><span class="stat-year-badge y2025">2025</span><span>${v25}${suffix||''}</span><span class="stat-year-badge y2026">2026</span><span>${v26}${suffix||''}</span></div></div>`;
+  }
 
   document.getElementById('ipo-stats').innerHTML = `
     <div class="stat-card">
       <div class="stat-label">新股数量</div>
-      <div class="stat-value neutral">${total}<span style="font-size:14px;font-weight:400;color:var(--text-dim)"> 只</span></div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span>${s25.count} 只</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span>${s26.count} 只</span></div>
+        <div class="stat-row muted"><span>合计</span><span>${s.count} 只</span></div>
+      </div>
     </div>
     <div class="stat-card">
       <div class="stat-label">平均打新资金</div>
-      <div class="stat-value neutral">${avgFund.toFixed(2)}<span style="font-size:14px;font-weight:400;color:var(--text-dim)"> 亿</span></div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span>${s25.count ? s25.avgFund.toFixed(2) : '-'} 亿</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span>${s26.count ? s26.avgFund.toFixed(2) : '-'} 亿</span></div>
+        <div class="stat-row muted"><span>合计</span><span>${s.avgFund.toFixed(2)} 亿</span></div>
+      </div>
     </div>
     <div class="stat-card">
       <div class="stat-label">平均有效申购户数</div>
-      <div class="stat-value neutral">${fmtNum(Math.round(avgUsers))}</div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span>${s25.count ? fmtNum(Math.round(s25.avgUsers)) : '-'}</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span>${s26.count ? fmtNum(Math.round(s26.avgUsers)) : '-'}</span></div>
+        <div class="stat-row muted"><span>合计</span><span>${fmtNum(Math.round(s.avgUsers))}</span></div>
+      </div>
     </div>
     <div class="stat-card">
       <div class="stat-label">平均中签门槛</div>
-      <div class="stat-value neutral">${avgThreshold.toFixed(1)}<span style="font-size:14px;font-weight:400;color:var(--text-dim)"> 万</span></div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">首日最高涨幅</div>
-      <div class="stat-value up">${fmtPct(maxGain)}</div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span>${s25.count ? s25.avgThreshold.toFixed(1) : '-'} 万</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span>${s26.count ? s26.avgThreshold.toFixed(1) : '-'} 万</span></div>
+        <div class="stat-row muted"><span>合计</span><span>${s.avgThreshold.toFixed(1)} 万</span></div>
+      </div>
     </div>
     <div class="stat-card">
       <div class="stat-label">平均获配率</div>
-      <div class="stat-value neutral">${avgAllotRate.toFixed(2)}<span style="font-size:14px;font-weight:400;color:var(--text-dim)">%</span></div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span>${s25.count ? s25.avgAllotRate.toFixed(2) : '-'}%</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span>${s26.count ? s26.avgAllotRate.toFixed(2) : '-'}%</span></div>
+        <div class="stat-row muted"><span>合计</span><span>${s.avgAllotRate.toFixed(2)}%</span></div>
+      </div>
     </div>
   `;
 }
@@ -1516,45 +1561,82 @@ function renderIPOTablePage() {
 }
 
 // ======================== PAGE 2: PERF DATA ========================
-function renderPerfStats() {
-  const d = PERF_DATA;
-  const total = d.length;
-  const avgGain = d.reduce((s, r) => s + (parseFloat(r['上市首日涨跌幅%'])||0), 0) / total;
-  const avgHigh = d.reduce((s, r) => s + (parseFloat(r['最高价涨幅%'])||0), 0) / total;
-  const avgTurnover = d.reduce((s, r) => s + (parseFloat(r['换手率'])||0), 0) / total;
-  const avgT1 = d.reduce((s, r) => s + (parseFloat(r['T+1涨跌幅%'])||0), 0) / total;
-  const maxGain = Math.max(...d.map(r => parseFloat(r['上市首日涨跌幅%'])||0));
+function perfYearStats(d) {
+  const n = d.length;
+  if (n === 0) return { count: 0 };
+  const avgGain = d.reduce((s, r) => s + (parseFloat(r['上市首日涨跌幅%'])||0), 0) / n;
+  const avgHigh = d.reduce((s, r) => s + (parseFloat(r['最高价涨幅%'])||0), 0) / n;
+  const avgTurnover = d.reduce((s, r) => s + (parseFloat(r['换手率'])||0), 0) / n;
+  const avgT1 = d.reduce((s, r) => s + (parseFloat(r['T+1涨跌幅%'])||0), 0) / n;
   const stopCount = d.filter(r => (r['是否触发临停']||'').includes('二次')).length;
   const stop1Count = d.filter(r => (r['是否触发临停']||'').includes('一次') && !(r['是否触发临停']||'').includes('二次')).length;
+  const t1Up = d.filter(r => (parseFloat(r['T+1涨跌幅%'])||0) > 0).length;
+  const t1UpRatio = n > 0 ? (t1Up / n * 100) : 0;
+  return { count: n, avgGain, avgHigh, avgTurnover, avgT1, stopCount, stop1Count, t1UpRatio };
+}
+
+function renderPerfStats() {
+  const d = PERF_DATA;
+  const d25 = d.filter(r => (r['上市日期']||'').startsWith('2025'));
+  const d26 = d.filter(r => (r['上市日期']||'').startsWith('2026'));
+  const s = perfYearStats(d), s25 = perfYearStats(d25), s26 = perfYearStats(d26);
 
   document.getElementById('perf-stats').innerHTML = `
     <div class="stat-card">
       <div class="stat-label">新股数量</div>
-      <div class="stat-value neutral">${total}<span style="font-size:14px;font-weight:400;color:var(--text-dim)"> 只</span></div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span>${s25.count} 只</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span>${s26.count} 只</span></div>
+        <div class="stat-row muted"><span>合计</span><span>${s.count} 只</span></div>
+      </div>
     </div>
     <div class="stat-card">
       <div class="stat-label">平均首日涨跌幅</div>
-      <div class="stat-value up">${fmtPct(avgGain)}</div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span class="val-up">${s25.count ? fmtPct(s25.avgGain) : '-'}</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span class="val-up">${s26.count ? fmtPct(s26.avgGain) : '-'}</span></div>
+        <div class="stat-row muted"><span>合计</span><span class="val-up">${fmtPct(s.avgGain)}</span></div>
+      </div>
     </div>
     <div class="stat-card">
       <div class="stat-label">平均最高涨幅</div>
-      <div class="stat-value up">${fmtPct(avgHigh)}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">首日最高涨幅(单只)</div>
-      <div class="stat-value up">${fmtPct(maxGain)}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">平均换手率</div>
-      <div class="stat-value neutral">${avgTurnover.toFixed(1)}<span style="font-size:14px;font-weight:400;color:var(--text-dim)">%</span></div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">平均 T+1 涨跌幅</div>
-      <div class="stat-value ${avgT1 >= 0 ? 'up' : 'down'}">${fmtPct(avgT1)}</div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span class="val-up">${s25.count ? fmtPct(s25.avgHigh) : '-'}</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span class="val-up">${s26.count ? fmtPct(s26.avgHigh) : '-'}</span></div>
+        <div class="stat-row muted"><span>合计</span><span class="val-up">${fmtPct(s.avgHigh)}</span></div>
+      </div>
     </div>
     <div class="stat-card">
       <div class="stat-label">触发临停</div>
-      <div class="stat-value neutral">一次${stop1Count}<span style="font-size:14px;color:var(--text-dim)"> / </span>二次${stopCount}</div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span>一次${s25.stop1Count} / 二次${s25.stopCount}</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span>一次${s26.stop1Count} / 二次${s26.stopCount}</span></div>
+        <div class="stat-row muted"><span>合计</span><span>一次${s.stop1Count} / 二次${s.stopCount}</span></div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">平均换手率</div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span>${s25.count ? s25.avgTurnover.toFixed(1)+'%' : '-'}</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span>${s26.count ? s26.avgTurnover.toFixed(1)+'%' : '-'}</span></div>
+        <div class="stat-row muted"><span>合计</span><span>${s.avgTurnover.toFixed(1)}%</span></div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">T+1 上涨个股占比</div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span>${s25.count ? s25.t1UpRatio.toFixed(0)+'%' : '-'}</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span>${s26.count ? s26.t1UpRatio.toFixed(0)+'%' : '-'}</span></div>
+        <div class="stat-row muted"><span>合计</span><span>${s.t1UpRatio.toFixed(0)}%</span></div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">平均 T+1 涨跌幅</div>
+      <div class="stat-value-group">
+        <div class="stat-row"><span class="year-badge y25">2025</span><span class="${s25.count && s25.avgT1 >= 0 ? 'val-up' : 'val-down'}">${s25.count ? fmtPct(s25.avgT1) : '-'}</span></div>
+        <div class="stat-row"><span class="year-badge y26">2026</span><span class="${s26.count && s26.avgT1 >= 0 ? 'val-up' : 'val-down'}">${s26.count ? fmtPct(s26.avgT1) : '-'}</span></div>
+        <div class="stat-row muted"><span>合计</span><span class="${s.avgT1 >= 0 ? 'val-up' : 'val-down'}">${fmtPct(s.avgT1)}</span></div>
+      </div>
     </div>
   `;
 }

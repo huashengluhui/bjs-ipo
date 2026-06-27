@@ -1177,6 +1177,7 @@ tr:hover { background: var(--bg-hover); }
 .badge-up { background: rgba(248,81,73,0.15); color: var(--red); }
 .badge-down { background: rgba(63,185,80,0.15); color: var(--green); }
 .lot-100 { color: var(--orange); font-weight: 700; }
+.col-narrow { width: 80px; text-align: center; }
 .badge-t1up { background: rgba(248,81,73,0.15); color: var(--red); }
 .badge-t1down { background: rgba(63,185,80,0.15); color: var(--green); }
 .badge-1stop { background: rgba(210,153,29,0.15); color: var(--orange); }
@@ -1352,8 +1353,8 @@ tr:hover { background: var(--bg-hover); }
           <thead>
             <tr>
               <th>代码</th><th>简称</th><th>申购日期</th><th>上市日期</th>
-              <th class="num">顶格资金(万)</th><th class="num col-threshold">中签100股<br>门槛（万）</th>
-              <th>碎股门槛(万)<br><span style="font-size:11px;font-weight:400;color:var(--text-dim)">(实际有偏差)</span></th><th class="num">顶格申购<br>中签股数<br><span style="font-size:11px;font-weight:400;color:var(--text-dim)">（100股为全员碎股）</span></th>
+              <th class="num col-narrow">顶格资金(万)</th><th class="num col-narrow">中签100股<br>门槛（万）</th>
+              <th class="col-narrow">碎股门槛(万)<br><span style="font-size:11px;font-weight:400;color:var(--text-dim)">(实际有偏差)</span></th><th class="num col-narrow">顶格申购<br>中签股数<br><span style="font-size:11px;font-weight:400;color:var(--text-dim)">(100=全员碎股)</span></th>
               <th class="num">有效申购户数</th><th class="num">获配户数</th>
               <th class="num">打新资金(亿)</th><th class="num">网上发行<br>数量(万股)</th><th class="num">首日涨跌幅%</th>
             </tr>
@@ -1403,7 +1404,7 @@ tr:hover { background: var(--bg-hover); }
             <tr>
               <th>证券代码</th><th>证券名称</th><th>上市日期</th>
               <th class="num">首发价</th><th class="num">开盘价</th>
-              <th class="num">最高价</th><th class="num">最低价</th><th class="num">收盘价</th><th class="num">均价</th>
+              <th class="num">最高价</th><th class="num">收盘价</th><th class="num">均价</th>
               <th class="num">涨跌幅%</th><th class="num">最高涨幅%</th><th class="num">均价涨幅%</th>
               <th class="num">换手率%</th><th>临停</th><th class="num">T+1涨跌幅%</th>
               <th>详细分时</th>
@@ -1446,7 +1447,7 @@ tr:hover { background: var(--bg-hover); }
             <tr>
               <th>代码</th><th>名称</th><th>上市日期</th>
               <th class="num">开盘价</th><th class="num">最高价</th>
-              <th>最高价时间</th><th class="num">最高价相对开盘价涨幅</th>
+              <th>最高价时间</th><th class="num">最高价相对<br>开盘价涨幅</th>
               <th class="num">09:30</th><th class="num">09:40</th>
               <th class="num">09:50</th><th class="num">10:00</th>
               <th class="num">10:30</th><th class="num">11:00</th>
@@ -1695,10 +1696,10 @@ function renderIPOTablePage() {
       <td><strong>${r['简称']||''}</strong></td>
       <td>${r['申购日期']||''}</td>
       <td>${r['上市日期']||''}</td>
-      <td class="num">${fmtNum(r['顶格打新所需要资金（万）'])}</td>
-      <td class="num col-threshold">${isNaN(r['中签100股门槛（万）']) ? (r['中签100股门槛（万）']||'-') : fmtNum(r['中签100股门槛（万）'])}</td>
-      <td>${thresholdDisplay}</td>
-      <td class="num"><span class="${r['顶格打新中签股数']==100?'lot-100':''}">${r['顶格打新中签股数']||'-'}</span></td>
+      <td class="num col-narrow">${fmtNum(r['顶格打新所需要资金（万）'])}</td>
+      <td class="num col-narrow">${isNaN(r['中签100股门槛（万）']) ? (r['中签100股门槛（万）']||'-') : fmtNum(r['中签100股门槛（万）'])}</td>
+      <td class="num col-narrow">${thresholdDisplay}</td>
+      <td class="num col-narrow"><span class="${r['顶格打新中签股数']==100?'lot-100':''}">${r['顶格打新中签股数']||'-'}</span></td>
       <td class="num">${fmtNum(r['有效申购户数'])}</td>
       <td class="num">${fmtNum(r['获配户数'])}</td>
       <td class="num">${fmtNum(parseFloat(r['打新资金(亿元)'])||0)}</td>
@@ -1971,7 +1972,6 @@ function renderPerfTablePage() {
       <td class="num">${r['首发价格']||'-'}</td>
       <td class="num">${r['开盘价']||'-'}</td>
       <td class="num">${r['最高价']||'-'}</td>
-      <td class="num">${r['最低价']||'-'}</td>
       <td class="num">${r['收盘价']||'-'}</td>
       <td class="num">${r['均价']||'-'}</td>
       <td class="num"><span class="${pctColorClass(gain)}">${fmtPct(gain)}</span></td>

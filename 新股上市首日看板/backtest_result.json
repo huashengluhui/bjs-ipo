@@ -1,0 +1,7143 @@
+{
+  "generated": "2026-06-18",
+  "summary": {
+    "total_stocks": 58,
+    "date_range": "2025-02-06 ~ 2026-06-11"
+  },
+  "population_stats": {
+    "count": 58,
+    "actual_gain": {
+      "mean": 290.1,
+      "median": 231.2,
+      "p25": 150.4,
+      "p75": 358.0,
+      "min": 41.4,
+      "max": 1211.1
+    },
+    "max_gain": {
+      "mean": 364.7,
+      "median": 285.9,
+      "p25": 184.9,
+      "p75": 514.5
+    },
+    "gain_retention": {
+      "mean": 79.1,
+      "median": 79.2,
+      "p25": 72.7,
+      "p75": 85.8
+    },
+    "dd_from_high": {
+      "mean": 16.6,
+      "median": 16.1,
+      "p90": 30.8
+    },
+    "high_to_close": {
+      "mean": 14.9,
+      "median": 14.2
+    },
+    "volatility": {
+      "mean": 0.98,
+      "median": 0.84
+    },
+    "vwap_above": {
+      "mean": 47.1,
+      "median": 51.5
+    },
+    "high_time_distribution": {
+      "13:00-13:30": 7,
+      "09:30-10:00": 29,
+      "13:30-14:00": 3,
+      "10:30-11:00": 4,
+      "10:00-10:30": 6,
+      "14:00-14:30": 3,
+      "11:00-11:30": 3,
+      "14:30-15:00": 3
+    },
+    "gain_retention_by_high_time": {
+      "13:00-14:00": 81.7,
+      "09:30-10:00": 76.4,
+      "10:00-11:00": 83.4,
+      "14:00-15:00": 83.1,
+      "11:00-11:30": 75.1
+    },
+    "avg_milestone_indices": {
+      "to20": 5.1,
+      "to30": 15.1,
+      "to40": 35.8,
+      "to50": 58.7,
+      "to60": 95.2,
+      "to70": 131.2,
+      "to80": 170.5,
+      "to90": 216.6
+    },
+    "vol_peak_before_price_peak": 43,
+    "vol_peak_after_price_peak": 15
+  },
+  "patterns": {
+    "high_in_first_10min": [
+      {
+        "code": "920068",
+        "name": "天工股份",
+        "high_time": "2025-05-13 09:33",
+        "high_minute": 933,
+        "max_gain": 499.0,
+        "actual_gain": 411.9,
+        "retention": 82.6,
+        "dd_from_high": 15.5
+      },
+      {
+        "code": "920027",
+        "name": "交大铁发",
+        "high_time": "2025-06-10 09:34",
+        "high_minute": 934,
+        "max_gain": 295.9,
+        "actual_gain": 262.1,
+        "retention": 88.6,
+        "dd_from_high": 11.1
+      },
+      {
+        "code": "920007",
+        "name": "酉立智能",
+        "high_time": "2025-08-08 09:31",
+        "high_minute": 931,
+        "max_gain": 311.8,
+        "actual_gain": 246.9,
+        "retention": 79.2,
+        "dd_from_high": 16.5
+      },
+      {
+        "code": "920101",
+        "name": "志高机械",
+        "high_time": "2025-08-14 09:31",
+        "high_minute": 931,
+        "max_gain": 300.9,
+        "actual_gain": 231.2,
+        "retention": 76.8,
+        "dd_from_high": 17.9
+      },
+      {
+        "code": "920056",
+        "name": "能之光",
+        "high_time": "2025-08-22 09:31",
+        "high_minute": 931,
+        "max_gain": 413.2,
+        "actual_gain": 344.4,
+        "retention": 83.4,
+        "dd_from_high": 13.6
+      },
+      {
+        "code": "920112",
+        "name": "巴兰仕",
+        "high_time": "2025-08-28 09:31",
+        "high_minute": 931,
+        "max_gain": 226.3,
+        "actual_gain": 205.1,
+        "retention": 90.6,
+        "dd_from_high": 12.6
+      },
+      {
+        "code": "920022",
+        "name": "世昌股份",
+        "high_time": "2025-09-19 09:31",
+        "high_minute": 931,
+        "max_gain": 353.6,
+        "actual_gain": 271.6,
+        "retention": 76.8,
+        "dd_from_high": 19.3
+      },
+      {
+        "code": "920158",
+        "name": "长江能科",
+        "high_time": "2025-10-16 09:33",
+        "high_minute": 933,
+        "max_gain": 312.0,
+        "actual_gain": 254.0,
+        "retention": 81.4,
+        "dd_from_high": 14.5
+      },
+      {
+        "code": "920003",
+        "name": "中诚咨询",
+        "high_time": "2025-11-07 09:31",
+        "high_minute": 931,
+        "max_gain": 200.4,
+        "actual_gain": 170.1,
+        "retention": 84.9,
+        "dd_from_high": 10.4
+      },
+      {
+        "code": "920160",
+        "name": "北矿检测",
+        "high_time": "2025-11-18 09:31",
+        "high_minute": 931,
+        "max_gain": 374.6,
+        "actual_gain": 295.5,
+        "retention": 78.9,
+        "dd_from_high": 17.6
+      }
+    ],
+    "high_in_last_30min": [
+      {
+        "code": "920028",
+        "name": "新恒泰",
+        "high_time": "2026-03-20 14:57",
+        "high_minute": 1457,
+        "max_gain": 142.6,
+        "actual_gain": 141.5,
+        "retention": 99.3,
+        "dd_from_high": 1.3
+      },
+      {
+        "code": "920200",
+        "name": "振宏股份",
+        "high_time": "2026-05-07 14:39",
+        "high_minute": 1439,
+        "max_gain": 531.7,
+        "actual_gain": 356.9,
+        "retention": 67.1,
+        "dd_from_high": 42.3
+      },
+      {
+        "code": "920096",
+        "name": "嘉晨智能",
+        "high_time": "2026-05-18 15:00",
+        "high_minute": 1500,
+        "max_gain": 676.2,
+        "actual_gain": 676.2,
+        "retention": 100.0,
+        "dd_from_high": 0
+      }
+    ],
+    "highest_gain_retention": [
+      {
+        "code": "920096",
+        "name": "嘉晨智能",
+        "high_time": "2026-05-18 15:00",
+        "high_minute": 1500,
+        "max_gain": 676.2,
+        "actual_gain": 676.2,
+        "retention": 100.0,
+        "dd_from_high": 0
+      },
+      {
+        "code": "920028",
+        "name": "新恒泰",
+        "high_time": "2026-03-20 14:57",
+        "high_minute": 1457,
+        "max_gain": 142.6,
+        "actual_gain": 141.5,
+        "retention": 99.3,
+        "dd_from_high": 1.3
+      },
+      {
+        "code": "920108",
+        "name": "宏海科技",
+        "high_time": "2025-02-06 13:07",
+        "high_minute": 1307,
+        "max_gain": 259.1,
+        "actual_gain": 246.1,
+        "retention": 95.0,
+        "dd_from_high": 10.6
+      },
+      {
+        "code": "920037",
+        "name": "广信科技",
+        "high_time": "2025-06-26 13:59",
+        "high_minute": 1359,
+        "max_gain": 539.7,
+        "actual_gain": 500.0,
+        "retention": 92.6,
+        "dd_from_high": 6.7
+      },
+      {
+        "code": "920005",
+        "name": "鼎佳精密",
+        "high_time": "2025-07-31 13:20",
+        "high_minute": 1320,
+        "max_gain": 518.3,
+        "actual_gain": 479.1,
+        "retention": 92.4,
+        "dd_from_high": 8.7
+      }
+    ],
+    "lowest_gain_retention": [
+      {
+        "code": "920206",
+        "name": "彩客科技",
+        "high_time": "2026-06-08 09:43",
+        "high_minute": 943,
+        "max_gain": 285.9,
+        "actual_gain": 170.4,
+        "retention": 59.6,
+        "dd_from_high": 30.8
+      },
+      {
+        "code": "920187",
+        "name": "通领科技",
+        "high_time": "2026-03-05 09:34",
+        "high_minute": 934,
+        "max_gain": 66.7,
+        "actual_gain": 41.4,
+        "retention": 62.1,
+        "dd_from_high": 16.1
+      },
+      {
+        "code": "920188",
+        "name": "悦龙科技",
+        "high_time": "2026-03-30 09:31",
+        "high_minute": 931,
+        "max_gain": 184.9,
+        "actual_gain": 115.1,
+        "retention": 62.2,
+        "dd_from_high": 24.7
+      },
+      {
+        "code": "920086",
+        "name": "科马材料",
+        "high_time": "2026-01-16 11:01",
+        "high_minute": 1101,
+        "max_gain": 585.5,
+        "actual_gain": 371.3,
+        "retention": 63.4,
+        "dd_from_high": 33.0
+      },
+      {
+        "code": "920161",
+        "name": "龙辰科技",
+        "high_time": "2026-05-27 09:36",
+        "high_minute": 936,
+        "max_gain": 540.6,
+        "actual_gain": 344.6,
+        "retention": 63.7,
+        "dd_from_high": 32.2
+      }
+    ],
+    "biggest_dd_from_high": [
+      {
+        "code": "920200",
+        "name": "振宏股份",
+        "high_time": "2026-05-07 14:39",
+        "high_minute": 1439,
+        "max_gain": 531.7,
+        "actual_gain": 356.9,
+        "retention": 67.1,
+        "dd_from_high": 42.3
+      },
+      {
+        "code": "920220",
+        "name": "朗信电气",
+        "high_time": "2026-05-22 09:33",
+        "high_minute": 933,
+        "max_gain": 592.4,
+        "actual_gain": 390.6,
+        "retention": 65.9,
+        "dd_from_high": 33.6
+      },
+      {
+        "code": "920086",
+        "name": "科马材料",
+        "high_time": "2026-01-16 11:01",
+        "high_minute": 1101,
+        "max_gain": 585.5,
+        "actual_gain": 371.3,
+        "retention": 63.4,
+        "dd_from_high": 33.0
+      },
+      {
+        "code": "920161",
+        "name": "龙辰科技",
+        "high_time": "2026-05-27 09:36",
+        "high_minute": 936,
+        "max_gain": 540.6,
+        "actual_gain": 344.6,
+        "retention": 63.7,
+        "dd_from_high": 32.2
+      },
+      {
+        "code": "920091",
+        "name": "大鹏工业",
+        "high_time": "2025-11-21 14:03",
+        "high_minute": 1403,
+        "max_gain": 1666.7,
+        "actual_gain": 1211.1,
+        "retention": 72.7,
+        "dd_from_high": 32.1
+      }
+    ],
+    "late_peak_high_retention": [
+      {
+        "code": "920028",
+        "name": "新恒泰",
+        "high_time": "2026-03-20 14:57",
+        "high_minute": 1457,
+        "max_gain": 142.6,
+        "actual_gain": 141.5,
+        "retention": 99.3,
+        "dd_from_high": 1.3
+      },
+      {
+        "code": "920186",
+        "name": "中科仪",
+        "high_time": "2026-04-29 14:05",
+        "high_minute": 1405,
+        "max_gain": 387.4,
+        "actual_gain": 344.0,
+        "retention": 88.8,
+        "dd_from_high": 11.4
+      },
+      {
+        "code": "920096",
+        "name": "嘉晨智能",
+        "high_time": "2026-05-18 15:00",
+        "high_minute": 1500,
+        "max_gain": 676.2,
+        "actual_gain": 676.2,
+        "retention": 100.0,
+        "dd_from_high": 0
+      }
+    ],
+    "early_peak_low_retention": [
+      {
+        "code": "920206",
+        "name": "彩客科技",
+        "high_time": "2026-06-08 09:43",
+        "high_minute": 943,
+        "max_gain": 285.9,
+        "actual_gain": 170.4,
+        "retention": 59.6,
+        "dd_from_high": 30.8
+      }
+    ]
+  },
+  "sell_rules": [
+    {
+      "id": "early_peak_warning",
+      "condition": "9:30-10:00出现最高价",
+      "action": "历史29只股票此阶段见顶，平均收益留存仅76.4%，建议在10:00前卖出",
+      "weight": 40
+    },
+    {
+      "id": "max_drawdown",
+      "condition": "从最高价回落超过30.8%",
+      "action": "90%分位最大回撤仅30.8%，超此阈值说明异常，考虑止损",
+      "weight": 60
+    },
+    {
+      "id": "turnover_ceiling",
+      "condition": "累计换手率超过80%（平均发生在第170分钟）",
+      "action": "换手率达到70%（第131分钟）后流动性衰减，80%后追高风险加大",
+      "weight": 55
+    },
+    {
+      "id": "vwap_divergence",
+      "condition": "价格跌破VWAP均线",
+      "action": "历史47.1%时间价格在VWAP上方，跌破意味趋势转弱",
+      "weight": 50
+    },
+    {
+      "id": "volatility_surge",
+      "condition": "1分钟收益率波动率异常放大",
+      "action": "正常波动率均值0.98%，突增50%以上为风险信号",
+      "weight": 45
+    },
+    {
+      "id": "afternoon_surge_bonus",
+      "condition": "14:00后价格创日内新高",
+      "action": "尾盘创新高时收益留存达83.1%（vs 早盘76.4%），可持有到收盘",
+      "weight": 35
+    }
+  ],
+  "all_stocks": [
+    {
+      "code": "920108",
+      "name": "宏海科技",
+      "ipo_date": "2025-02-06",
+      "ipo_price": 5.57,
+      "float_shares": 35402850,
+      "bars": 241,
+      "open": 18.02,
+      "close": 19.28,
+      "high": 20.0,
+      "low": 16.5,
+      "vwap": 17.79,
+      "vwap_above_pct": 64.3,
+      "open_gap_pct": 223.5,
+      "max_gain_pct": 259.1,
+      "actual_gain_pct": 246.1,
+      "gain_retention_pct": 95.0,
+      "high_to_close_pct": 3.6,
+      "max_dd_from_high_pct": 10.6,
+      "high_time": "2025-02-06 13:07",
+      "high_minute": 1307,
+      "high_session": "PM",
+      "high_elapsed_min": 127,
+      "low_time": "2025-02-06 10:00",
+      "low_minute": 1000,
+      "vol_peak_minute": 931,
+      "total_turnover": 87.56,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 944,
+          "price": 17.08,
+          "index": 14
+        },
+        "to30": {
+          "minute": 1013,
+          "price": 16.69,
+          "index": 43
+        },
+        "to40": {
+          "minute": 1105,
+          "price": 18.11,
+          "index": 95
+        },
+        "to50": {
+          "minute": 1351,
+          "price": 18.39,
+          "index": 171
+        }
+      },
+      "volatility_score": 0.9,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-02-06 09:30",
+          "end_min": "2025-02-06 10:09",
+          "high": 19.0,
+          "close": 16.63,
+          "max_vol": 1223355,
+          "avg_price": 17.082749999999997
+        },
+        "seg2": {
+          "start_min": "2025-02-06 10:10",
+          "end_min": "2025-02-06 10:49",
+          "high": 17.94,
+          "close": 17.33,
+          "max_vol": 192078,
+          "avg_price": 17.08175
+        },
+        "seg3": {
+          "start_min": "2025-02-06 10:50",
+          "end_min": "2025-02-06 11:29",
+          "high": 18.86,
+          "close": 18.2,
+          "max_vol": 258535,
+          "avg_price": 17.9135
+        },
+        "seg4": {
+          "start_min": "2025-02-06 11:30",
+          "end_min": "2025-02-06 13:39",
+          "high": 20.0,
+          "close": 18.03,
+          "max_vol": 230237,
+          "avg_price": 18.71075
+        },
+        "seg5": {
+          "start_min": "2025-02-06 13:40",
+          "end_min": "2025-02-06 14:19",
+          "high": 18.65,
+          "close": 18.07,
+          "max_vol": 60726,
+          "avg_price": 18.34625
+        },
+        "seg6": {
+          "start_min": "2025-02-06 14:20",
+          "end_min": "2025-02-06 14:59",
+          "high": 19.44,
+          "close": 19.28,
+          "max_vol": 136502,
+          "avg_price": 18.30925
+        }
+      },
+      "final_to_pct": 57.6
+    },
+    {
+      "code": "920029",
+      "name": "开发科技",
+      "ipo_date": "2025-03-28",
+      "ipo_price": 30.38,
+      "float_shares": 31793334,
+      "bars": 241,
+      "open": 73.5,
+      "close": 76.06,
+      "high": 86.66,
+      "low": 70.79,
+      "vwap": 75.62,
+      "vwap_above_pct": 73.0,
+      "open_gap_pct": 141.9,
+      "max_gain_pct": 185.3,
+      "actual_gain_pct": 150.4,
+      "gain_retention_pct": 81.2,
+      "high_to_close_pct": 12.2,
+      "max_dd_from_high_pct": 12.9,
+      "high_time": "2025-03-28 13:10",
+      "high_minute": 1310,
+      "high_session": "PM",
+      "high_elapsed_min": 130,
+      "low_time": "2025-03-28 09:34",
+      "low_minute": 934,
+      "vol_peak_minute": 931,
+      "total_turnover": 83.2,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 71.2,
+          "index": 3
+        },
+        "to30": {
+          "minute": 939,
+          "price": 73.37,
+          "index": 9
+        },
+        "to40": {
+          "minute": 956,
+          "price": 73.1,
+          "index": 26
+        },
+        "to50": {
+          "minute": 1023,
+          "price": 75.28,
+          "index": 53
+        },
+        "to60": {
+          "minute": 1100,
+          "price": 77.82,
+          "index": 90
+        },
+        "to70": {
+          "minute": 1311,
+          "price": 82.82,
+          "index": 131
+        },
+        "to80": {
+          "minute": 1448,
+          "price": 76.0,
+          "index": 228
+        }
+      },
+      "volatility_score": 0.68,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-03-28 09:30",
+          "end_min": "2025-03-28 10:09",
+          "high": 76.5,
+          "close": 73.71,
+          "max_vol": 2752581,
+          "avg_price": 73.3815
+        },
+        "seg2": {
+          "start_min": "2025-03-28 10:10",
+          "end_min": "2025-03-28 10:49",
+          "high": 78.88,
+          "close": 76.38,
+          "max_vol": 330230,
+          "avg_price": 75.55475
+        },
+        "seg3": {
+          "start_min": "2025-03-28 10:50",
+          "end_min": "2025-03-28 11:29",
+          "high": 79.69,
+          "close": 79.66,
+          "max_vol": 192317,
+          "avg_price": 78.1965
+        },
+        "seg4": {
+          "start_min": "2025-03-28 11:30",
+          "end_min": "2025-03-28 13:39",
+          "high": 86.66,
+          "close": 81.29,
+          "max_vol": 250196,
+          "avg_price": 81.52125
+        },
+        "seg5": {
+          "start_min": "2025-03-28 13:40",
+          "end_min": "2025-03-28 14:19",
+          "high": 82.5,
+          "close": 77.21,
+          "max_vol": 57451,
+          "avg_price": 79.39625
+        },
+        "seg6": {
+          "start_min": "2025-03-28 14:20",
+          "end_min": "2025-03-28 14:59",
+          "high": 78.27,
+          "close": 76.69,
+          "max_vol": 154622,
+          "avg_price": 76.77925
+        }
+      },
+      "final_to_pct": 83.2
+    },
+    {
+      "code": "920068",
+      "name": "天工股份",
+      "ipo_date": "2025-05-13",
+      "ipo_price": 3.94,
+      "float_shares": 62704261,
+      "bars": 241,
+      "open": 22.01,
+      "close": 20.17,
+      "high": 23.6,
+      "low": 19.94,
+      "vwap": 21.34,
+      "vwap_above_pct": 10.4,
+      "open_gap_pct": 458.6,
+      "max_gain_pct": 499.0,
+      "actual_gain_pct": 411.9,
+      "gain_retention_pct": 82.6,
+      "high_to_close_pct": 14.5,
+      "max_dd_from_high_pct": 15.5,
+      "high_time": "2025-05-13 09:33",
+      "high_minute": 933,
+      "high_session": "AM",
+      "high_elapsed_min": 3,
+      "low_time": "2025-05-13 13:08",
+      "low_minute": 1308,
+      "vol_peak_minute": 931,
+      "total_turnover": 80.44,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 23.0,
+          "index": 2
+        },
+        "to30": {
+          "minute": 936,
+          "price": 20.99,
+          "index": 6
+        },
+        "to40": {
+          "minute": 945,
+          "price": 22.13,
+          "index": 15
+        },
+        "to50": {
+          "minute": 1016,
+          "price": 21.16,
+          "index": 46
+        },
+        "to60": {
+          "minute": 1116,
+          "price": 20.45,
+          "index": 106
+        },
+        "to70": {
+          "minute": 1411,
+          "price": 20.04,
+          "index": 191
+        },
+        "to80": {
+          "minute": 1500,
+          "price": 20.17,
+          "index": 240
+        }
+      },
+      "volatility_score": 0.57,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-05-13 09:30",
+          "end_min": "2025-05-13 10:09",
+          "high": 23.6,
+          "close": 21.16,
+          "max_vol": 6516085,
+          "avg_price": 21.637999999999998
+        },
+        "seg2": {
+          "start_min": "2025-05-13 10:10",
+          "end_min": "2025-05-13 10:49",
+          "high": 21.28,
+          "close": 20.71,
+          "max_vol": 423505,
+          "avg_price": 20.8005
+        },
+        "seg3": {
+          "start_min": "2025-05-13 10:50",
+          "end_min": "2025-05-13 11:29",
+          "high": 20.96,
+          "close": 20.44,
+          "max_vol": 190970,
+          "avg_price": 20.603
+        },
+        "seg4": {
+          "start_min": "2025-05-13 11:30",
+          "end_min": "2025-05-13 13:39",
+          "high": 20.47,
+          "close": 19.98,
+          "max_vol": 266058,
+          "avg_price": 20.098
+        },
+        "seg5": {
+          "start_min": "2025-05-13 13:40",
+          "end_min": "2025-05-13 14:19",
+          "high": 20.47,
+          "close": 20.0,
+          "max_vol": 193822,
+          "avg_price": 20.057
+        },
+        "seg6": {
+          "start_min": "2025-05-13 14:20",
+          "end_min": "2025-05-13 14:59",
+          "high": 20.44,
+          "close": 20.17,
+          "max_vol": 552781,
+          "avg_price": 20.044999999999998
+        }
+      },
+      "final_to_pct": 80.4
+    },
+    {
+      "code": "920027",
+      "name": "交大铁发",
+      "ipo_date": "2025-06-10",
+      "ipo_price": 8.81,
+      "float_shares": 42203500,
+      "bars": 241,
+      "open": 33.9,
+      "close": 31.9,
+      "high": 34.88,
+      "low": 31.01,
+      "vwap": 32.79,
+      "vwap_above_pct": 12.9,
+      "open_gap_pct": 284.8,
+      "max_gain_pct": 295.9,
+      "actual_gain_pct": 262.1,
+      "gain_retention_pct": 88.6,
+      "high_to_close_pct": 8.5,
+      "max_dd_from_high_pct": 11.1,
+      "high_time": "2025-06-10 09:34",
+      "high_minute": 934,
+      "high_session": "AM",
+      "high_elapsed_min": 4,
+      "low_time": "2025-06-10 14:04",
+      "low_minute": 1404,
+      "vol_peak_minute": 931,
+      "total_turnover": 72.03,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 952,
+          "price": 33.22,
+          "index": 22
+        },
+        "to30": {
+          "minute": 1038,
+          "price": 31.73,
+          "index": 68
+        },
+        "to40": {
+          "minute": 1421,
+          "price": 32.16,
+          "index": 201
+        }
+      },
+      "volatility_score": 0.35,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-06-10 09:30",
+          "end_min": "2025-06-10 10:09",
+          "high": 34.88,
+          "close": 32.1,
+          "max_vol": 1763671,
+          "avg_price": 33.2495
+        },
+        "seg2": {
+          "start_min": "2025-06-10 10:10",
+          "end_min": "2025-06-10 10:49",
+          "high": 32.27,
+          "close": 32.27,
+          "max_vol": 161972,
+          "avg_price": 31.8755
+        },
+        "seg3": {
+          "start_min": "2025-06-10 10:50",
+          "end_min": "2025-06-10 11:29",
+          "high": 32.66,
+          "close": 31.71,
+          "max_vol": 68444,
+          "avg_price": 31.9295
+        },
+        "seg4": {
+          "start_min": "2025-06-10 11:30",
+          "end_min": "2025-06-10 13:39",
+          "high": 31.88,
+          "close": 31.09,
+          "max_vol": 115436,
+          "avg_price": 31.3825
+        },
+        "seg5": {
+          "start_min": "2025-06-10 13:40",
+          "end_min": "2025-06-10 14:19",
+          "high": 31.36,
+          "close": 31.36,
+          "max_vol": 69190,
+          "avg_price": 31.097500000000004
+        },
+        "seg6": {
+          "start_min": "2025-06-10 14:20",
+          "end_min": "2025-06-10 14:59",
+          "high": 32.46,
+          "close": 31.8,
+          "max_vol": 126226,
+          "avg_price": 31.441750000000003
+        }
+      },
+      "final_to_pct": 44.9
+    },
+    {
+      "code": "920037",
+      "name": "广信科技",
+      "ipo_date": "2025-06-26",
+      "ipo_price": 10.0,
+      "float_shares": 29564308,
+      "bars": 241,
+      "open": 50.0,
+      "close": 60.0,
+      "high": 63.97,
+      "low": 50.0,
+      "vwap": 57.35,
+      "vwap_above_pct": 96.7,
+      "open_gap_pct": 400.0,
+      "max_gain_pct": 539.7,
+      "actual_gain_pct": 500.0,
+      "gain_retention_pct": 92.6,
+      "high_to_close_pct": 6.2,
+      "max_dd_from_high_pct": 6.7,
+      "high_time": "2025-06-26 13:59",
+      "high_minute": 1359,
+      "high_session": "PM",
+      "high_elapsed_min": 179,
+      "low_time": "2025-06-26 09:30",
+      "low_minute": 930,
+      "vol_peak_minute": 930,
+      "total_turnover": 75.11,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 55.6,
+          "index": 2
+        },
+        "to30": {
+          "minute": 937,
+          "price": 57.1,
+          "index": 7
+        },
+        "to40": {
+          "minute": 946,
+          "price": 58.08,
+          "index": 16
+        },
+        "to50": {
+          "minute": 1010,
+          "price": 58.49,
+          "index": 40
+        },
+        "to60": {
+          "minute": 1048,
+          "price": 60.75,
+          "index": 78
+        },
+        "to70": {
+          "minute": 1414,
+          "price": 60.25,
+          "index": 194
+        }
+      },
+      "volatility_score": 1.13,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-06-26 09:30",
+          "end_min": "2025-06-26 10:09",
+          "high": 60.0,
+          "close": 58.51,
+          "max_vol": 2647657,
+          "avg_price": 57.976
+        },
+        "seg2": {
+          "start_min": "2025-06-26 10:10",
+          "end_min": "2025-06-26 10:49",
+          "high": 62.85,
+          "close": 60.75,
+          "max_vol": 441380,
+          "avg_price": 60.728750000000005
+        },
+        "seg3": {
+          "start_min": "2025-06-26 10:50",
+          "end_min": "2025-06-26 11:29",
+          "high": 61.19,
+          "close": 59.21,
+          "max_vol": 39655,
+          "avg_price": 60.32725000000001
+        },
+        "seg4": {
+          "start_min": "2025-06-26 11:30",
+          "end_min": "2025-06-26 13:39",
+          "high": 61.17,
+          "close": 59.9,
+          "max_vol": 128084,
+          "avg_price": 59.719500000000004
+        },
+        "seg5": {
+          "start_min": "2025-06-26 13:40",
+          "end_min": "2025-06-26 14:19",
+          "high": 63.97,
+          "close": 60.14,
+          "max_vol": 127470,
+          "avg_price": 60.6375
+        },
+        "seg6": {
+          "start_min": "2025-06-26 14:20",
+          "end_min": "2025-06-26 14:59",
+          "high": 62.17,
+          "close": 60.01,
+          "max_vol": 81881,
+          "avg_price": 60.1885
+        }
+      },
+      "final_to_pct": 75.1
+    },
+    {
+      "code": "920005",
+      "name": "鼎佳精密",
+      "ipo_date": "2025-07-31",
+      "ipo_price": 11.16,
+      "float_shares": 19000000,
+      "bars": 241,
+      "open": 59.0,
+      "close": 64.63,
+      "high": 69.0,
+      "low": 59.0,
+      "vwap": 62.44,
+      "vwap_above_pct": 92.5,
+      "open_gap_pct": 428.7,
+      "max_gain_pct": 518.3,
+      "actual_gain_pct": 479.1,
+      "gain_retention_pct": 92.4,
+      "high_to_close_pct": 6.3,
+      "max_dd_from_high_pct": 8.7,
+      "high_time": "2025-07-31 13:20",
+      "high_minute": 1320,
+      "high_session": "PM",
+      "high_elapsed_min": 140,
+      "low_time": "2025-07-31 09:30",
+      "low_minute": 930,
+      "vol_peak_minute": 931,
+      "total_turnover": 89.34,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 59.1,
+          "index": 2
+        },
+        "to30": {
+          "minute": 935,
+          "price": 60.1,
+          "index": 5
+        },
+        "to40": {
+          "minute": 941,
+          "price": 61.88,
+          "index": 11
+        },
+        "to50": {
+          "minute": 948,
+          "price": 63.18,
+          "index": 18
+        },
+        "to60": {
+          "minute": 1011,
+          "price": 62.37,
+          "index": 41
+        },
+        "to70": {
+          "minute": 1101,
+          "price": 65.3,
+          "index": 91
+        },
+        "to80": {
+          "minute": 1348,
+          "price": 65.01,
+          "index": 168
+        }
+      },
+      "volatility_score": 0.7,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-07-31 09:30",
+          "end_min": "2025-07-31 10:09",
+          "high": 65.78,
+          "close": 62.4,
+          "max_vol": 2281767,
+          "avg_price": 62.472249999999995
+        },
+        "seg2": {
+          "start_min": "2025-07-31 10:10",
+          "end_min": "2025-07-31 10:49",
+          "high": 65.3,
+          "close": 65.1,
+          "max_vol": 183801,
+          "avg_price": 63.58200000000001
+        },
+        "seg3": {
+          "start_min": "2025-07-31 10:50",
+          "end_min": "2025-07-31 11:29",
+          "high": 66.66,
+          "close": 65.24,
+          "max_vol": 107396,
+          "avg_price": 65.279
+        },
+        "seg4": {
+          "start_min": "2025-07-31 11:30",
+          "end_min": "2025-07-31 13:39",
+          "high": 69.0,
+          "close": 65.01,
+          "max_vol": 99143,
+          "avg_price": 66.80325
+        },
+        "seg5": {
+          "start_min": "2025-07-31 13:40",
+          "end_min": "2025-07-31 14:19",
+          "high": 65.3,
+          "close": 64.98,
+          "max_vol": 125604,
+          "avg_price": 64.69075000000001
+        },
+        "seg6": {
+          "start_min": "2025-07-31 14:20",
+          "end_min": "2025-07-31 14:59",
+          "high": 64.98,
+          "close": 64.73,
+          "max_vol": 89888,
+          "avg_price": 63.96124999999999
+        }
+      },
+      "final_to_pct": 89.3
+    },
+    {
+      "code": "920007",
+      "name": "酉立智能",
+      "ipo_date": "2025-08-08",
+      "ipo_price": 23.99,
+      "float_shares": 10642850,
+      "bars": 241,
+      "open": 98.0,
+      "close": 83.22,
+      "high": 98.8,
+      "low": 82.5,
+      "vwap": 89.02,
+      "vwap_above_pct": 9.5,
+      "open_gap_pct": 308.5,
+      "max_gain_pct": 311.8,
+      "actual_gain_pct": 246.9,
+      "gain_retention_pct": 79.2,
+      "high_to_close_pct": 15.8,
+      "max_dd_from_high_pct": 16.5,
+      "high_time": "2025-08-08 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2025-08-08 13:50",
+      "low_minute": 1350,
+      "vol_peak_minute": 931,
+      "total_turnover": 77.21,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 937,
+          "price": 90.01,
+          "index": 7
+        },
+        "to30": {
+          "minute": 950,
+          "price": 90.0,
+          "index": 20
+        },
+        "to40": {
+          "minute": 956,
+          "price": 88.6,
+          "index": 26
+        },
+        "to50": {
+          "minute": 1039,
+          "price": 88.01,
+          "index": 69
+        },
+        "to60": {
+          "minute": 1328,
+          "price": 85.0,
+          "index": 148
+        },
+        "to70": {
+          "minute": 1436,
+          "price": 83.02,
+          "index": 216
+        }
+      },
+      "volatility_score": 0.39,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-08-08 09:30",
+          "end_min": "2025-08-08 10:09",
+          "high": 98.8,
+          "close": 89.0,
+          "max_vol": 579397,
+          "avg_price": 89.539
+        },
+        "seg2": {
+          "start_min": "2025-08-08 10:10",
+          "end_min": "2025-08-08 10:49",
+          "high": 89.36,
+          "close": 88.6,
+          "max_vol": 36664,
+          "avg_price": 87.85549999999999
+        },
+        "seg3": {
+          "start_min": "2025-08-08 10:50",
+          "end_min": "2025-08-08 11:29",
+          "high": 88.69,
+          "close": 86.88,
+          "max_vol": 39576,
+          "avg_price": 87.87975
+        },
+        "seg4": {
+          "start_min": "2025-08-08 11:30",
+          "end_min": "2025-08-08 13:39",
+          "high": 86.89,
+          "close": 83.64,
+          "max_vol": 38254,
+          "avg_price": 85.43125
+        },
+        "seg5": {
+          "start_min": "2025-08-08 13:40",
+          "end_min": "2025-08-08 14:19",
+          "high": 84.63,
+          "close": 83.32,
+          "max_vol": 63607,
+          "avg_price": 83.33225
+        },
+        "seg6": {
+          "start_min": "2025-08-08 14:20",
+          "end_min": "2025-08-08 14:59",
+          "high": 83.39,
+          "close": 83.21,
+          "max_vol": 60701,
+          "avg_price": 83.2225
+        }
+      },
+      "final_to_pct": 77.2
+    },
+    {
+      "code": "920101",
+      "name": "志高机械",
+      "ipo_date": "2025-08-14",
+      "ipo_price": 17.41,
+      "float_shares": 25670539,
+      "bars": 241,
+      "open": 68.0,
+      "close": 57.66,
+      "high": 69.8,
+      "low": 57.31,
+      "vwap": 63.37,
+      "vwap_above_pct": 7.9,
+      "open_gap_pct": 290.6,
+      "max_gain_pct": 300.9,
+      "actual_gain_pct": 231.2,
+      "gain_retention_pct": 76.8,
+      "high_to_close_pct": 17.4,
+      "max_dd_from_high_pct": 17.9,
+      "high_time": "2025-08-14 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2025-08-14 14:45",
+      "low_minute": 1445,
+      "vol_peak_minute": 931,
+      "total_turnover": 83.77,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 934,
+          "price": 67.0,
+          "index": 4
+        },
+        "to30": {
+          "minute": 947,
+          "price": 64.35,
+          "index": 17
+        },
+        "to40": {
+          "minute": 1007,
+          "price": 60.16,
+          "index": 37
+        },
+        "to50": {
+          "minute": 1057,
+          "price": 61.48,
+          "index": 87
+        },
+        "to60": {
+          "minute": 1425,
+          "price": 58.65,
+          "index": 205
+        }
+      },
+      "volatility_score": 0.48,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-08-14 09:30",
+          "end_min": "2025-08-14 10:09",
+          "high": 69.8,
+          "close": 59.62,
+          "max_vol": 2043024,
+          "avg_price": 63.415499999999994
+        },
+        "seg2": {
+          "start_min": "2025-08-14 10:10",
+          "end_min": "2025-08-14 10:49",
+          "high": 61.99,
+          "close": 61.12,
+          "max_vol": 175786,
+          "avg_price": 60.58075
+        },
+        "seg3": {
+          "start_min": "2025-08-14 10:50",
+          "end_min": "2025-08-14 11:29",
+          "high": 62.99,
+          "close": 61.0,
+          "max_vol": 128039,
+          "avg_price": 61.846000000000004
+        },
+        "seg4": {
+          "start_min": "2025-08-14 11:30",
+          "end_min": "2025-08-14 13:39",
+          "high": 61.1,
+          "close": 60.4,
+          "max_vol": 72643,
+          "avg_price": 60.33200000000001
+        },
+        "seg5": {
+          "start_min": "2025-08-14 13:40",
+          "end_min": "2025-08-14 14:19",
+          "high": 60.5,
+          "close": 59.31,
+          "max_vol": 43363,
+          "avg_price": 59.908500000000004
+        },
+        "seg6": {
+          "start_min": "2025-08-14 14:20",
+          "end_min": "2025-08-14 14:59",
+          "high": 59.35,
+          "close": 57.65,
+          "max_vol": 90618,
+          "avg_price": 58.102
+        }
+      },
+      "final_to_pct": 66.6
+    },
+    {
+      "code": "920018",
+      "name": "宏远股份",
+      "ipo_date": "2025-08-20",
+      "ipo_price": 9.17,
+      "float_shares": 44223800,
+      "bars": 241,
+      "open": 37.2,
+      "close": 42.0,
+      "high": 48.0,
+      "low": 37.13,
+      "vwap": 40.41,
+      "vwap_above_pct": 95.0,
+      "open_gap_pct": 305.7,
+      "max_gain_pct": 423.4,
+      "actual_gain_pct": 358.0,
+      "gain_retention_pct": 84.5,
+      "high_to_close_pct": 12.5,
+      "max_dd_from_high_pct": 12.9,
+      "high_time": "2025-08-20 10:49",
+      "high_minute": 1049,
+      "high_session": "AM",
+      "high_elapsed_min": 79,
+      "low_time": "2025-08-20 09:31",
+      "low_minute": 931,
+      "vol_peak_minute": 931,
+      "total_turnover": 94.11,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 39.58,
+          "index": 3
+        },
+        "to30": {
+          "minute": 938,
+          "price": 39.26,
+          "index": 8
+        },
+        "to40": {
+          "minute": 949,
+          "price": 42.39,
+          "index": 19
+        },
+        "to50": {
+          "minute": 1035,
+          "price": 44.89,
+          "index": 65
+        },
+        "to60": {
+          "minute": 1447,
+          "price": 42.04,
+          "index": 227
+        }
+      },
+      "volatility_score": 1.06,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-08-20 09:30",
+          "end_min": "2025-08-20 10:09",
+          "high": 43.33,
+          "close": 41.77,
+          "max_vol": 4673235,
+          "avg_price": 40.8035
+        },
+        "seg2": {
+          "start_min": "2025-08-20 10:10",
+          "end_min": "2025-08-20 10:49",
+          "high": 48.0,
+          "close": 47.45,
+          "max_vol": 267959,
+          "avg_price": 44.279
+        },
+        "seg3": {
+          "start_min": "2025-08-20 10:50",
+          "end_min": "2025-08-20 11:29",
+          "high": 47.01,
+          "close": 44.85,
+          "max_vol": 46991,
+          "avg_price": 45.3335
+        },
+        "seg4": {
+          "start_min": "2025-08-20 11:30",
+          "end_min": "2025-08-20 13:39",
+          "high": 45.0,
+          "close": 43.62,
+          "max_vol": 56653,
+          "avg_price": 43.70775
+        },
+        "seg5": {
+          "start_min": "2025-08-20 13:40",
+          "end_min": "2025-08-20 14:19",
+          "high": 44.99,
+          "close": 43.26,
+          "max_vol": 70595,
+          "avg_price": 43.338
+        },
+        "seg6": {
+          "start_min": "2025-08-20 14:20",
+          "end_min": "2025-08-20 14:59",
+          "high": 43.38,
+          "close": 42.08,
+          "max_vol": 119617,
+          "avg_price": 42.572250000000004
+        }
+      },
+      "final_to_pct": 62.0
+    },
+    {
+      "code": "920056",
+      "name": "能之光",
+      "ipo_date": "2025-08-22",
+      "ipo_price": 7.21,
+      "float_shares": 30630570,
+      "bars": 241,
+      "open": 36.0,
+      "close": 32.04,
+      "high": 37.0,
+      "low": 31.96,
+      "vwap": 33.85,
+      "vwap_above_pct": 34.9,
+      "open_gap_pct": 399.3,
+      "max_gain_pct": 413.2,
+      "actual_gain_pct": 344.4,
+      "gain_retention_pct": 83.4,
+      "high_to_close_pct": 13.4,
+      "max_dd_from_high_pct": 13.6,
+      "high_time": "2025-08-22 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2025-08-22 10:33",
+      "low_minute": 1033,
+      "vol_peak_minute": 931,
+      "total_turnover": 73.08,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 934,
+          "price": 33.0,
+          "index": 4
+        },
+        "to30": {
+          "minute": 938,
+          "price": 32.57,
+          "index": 8
+        },
+        "to40": {
+          "minute": 953,
+          "price": 32.9,
+          "index": 23
+        },
+        "to50": {
+          "minute": 1033,
+          "price": 31.96,
+          "index": 63
+        },
+        "to60": {
+          "minute": 1303,
+          "price": 33.88,
+          "index": 123
+        },
+        "to70": {
+          "minute": 1451,
+          "price": 32.17,
+          "index": 231
+        }
+      },
+      "volatility_score": 0.68,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-08-22 09:30",
+          "end_min": "2025-08-22 10:09",
+          "high": 37.0,
+          "close": 32.74,
+          "max_vol": 2292797,
+          "avg_price": 33.318
+        },
+        "seg2": {
+          "start_min": "2025-08-22 10:10",
+          "end_min": "2025-08-22 10:49",
+          "high": 32.76,
+          "close": 32.41,
+          "max_vol": 181411,
+          "avg_price": 32.41775
+        },
+        "seg3": {
+          "start_min": "2025-08-22 10:50",
+          "end_min": "2025-08-22 11:29",
+          "high": 35.0,
+          "close": 33.51,
+          "max_vol": 209373,
+          "avg_price": 33.598
+        },
+        "seg4": {
+          "start_min": "2025-08-22 11:30",
+          "end_min": "2025-08-22 13:39",
+          "high": 35.48,
+          "close": 34.43,
+          "max_vol": 154609,
+          "avg_price": 34.2385
+        },
+        "seg5": {
+          "start_min": "2025-08-22 13:40",
+          "end_min": "2025-08-22 14:19",
+          "high": 34.79,
+          "close": 33.35,
+          "max_vol": 54070,
+          "avg_price": 34.201499999999996
+        },
+        "seg6": {
+          "start_min": "2025-08-22 14:20",
+          "end_min": "2025-08-22 14:59",
+          "high": 33.36,
+          "close": 31.99,
+          "max_vol": 376829,
+          "avg_price": 32.53125
+        }
+      },
+      "final_to_pct": 73.1
+    },
+    {
+      "code": "920112",
+      "name": "巴兰仕",
+      "ipo_date": "2025-08-28",
+      "ipo_price": 15.78,
+      "float_shares": 23183000,
+      "bars": 241,
+      "open": 50.0,
+      "close": 48.15,
+      "high": 51.49,
+      "low": 45.01,
+      "vwap": 47.96,
+      "vwap_above_pct": 6.2,
+      "open_gap_pct": 216.9,
+      "max_gain_pct": 226.3,
+      "actual_gain_pct": 205.1,
+      "gain_retention_pct": 90.6,
+      "high_to_close_pct": 6.5,
+      "max_dd_from_high_pct": 12.6,
+      "high_time": "2025-08-28 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2025-08-28 13:27",
+      "low_minute": 1327,
+      "vol_peak_minute": 931,
+      "total_turnover": 80.09,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 49.96,
+          "index": 3
+        },
+        "to30": {
+          "minute": 938,
+          "price": 48.02,
+          "index": 8
+        },
+        "to40": {
+          "minute": 953,
+          "price": 46.56,
+          "index": 23
+        },
+        "to50": {
+          "minute": 1019,
+          "price": 48.17,
+          "index": 49
+        },
+        "to60": {
+          "minute": 1301,
+          "price": 46.56,
+          "index": 121
+        },
+        "to70": {
+          "minute": 1409,
+          "price": 45.82,
+          "index": 189
+        },
+        "to80": {
+          "minute": 1500,
+          "price": 48.15,
+          "index": 240
+        }
+      },
+      "volatility_score": 0.39,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-08-28 09:30",
+          "end_min": "2025-08-28 10:09",
+          "high": 51.49,
+          "close": 47.21,
+          "max_vol": 2352698,
+          "avg_price": 47.609
+        },
+        "seg2": {
+          "start_min": "2025-08-28 10:10",
+          "end_min": "2025-08-28 10:49",
+          "high": 48.55,
+          "close": 47.22,
+          "max_vol": 154989,
+          "avg_price": 47.4305
+        },
+        "seg3": {
+          "start_min": "2025-08-28 10:50",
+          "end_min": "2025-08-28 11:29",
+          "high": 47.3,
+          "close": 46.8,
+          "max_vol": 53111,
+          "avg_price": 46.81075
+        },
+        "seg4": {
+          "start_min": "2025-08-28 11:30",
+          "end_min": "2025-08-28 13:39",
+          "high": 46.8,
+          "close": 46.01,
+          "max_vol": 131137,
+          "avg_price": 45.790499999999994
+        },
+        "seg5": {
+          "start_min": "2025-08-28 13:40",
+          "end_min": "2025-08-28 14:19",
+          "high": 46.02,
+          "close": 45.78,
+          "max_vol": 275966,
+          "avg_price": 45.792500000000004
+        },
+        "seg6": {
+          "start_min": "2025-08-28 14:20",
+          "end_min": "2025-08-28 14:59",
+          "high": 48.3,
+          "close": 47.9,
+          "max_vol": 138732,
+          "avg_price": 46.8375
+        }
+      },
+      "final_to_pct": 80.1
+    },
+    {
+      "code": "920100",
+      "name": "三协电机",
+      "ipo_date": "2025-09-08",
+      "ipo_price": 8.83,
+      "float_shares": 17100138,
+      "bars": 241,
+      "open": 69.0,
+      "close": 78.2,
+      "high": 85.0,
+      "low": 68.0,
+      "vwap": 73.89,
+      "vwap_above_pct": 97.5,
+      "open_gap_pct": 681.4,
+      "max_gain_pct": 862.6,
+      "actual_gain_pct": 785.6,
+      "gain_retention_pct": 91.1,
+      "high_to_close_pct": 8.0,
+      "max_dd_from_high_pct": 9.9,
+      "high_time": "2025-09-08 10:09",
+      "high_minute": 1009,
+      "high_session": "AM",
+      "high_elapsed_min": 39,
+      "low_time": "2025-09-08 09:31",
+      "low_minute": 931,
+      "vol_peak_minute": 931,
+      "total_turnover": 95.95,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 931,
+          "price": 71.0,
+          "index": 1
+        },
+        "to30": {
+          "minute": 931,
+          "price": 71.0,
+          "index": 1
+        },
+        "to40": {
+          "minute": 933,
+          "price": 71.0,
+          "index": 3
+        },
+        "to50": {
+          "minute": 936,
+          "price": 72.95,
+          "index": 6
+        },
+        "to60": {
+          "minute": 941,
+          "price": 77.4,
+          "index": 11
+        },
+        "to70": {
+          "minute": 1000,
+          "price": 76.76,
+          "index": 30
+        },
+        "to80": {
+          "minute": 1037,
+          "price": 83.88,
+          "index": 67
+        },
+        "to90": {
+          "minute": 1416,
+          "price": 80.5,
+          "index": 196
+        }
+      },
+      "volatility_score": 0.98,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-09-08 09:30",
+          "end_min": "2025-09-08 10:09",
+          "high": 85.0,
+          "close": 81.5,
+          "max_vol": 3463486,
+          "avg_price": 76.23875000000001
+        },
+        "seg2": {
+          "start_min": "2025-09-08 10:10",
+          "end_min": "2025-09-08 10:49",
+          "high": 84.28,
+          "close": 81.35,
+          "max_vol": 46928,
+          "avg_price": 80.87575000000001
+        },
+        "seg3": {
+          "start_min": "2025-09-08 10:50",
+          "end_min": "2025-09-08 11:29",
+          "high": 81.35,
+          "close": 80.0,
+          "max_vol": 26175,
+          "avg_price": 79.15125
+        },
+        "seg4": {
+          "start_min": "2025-09-08 11:30",
+          "end_min": "2025-09-08 13:39",
+          "high": 82.25,
+          "close": 79.3,
+          "max_vol": 84539,
+          "avg_price": 80.135
+        },
+        "seg5": {
+          "start_min": "2025-09-08 13:40",
+          "end_min": "2025-09-08 14:19",
+          "high": 83.88,
+          "close": 81.01,
+          "max_vol": 33594,
+          "avg_price": 80.33500000000001
+        },
+        "seg6": {
+          "start_min": "2025-09-08 14:20",
+          "end_min": "2025-09-08 14:59",
+          "high": 81.01,
+          "close": 78.5,
+          "max_vol": 92496,
+          "avg_price": 79.44149999999999
+        }
+      },
+      "final_to_pct": 96.0
+    },
+    {
+      "code": "920022",
+      "name": "世昌股份",
+      "ipo_date": "2025-09-19",
+      "ipo_price": 10.9,
+      "float_shares": 16615000,
+      "bars": 241,
+      "open": 48.22,
+      "close": 40.5,
+      "high": 49.44,
+      "low": 39.91,
+      "vwap": 44.11,
+      "vwap_above_pct": 4.6,
+      "open_gap_pct": 342.4,
+      "max_gain_pct": 353.6,
+      "actual_gain_pct": 271.6,
+      "gain_retention_pct": 76.8,
+      "high_to_close_pct": 18.1,
+      "max_dd_from_high_pct": 19.3,
+      "high_time": "2025-09-19 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2025-09-19 13:32",
+      "low_minute": 1332,
+      "vol_peak_minute": 931,
+      "total_turnover": 87.48,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 47.47,
+          "index": 2
+        },
+        "to30": {
+          "minute": 937,
+          "price": 44.88,
+          "index": 7
+        },
+        "to40": {
+          "minute": 945,
+          "price": 44.2,
+          "index": 15
+        },
+        "to50": {
+          "minute": 1004,
+          "price": 43.04,
+          "index": 34
+        },
+        "to60": {
+          "minute": 1046,
+          "price": 42.85,
+          "index": 76
+        },
+        "to70": {
+          "minute": 1319,
+          "price": 40.01,
+          "index": 139
+        },
+        "to80": {
+          "minute": 1410,
+          "price": 40.83,
+          "index": 190
+        }
+      },
+      "volatility_score": 0.59,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-09-19 09:30",
+          "end_min": "2025-09-19 10:09",
+          "high": 49.44,
+          "close": 42.97,
+          "max_vol": 1986036,
+          "avg_price": 44.121249999999996
+        },
+        "seg2": {
+          "start_min": "2025-09-19 10:10",
+          "end_min": "2025-09-19 10:49",
+          "high": 43.98,
+          "close": 42.88,
+          "max_vol": 163571,
+          "avg_price": 42.847750000000005
+        },
+        "seg3": {
+          "start_min": "2025-09-19 10:50",
+          "end_min": "2025-09-19 11:29",
+          "high": 42.88,
+          "close": 41.76,
+          "max_vol": 38498,
+          "avg_price": 42.41275
+        },
+        "seg4": {
+          "start_min": "2025-09-19 11:30",
+          "end_min": "2025-09-19 13:39",
+          "high": 41.69,
+          "close": 39.97,
+          "max_vol": 125594,
+          "avg_price": 40.3695
+        },
+        "seg5": {
+          "start_min": "2025-09-19 13:40",
+          "end_min": "2025-09-19 14:19",
+          "high": 42.99,
+          "close": 40.95,
+          "max_vol": 96037,
+          "avg_price": 41.174
+        },
+        "seg6": {
+          "start_min": "2025-09-19 14:20",
+          "end_min": "2025-09-19 14:59",
+          "high": 41.41,
+          "close": 40.53,
+          "max_vol": 70089,
+          "avg_price": 40.628
+        }
+      },
+      "final_to_pct": 87.5
+    },
+    {
+      "code": "920015",
+      "name": "锦华新材",
+      "ipo_date": "2025-09-25",
+      "ipo_price": 18.15,
+      "float_shares": 37745313,
+      "bars": 241,
+      "open": 39.0,
+      "close": 42.29,
+      "high": 49.0,
+      "low": 36.03,
+      "vwap": 39.99,
+      "vwap_above_pct": 84.2,
+      "open_gap_pct": 114.9,
+      "max_gain_pct": 170.0,
+      "actual_gain_pct": 133.0,
+      "gain_retention_pct": 78.2,
+      "high_to_close_pct": 13.7,
+      "max_dd_from_high_pct": 16.1,
+      "high_time": "2025-09-25 10:56",
+      "high_minute": 1056,
+      "high_session": "AM",
+      "high_elapsed_min": 86,
+      "low_time": "2025-09-25 09:39",
+      "low_minute": 939,
+      "vol_peak_minute": 931,
+      "total_turnover": 91.23,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 934,
+          "price": 36.95,
+          "index": 4
+        },
+        "to30": {
+          "minute": 944,
+          "price": 36.2,
+          "index": 14
+        },
+        "to40": {
+          "minute": 1003,
+          "price": 37.42,
+          "index": 33
+        },
+        "to50": {
+          "minute": 1015,
+          "price": 42.05,
+          "index": 45
+        },
+        "to60": {
+          "minute": 1055,
+          "price": 48.91,
+          "index": 85
+        },
+        "to70": {
+          "minute": 1426,
+          "price": 42.88,
+          "index": 206
+        }
+      },
+      "volatility_score": 1.11,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-09-25 09:30",
+          "end_min": "2025-09-25 10:09",
+          "high": 42.98,
+          "close": 39.98,
+          "max_vol": 3399126,
+          "avg_price": 37.255250000000004
+        },
+        "seg2": {
+          "start_min": "2025-09-25 10:10",
+          "end_min": "2025-09-25 10:49",
+          "high": 44.6,
+          "close": 44.6,
+          "max_vol": 265274,
+          "avg_price": 43.14375
+        },
+        "seg3": {
+          "start_min": "2025-09-25 10:50",
+          "end_min": "2025-09-25 11:29",
+          "high": 49.0,
+          "close": 45.68,
+          "max_vol": 204539,
+          "avg_price": 46.2385
+        },
+        "seg4": {
+          "start_min": "2025-09-25 11:30",
+          "end_min": "2025-09-25 13:39",
+          "high": 45.96,
+          "close": 43.88,
+          "max_vol": 146685,
+          "avg_price": 44.434
+        },
+        "seg5": {
+          "start_min": "2025-09-25 13:40",
+          "end_min": "2025-09-25 14:19",
+          "high": 44.0,
+          "close": 42.7,
+          "max_vol": 52657,
+          "avg_price": 43.341
+        },
+        "seg6": {
+          "start_min": "2025-09-25 14:20",
+          "end_min": "2025-09-25 14:59",
+          "high": 42.95,
+          "close": 42.22,
+          "max_vol": 108936,
+          "avg_price": 42.255
+        }
+      },
+      "final_to_pct": 75.0
+    },
+    {
+      "code": "920080",
+      "name": "奥美森",
+      "ipo_date": "2025-10-10",
+      "ipo_price": 8.25,
+      "float_shares": 22660401,
+      "bars": 241,
+      "open": 36.11,
+      "close": 37.11,
+      "high": 39.89,
+      "low": 35.3,
+      "vwap": 36.92,
+      "vwap_above_pct": 22.8,
+      "open_gap_pct": 337.7,
+      "max_gain_pct": 383.5,
+      "actual_gain_pct": 349.8,
+      "gain_retention_pct": 91.2,
+      "high_to_close_pct": 7.0,
+      "max_dd_from_high_pct": 11.4,
+      "high_time": "2025-10-10 09:52",
+      "high_minute": 952,
+      "high_session": "AM",
+      "high_elapsed_min": 22,
+      "low_time": "2025-10-10 09:31",
+      "low_minute": 931,
+      "vol_peak_minute": 931,
+      "total_turnover": 79.79,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 37.9,
+          "index": 3
+        },
+        "to30": {
+          "minute": 938,
+          "price": 37.61,
+          "index": 8
+        },
+        "to40": {
+          "minute": 948,
+          "price": 38.79,
+          "index": 18
+        },
+        "to50": {
+          "minute": 1011,
+          "price": 37.24,
+          "index": 41
+        },
+        "to60": {
+          "minute": 1113,
+          "price": 36.07,
+          "index": 103
+        },
+        "to70": {
+          "minute": 1419,
+          "price": 35.66,
+          "index": 199
+        }
+      },
+      "volatility_score": 0.58,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-10-10 09:30",
+          "end_min": "2025-10-10 10:09",
+          "high": 39.89,
+          "close": 37.22,
+          "max_vol": 2624142,
+          "avg_price": 37.7835
+        },
+        "seg2": {
+          "start_min": "2025-10-10 10:10",
+          "end_min": "2025-10-10 10:49",
+          "high": 37.3,
+          "close": 36.63,
+          "max_vol": 85795,
+          "avg_price": 36.808
+        },
+        "seg3": {
+          "start_min": "2025-10-10 10:50",
+          "end_min": "2025-10-10 11:29",
+          "high": 36.7,
+          "close": 35.93,
+          "max_vol": 61533,
+          "avg_price": 36.27475
+        },
+        "seg4": {
+          "start_min": "2025-10-10 11:30",
+          "end_min": "2025-10-10 13:39",
+          "high": 36.68,
+          "close": 35.91,
+          "max_vol": 77444,
+          "avg_price": 35.868
+        },
+        "seg5": {
+          "start_min": "2025-10-10 13:40",
+          "end_min": "2025-10-10 14:19",
+          "high": 36.0,
+          "close": 35.66,
+          "max_vol": 50073,
+          "avg_price": 35.84925
+        },
+        "seg6": {
+          "start_min": "2025-10-10 14:20",
+          "end_min": "2025-10-10 14:59",
+          "high": 37.3,
+          "close": 37.0,
+          "max_vol": 192512,
+          "avg_price": 35.92275
+        }
+      },
+      "final_to_pct": 79.8
+    },
+    {
+      "code": "920158",
+      "name": "长江能科",
+      "ipo_date": "2025-10-16",
+      "ipo_price": 5.33,
+      "float_shares": 38139400,
+      "bars": 241,
+      "open": 21.0,
+      "close": 18.87,
+      "high": 21.96,
+      "low": 18.78,
+      "vwap": 20.32,
+      "vwap_above_pct": 18.7,
+      "open_gap_pct": 294.0,
+      "max_gain_pct": 312.0,
+      "actual_gain_pct": 254.0,
+      "gain_retention_pct": 81.4,
+      "high_to_close_pct": 14.1,
+      "max_dd_from_high_pct": 14.5,
+      "high_time": "2025-10-16 09:33",
+      "high_minute": 933,
+      "high_session": "AM",
+      "high_elapsed_min": 3,
+      "low_time": "2025-10-16 14:57",
+      "low_minute": 1457,
+      "vol_peak_minute": 931,
+      "total_turnover": 67.65,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 936,
+          "price": 20.92,
+          "index": 6
+        },
+        "to30": {
+          "minute": 951,
+          "price": 20.35,
+          "index": 21
+        },
+        "to40": {
+          "minute": 1012,
+          "price": 20.96,
+          "index": 42
+        },
+        "to50": {
+          "minute": 1301,
+          "price": 19.93,
+          "index": 121
+        },
+        "to60": {
+          "minute": 1431,
+          "price": 19.01,
+          "index": 211
+        }
+      },
+      "volatility_score": 0.49,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-10-16 09:30",
+          "end_min": "2025-10-16 10:09",
+          "high": 21.96,
+          "close": 20.59,
+          "max_vol": 2709437,
+          "avg_price": 20.551
+        },
+        "seg2": {
+          "start_min": "2025-10-16 10:10",
+          "end_min": "2025-10-16 10:49",
+          "high": 21.0,
+          "close": 20.02,
+          "max_vol": 246720,
+          "avg_price": 20.36325
+        },
+        "seg3": {
+          "start_min": "2025-10-16 10:50",
+          "end_min": "2025-10-16 11:29",
+          "high": 20.1,
+          "close": 19.94,
+          "max_vol": 131123,
+          "avg_price": 19.974
+        },
+        "seg4": {
+          "start_min": "2025-10-16 11:30",
+          "end_min": "2025-10-16 13:39",
+          "high": 19.94,
+          "close": 19.68,
+          "max_vol": 124916,
+          "avg_price": 19.736
+        },
+        "seg5": {
+          "start_min": "2025-10-16 13:40",
+          "end_min": "2025-10-16 14:19",
+          "high": 19.73,
+          "close": 19.54,
+          "max_vol": 133329,
+          "avg_price": 19.628
+        },
+        "seg6": {
+          "start_min": "2025-10-16 14:20",
+          "end_min": "2025-10-16 14:59",
+          "high": 19.54,
+          "close": 18.83,
+          "max_vol": 205202,
+          "avg_price": 18.9895
+        }
+      },
+      "final_to_pct": 67.7
+    },
+    {
+      "code": "920020",
+      "name": "泰凯英",
+      "ipo_date": "2025-10-28",
+      "ipo_price": 7.5,
+      "float_shares": 39825000,
+      "bars": 241,
+      "open": 19.05,
+      "close": 21.64,
+      "high": 23.88,
+      "low": 19.0,
+      "vwap": 21.02,
+      "vwap_above_pct": 84.6,
+      "open_gap_pct": 154.0,
+      "max_gain_pct": 218.4,
+      "actual_gain_pct": 188.5,
+      "gain_retention_pct": 86.3,
+      "high_to_close_pct": 9.4,
+      "max_dd_from_high_pct": 10.8,
+      "high_time": "2025-10-28 10:43",
+      "high_minute": 1043,
+      "high_session": "AM",
+      "high_elapsed_min": 73,
+      "low_time": "2025-10-28 09:31",
+      "low_minute": 931,
+      "vol_peak_minute": 931,
+      "total_turnover": 92.6,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 21.0,
+          "index": 2
+        },
+        "to30": {
+          "minute": 934,
+          "price": 20.88,
+          "index": 4
+        },
+        "to40": {
+          "minute": 939,
+          "price": 21.4,
+          "index": 9
+        },
+        "to50": {
+          "minute": 950,
+          "price": 20.17,
+          "index": 20
+        },
+        "to60": {
+          "minute": 1009,
+          "price": 21.11,
+          "index": 39
+        },
+        "to70": {
+          "minute": 1035,
+          "price": 21.51,
+          "index": 65
+        },
+        "to80": {
+          "minute": 1110,
+          "price": 22.53,
+          "index": 100
+        },
+        "to90": {
+          "minute": 1447,
+          "price": 21.62,
+          "index": 227
+        }
+      },
+      "volatility_score": 0.88,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-10-28 09:30",
+          "end_min": "2025-10-28 10:09",
+          "high": 22.0,
+          "close": 21.11,
+          "max_vol": 4853859,
+          "avg_price": 20.6565
+        },
+        "seg2": {
+          "start_min": "2025-10-28 10:10",
+          "end_min": "2025-10-28 10:49",
+          "high": 23.88,
+          "close": 22.78,
+          "max_vol": 395474,
+          "avg_price": 21.66575
+        },
+        "seg3": {
+          "start_min": "2025-10-28 10:50",
+          "end_min": "2025-10-28 11:29",
+          "high": 23.16,
+          "close": 22.91,
+          "max_vol": 82035,
+          "avg_price": 22.557499999999997
+        },
+        "seg4": {
+          "start_min": "2025-10-28 11:30",
+          "end_min": "2025-10-28 13:39",
+          "high": 22.97,
+          "close": 21.84,
+          "max_vol": 98262,
+          "avg_price": 22.139249999999997
+        },
+        "seg5": {
+          "start_min": "2025-10-28 13:40",
+          "end_min": "2025-10-28 14:19",
+          "high": 22.36,
+          "close": 22.36,
+          "max_vol": 74893,
+          "avg_price": 21.813
+        },
+        "seg6": {
+          "start_min": "2025-10-28 14:20",
+          "end_min": "2025-10-28 14:59",
+          "high": 22.38,
+          "close": 21.61,
+          "max_vol": 120646,
+          "avg_price": 21.709
+        }
+      },
+      "final_to_pct": 92.6
+    },
+    {
+      "code": "920009",
+      "name": "丹娜生物",
+      "ipo_date": "2025-11-03",
+      "ipo_price": 17.1,
+      "float_shares": 7200000,
+      "bars": 241,
+      "open": 93.7,
+      "close": 102.1,
+      "high": 111.7,
+      "low": 92.5,
+      "vwap": 98.0,
+      "vwap_above_pct": 90.0,
+      "open_gap_pct": 448.0,
+      "max_gain_pct": 553.2,
+      "actual_gain_pct": 497.1,
+      "gain_retention_pct": 89.9,
+      "high_to_close_pct": 8.6,
+      "max_dd_from_high_pct": 10.9,
+      "high_time": "2025-11-03 10:10",
+      "high_minute": 1010,
+      "high_session": "AM",
+      "high_elapsed_min": 40,
+      "low_time": "2025-11-03 09:33",
+      "low_minute": 933,
+      "vol_peak_minute": 931,
+      "total_turnover": 94.25,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 931,
+          "price": 96.3,
+          "index": 1
+        },
+        "to30": {
+          "minute": 934,
+          "price": 95.56,
+          "index": 4
+        },
+        "to40": {
+          "minute": 939,
+          "price": 94.28,
+          "index": 9
+        },
+        "to50": {
+          "minute": 946,
+          "price": 97.4,
+          "index": 16
+        },
+        "to60": {
+          "minute": 958,
+          "price": 98.1,
+          "index": 28
+        },
+        "to70": {
+          "minute": 1011,
+          "price": 102.2,
+          "index": 41
+        },
+        "to80": {
+          "minute": 1121,
+          "price": 102.51,
+          "index": 111
+        },
+        "to90": {
+          "minute": 1445,
+          "price": 103.46,
+          "index": 225
+        }
+      },
+      "volatility_score": 0.84,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-11-03 09:30",
+          "end_min": "2025-11-03 10:09",
+          "high": 111.0,
+          "close": 111.0,
+          "max_vol": 1019537,
+          "avg_price": 98.26025
+        },
+        "seg2": {
+          "start_min": "2025-11-03 10:10",
+          "end_min": "2025-11-03 10:49",
+          "high": 111.7,
+          "close": 104.32,
+          "max_vol": 63941,
+          "avg_price": 103.52550000000001
+        },
+        "seg3": {
+          "start_min": "2025-11-03 10:50",
+          "end_min": "2025-11-03 11:29",
+          "high": 104.44,
+          "close": 104.3,
+          "max_vol": 23387,
+          "avg_price": 103.06224999999999
+        },
+        "seg4": {
+          "start_min": "2025-11-03 11:30",
+          "end_min": "2025-11-03 13:39",
+          "high": 104.4,
+          "close": 100.1,
+          "max_vol": 27892,
+          "avg_price": 100.923
+        },
+        "seg5": {
+          "start_min": "2025-11-03 13:40",
+          "end_min": "2025-11-03 14:19",
+          "high": 101.0,
+          "close": 100.01,
+          "max_vol": 14059,
+          "avg_price": 100.09725
+        },
+        "seg6": {
+          "start_min": "2025-11-03 14:20",
+          "end_min": "2025-11-03 14:59",
+          "high": 103.8,
+          "close": 102.1,
+          "max_vol": 36351,
+          "avg_price": 100.94225
+        }
+      },
+      "final_to_pct": 94.2
+    },
+    {
+      "code": "920003",
+      "name": "中诚咨询",
+      "ipo_date": "2025-11-07",
+      "ipo_price": 14.27,
+      "float_shares": 13314586,
+      "bars": 241,
+      "open": 42.0,
+      "close": 38.54,
+      "high": 42.87,
+      "low": 38.43,
+      "vwap": 40.2,
+      "vwap_above_pct": 3.3,
+      "open_gap_pct": 194.3,
+      "max_gain_pct": 200.4,
+      "actual_gain_pct": 170.1,
+      "gain_retention_pct": 84.9,
+      "high_to_close_pct": 10.1,
+      "max_dd_from_high_pct": 10.4,
+      "high_time": "2025-11-07 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2025-11-07 14:45",
+      "low_minute": 1445,
+      "vol_peak_minute": 931,
+      "total_turnover": 86.25,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 934,
+          "price": 41.86,
+          "index": 4
+        },
+        "to30": {
+          "minute": 939,
+          "price": 40.12,
+          "index": 9
+        },
+        "to40": {
+          "minute": 950,
+          "price": 39.55,
+          "index": 20
+        },
+        "to50": {
+          "minute": 1012,
+          "price": 39.98,
+          "index": 42
+        },
+        "to60": {
+          "minute": 1054,
+          "price": 39.48,
+          "index": 84
+        },
+        "to70": {
+          "minute": 1341,
+          "price": 39.02,
+          "index": 161
+        },
+        "to80": {
+          "minute": 1442,
+          "price": 39.0,
+          "index": 222
+        }
+      },
+      "volatility_score": 0.27,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-11-07 09:30",
+          "end_min": "2025-11-07 10:09",
+          "high": 42.87,
+          "close": 39.86,
+          "max_vol": 1342563,
+          "avg_price": 40.1535
+        },
+        "seg2": {
+          "start_min": "2025-11-07 10:10",
+          "end_min": "2025-11-07 10:49",
+          "high": 40.05,
+          "close": 39.83,
+          "max_vol": 98927,
+          "avg_price": 39.85525
+        },
+        "seg3": {
+          "start_min": "2025-11-07 10:50",
+          "end_min": "2025-11-07 11:29",
+          "high": 39.83,
+          "close": 39.16,
+          "max_vol": 40495,
+          "avg_price": 39.3595
+        },
+        "seg4": {
+          "start_min": "2025-11-07 11:30",
+          "end_min": "2025-11-07 13:39",
+          "high": 39.29,
+          "close": 39.16,
+          "max_vol": 50718,
+          "avg_price": 39.143
+        },
+        "seg5": {
+          "start_min": "2025-11-07 13:40",
+          "end_min": "2025-11-07 14:19",
+          "high": 39.68,
+          "close": 39.06,
+          "max_vol": 61809,
+          "avg_price": 39.08525
+        },
+        "seg6": {
+          "start_min": "2025-11-07 14:20",
+          "end_min": "2025-11-07 14:59",
+          "high": 39.06,
+          "close": 38.54,
+          "max_vol": 164214,
+          "avg_price": 38.83725
+        }
+      },
+      "final_to_pct": 86.2
+    },
+    {
+      "code": "920160",
+      "name": "北矿检测",
+      "ipo_date": "2025-11-18",
+      "ipo_price": 6.7,
+      "float_shares": 25488000,
+      "bars": 241,
+      "open": 30.88,
+      "close": 26.5,
+      "high": 31.8,
+      "low": 26.2,
+      "vwap": 29.29,
+      "vwap_above_pct": 10.0,
+      "open_gap_pct": 360.9,
+      "max_gain_pct": 374.6,
+      "actual_gain_pct": 295.5,
+      "gain_retention_pct": 78.9,
+      "high_to_close_pct": 16.7,
+      "max_dd_from_high_pct": 17.6,
+      "high_time": "2025-11-18 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2025-11-18 14:49",
+      "low_minute": 1449,
+      "vol_peak_minute": 931,
+      "total_turnover": 88.46,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 30.77,
+          "index": 2
+        },
+        "to30": {
+          "minute": 935,
+          "price": 30.58,
+          "index": 5
+        },
+        "to40": {
+          "minute": 943,
+          "price": 30.4,
+          "index": 13
+        },
+        "to50": {
+          "minute": 959,
+          "price": 28.99,
+          "index": 29
+        },
+        "to60": {
+          "minute": 1032,
+          "price": 28.31,
+          "index": 62
+        },
+        "to70": {
+          "minute": 1309,
+          "price": 27.74,
+          "index": 129
+        },
+        "to80": {
+          "minute": 1422,
+          "price": 26.77,
+          "index": 202
+        }
+      },
+      "volatility_score": 0.54,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-11-18 09:30",
+          "end_min": "2025-11-18 10:09",
+          "high": 31.8,
+          "close": 28.2,
+          "max_vol": 2745881,
+          "avg_price": 29.701749999999997
+        },
+        "seg2": {
+          "start_min": "2025-11-18 10:10",
+          "end_min": "2025-11-18 10:49",
+          "high": 29.04,
+          "close": 28.28,
+          "max_vol": 140747,
+          "avg_price": 28.49425
+        },
+        "seg3": {
+          "start_min": "2025-11-18 10:50",
+          "end_min": "2025-11-18 11:29",
+          "high": 28.27,
+          "close": 27.83,
+          "max_vol": 70687,
+          "avg_price": 27.819
+        },
+        "seg4": {
+          "start_min": "2025-11-18 11:30",
+          "end_min": "2025-11-18 13:39",
+          "high": 28.0,
+          "close": 27.74,
+          "max_vol": 110196,
+          "avg_price": 27.76125
+        },
+        "seg5": {
+          "start_min": "2025-11-18 13:40",
+          "end_min": "2025-11-18 14:19",
+          "high": 27.76,
+          "close": 27.0,
+          "max_vol": 126881,
+          "avg_price": 27.054250000000003
+        },
+        "seg6": {
+          "start_min": "2025-11-18 14:20",
+          "end_min": "2025-11-18 14:59",
+          "high": 27.05,
+          "close": 26.45,
+          "max_vol": 134288,
+          "avg_price": 26.53775
+        }
+      },
+      "final_to_pct": 88.5
+    },
+    {
+      "code": "920091",
+      "name": "大鹏工业",
+      "ipo_date": "2025-11-21",
+      "ipo_price": 9.0,
+      "float_shares": 13590900,
+      "bars": 241,
+      "open": 35.09,
+      "close": 118.0,
+      "high": 159.0,
+      "low": 35.01,
+      "vwap": 43.98,
+      "vwap_above_pct": 70.5,
+      "open_gap_pct": 289.9,
+      "max_gain_pct": 1666.7,
+      "actual_gain_pct": 1211.1,
+      "gain_retention_pct": 72.7,
+      "high_to_close_pct": 25.8,
+      "max_dd_from_high_pct": 32.1,
+      "high_time": "2025-11-21 14:03",
+      "high_minute": 1403,
+      "high_session": "PM",
+      "high_elapsed_min": 183,
+      "low_time": "2025-11-21 09:31",
+      "low_minute": 931,
+      "vol_peak_minute": 931,
+      "total_turnover": 98.28,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 36.34,
+          "index": 2
+        },
+        "to30": {
+          "minute": 936,
+          "price": 39.17,
+          "index": 6
+        },
+        "to40": {
+          "minute": 940,
+          "price": 36.35,
+          "index": 10
+        },
+        "to50": {
+          "minute": 947,
+          "price": 38.24,
+          "index": 17
+        },
+        "to60": {
+          "minute": 1007,
+          "price": 36.99,
+          "index": 37
+        },
+        "to70": {
+          "minute": 1023,
+          "price": 41.09,
+          "index": 53
+        },
+        "to80": {
+          "minute": 1041,
+          "price": 45.0,
+          "index": 71
+        },
+        "to90": {
+          "minute": 1130,
+          "price": 68.81,
+          "index": 120
+        }
+      },
+      "volatility_score": 4.54,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-11-21 09:30",
+          "end_min": "2025-11-21 10:09",
+          "high": 39.53,
+          "close": 37.15,
+          "max_vol": 1651596,
+          "avg_price": 37.363749999999996
+        },
+        "seg2": {
+          "start_min": "2025-11-21 10:10",
+          "end_min": "2025-11-21 10:49",
+          "high": 45.6,
+          "close": 45.6,
+          "max_vol": 229056,
+          "avg_price": 41.373000000000005
+        },
+        "seg3": {
+          "start_min": "2025-11-21 10:50",
+          "end_min": "2025-11-21 11:29",
+          "high": 83.0,
+          "close": 74.88,
+          "max_vol": 78557,
+          "avg_price": 53.87049999999999
+        },
+        "seg4": {
+          "start_min": "2025-11-21 11:30",
+          "end_min": "2025-11-21 13:39",
+          "high": 75.0,
+          "close": 68.3,
+          "max_vol": 44735,
+          "avg_price": 64.02324999999999
+        },
+        "seg5": {
+          "start_min": "2025-11-21 13:40",
+          "end_min": "2025-11-21 14:19",
+          "high": 159.0,
+          "close": 140.13,
+          "max_vol": 29875,
+          "avg_price": 107.234
+        },
+        "seg6": {
+          "start_min": "2025-11-21 14:20",
+          "end_min": "2025-11-21 14:59",
+          "high": 144.5,
+          "close": 119.0,
+          "max_vol": 14218,
+          "avg_price": 132.48624999999998
+        }
+      },
+      "final_to_pct": 98.3
+    },
+    {
+      "code": "920124",
+      "name": "南特科技",
+      "ipo_date": "2025-11-27",
+      "ipo_price": 8.66,
+      "float_shares": 76531409,
+      "bars": 241,
+      "open": 25.51,
+      "close": 24.51,
+      "high": 29.98,
+      "low": 24.31,
+      "vwap": 26.57,
+      "vwap_above_pct": 24.5,
+      "open_gap_pct": 194.6,
+      "max_gain_pct": 246.2,
+      "actual_gain_pct": 183.0,
+      "gain_retention_pct": 74.3,
+      "high_to_close_pct": 18.2,
+      "max_dd_from_high_pct": 18.9,
+      "high_time": "2025-11-27 09:37",
+      "high_minute": 937,
+      "high_session": "AM",
+      "high_elapsed_min": 7,
+      "low_time": "2025-11-27 14:51",
+      "low_minute": 1451,
+      "vol_peak_minute": 931,
+      "total_turnover": 68.63,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 937,
+          "price": 29.88,
+          "index": 7
+        },
+        "to30": {
+          "minute": 946,
+          "price": 28.5,
+          "index": 16
+        },
+        "to40": {
+          "minute": 1021,
+          "price": 26.65,
+          "index": 51
+        },
+        "to50": {
+          "minute": 1113,
+          "price": 26.0,
+          "index": 103
+        },
+        "to60": {
+          "minute": 1357,
+          "price": 25.01,
+          "index": 177
+        }
+      },
+      "volatility_score": 0.9,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-11-27 09:30",
+          "end_min": "2025-11-27 10:09",
+          "high": 29.98,
+          "close": 26.93,
+          "max_vol": 4523558,
+          "avg_price": 27.808
+        },
+        "seg2": {
+          "start_min": "2025-11-27 10:10",
+          "end_min": "2025-11-27 10:49",
+          "high": 27.27,
+          "close": 26.34,
+          "max_vol": 555241,
+          "avg_price": 26.744
+        },
+        "seg3": {
+          "start_min": "2025-11-27 10:50",
+          "end_min": "2025-11-27 11:29",
+          "high": 26.43,
+          "close": 25.93,
+          "max_vol": 543078,
+          "avg_price": 26.151
+        },
+        "seg4": {
+          "start_min": "2025-11-27 11:30",
+          "end_min": "2025-11-27 13:39",
+          "high": 26.05,
+          "close": 25.3,
+          "max_vol": 341212,
+          "avg_price": 25.774
+        },
+        "seg5": {
+          "start_min": "2025-11-27 13:40",
+          "end_min": "2025-11-27 14:19",
+          "high": 25.38,
+          "close": 24.98,
+          "max_vol": 360605,
+          "avg_price": 25.1235
+        },
+        "seg6": {
+          "start_min": "2025-11-27 14:20",
+          "end_min": "2025-11-27 14:59",
+          "high": 24.99,
+          "close": 24.5,
+          "max_vol": 445103,
+          "avg_price": 24.603
+        }
+      },
+      "final_to_pct": 68.6
+    },
+    {
+      "code": "920035",
+      "name": "精创电气",
+      "ipo_date": "2025-12-02",
+      "ipo_price": 12.1,
+      "float_shares": 13014000,
+      "bars": 241,
+      "open": 51.0,
+      "close": 52.12,
+      "high": 66.23,
+      "low": 51.0,
+      "vwap": 56.22,
+      "vwap_above_pct": 56.4,
+      "open_gap_pct": 321.5,
+      "max_gain_pct": 447.4,
+      "actual_gain_pct": 330.7,
+      "gain_retention_pct": 73.9,
+      "high_to_close_pct": 21.3,
+      "max_dd_from_high_pct": 22.2,
+      "high_time": "2025-12-02 10:04",
+      "high_minute": 1004,
+      "high_session": "AM",
+      "high_elapsed_min": 34,
+      "low_time": "2025-12-02 09:30",
+      "low_minute": 930,
+      "vol_peak_minute": 931,
+      "total_turnover": 93.84,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 56.2,
+          "index": 3
+        },
+        "to30": {
+          "minute": 937,
+          "price": 55.0,
+          "index": 7
+        },
+        "to40": {
+          "minute": 944,
+          "price": 54.68,
+          "index": 14
+        },
+        "to50": {
+          "minute": 957,
+          "price": 57.03,
+          "index": 27
+        },
+        "to60": {
+          "minute": 1008,
+          "price": 63.3,
+          "index": 38
+        },
+        "to70": {
+          "minute": 1058,
+          "price": 59.13,
+          "index": 88
+        },
+        "to80": {
+          "minute": 1348,
+          "price": 55.01,
+          "index": 168
+        },
+        "to90": {
+          "minute": 1451,
+          "price": 53.1,
+          "index": 231
+        }
+      },
+      "volatility_score": 1.22,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-12-02 09:30",
+          "end_min": "2025-12-02 10:09",
+          "high": 66.23,
+          "close": 65.3,
+          "max_vol": 1199852,
+          "avg_price": 57.345000000000006
+        },
+        "seg2": {
+          "start_min": "2025-12-02 10:10",
+          "end_min": "2025-12-02 10:49",
+          "high": 66.11,
+          "close": 59.43,
+          "max_vol": 82787,
+          "avg_price": 61.24375
+        },
+        "seg3": {
+          "start_min": "2025-12-02 10:50",
+          "end_min": "2025-12-02 11:29",
+          "high": 60.4,
+          "close": 58.26,
+          "max_vol": 44929,
+          "avg_price": 58.7155
+        },
+        "seg4": {
+          "start_min": "2025-12-02 11:30",
+          "end_min": "2025-12-02 13:39",
+          "high": 59.13,
+          "close": 56.68,
+          "max_vol": 32753,
+          "avg_price": 57.28150000000001
+        },
+        "seg5": {
+          "start_min": "2025-12-02 13:40",
+          "end_min": "2025-12-02 14:19",
+          "high": 56.67,
+          "close": 53.12,
+          "max_vol": 45383,
+          "avg_price": 54.02475
+        },
+        "seg6": {
+          "start_min": "2025-12-02 14:20",
+          "end_min": "2025-12-02 14:59",
+          "high": 56.0,
+          "close": 52.26,
+          "max_vol": 92077,
+          "avg_price": 52.737
+        }
+      },
+      "final_to_pct": 93.8
+    },
+    {
+      "code": "920121",
+      "name": "江天科技",
+      "ipo_date": "2025-12-25",
+      "ipo_price": 21.21,
+      "float_shares": 11892274,
+      "bars": 241,
+      "open": 61.0,
+      "close": 59.51,
+      "high": 72.88,
+      "low": 59.31,
+      "vwap": 65.73,
+      "vwap_above_pct": 59.3,
+      "open_gap_pct": 187.6,
+      "max_gain_pct": 243.6,
+      "actual_gain_pct": 180.6,
+      "gain_retention_pct": 74.1,
+      "high_to_close_pct": 18.3,
+      "max_dd_from_high_pct": 18.6,
+      "high_time": "2025-12-25 10:08",
+      "high_minute": 1008,
+      "high_session": "AM",
+      "high_elapsed_min": 38,
+      "low_time": "2025-12-25 14:53",
+      "low_minute": 1453,
+      "vol_peak_minute": 931,
+      "total_turnover": 93.85,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 935,
+          "price": 64.99,
+          "index": 5
+        },
+        "to30": {
+          "minute": 940,
+          "price": 64.52,
+          "index": 10
+        },
+        "to40": {
+          "minute": 949,
+          "price": 63.21,
+          "index": 19
+        },
+        "to50": {
+          "minute": 1004,
+          "price": 65.75,
+          "index": 34
+        },
+        "to60": {
+          "minute": 1013,
+          "price": 68.28,
+          "index": 43
+        },
+        "to70": {
+          "minute": 1051,
+          "price": 70.98,
+          "index": 81
+        },
+        "to80": {
+          "minute": 1336,
+          "price": 66.96,
+          "index": 156
+        },
+        "to90": {
+          "minute": 1449,
+          "price": 61.02,
+          "index": 229
+        }
+      },
+      "volatility_score": 1.0,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-12-25 09:30",
+          "end_min": "2025-12-25 10:09",
+          "high": 72.88,
+          "close": 67.5,
+          "max_vol": 826475,
+          "avg_price": 64.88825
+        },
+        "seg2": {
+          "start_min": "2025-12-25 10:10",
+          "end_min": "2025-12-25 10:49",
+          "high": 71.5,
+          "close": 70.02,
+          "max_vol": 96090,
+          "avg_price": 69.62575000000001
+        },
+        "seg3": {
+          "start_min": "2025-12-25 10:50",
+          "end_min": "2025-12-25 11:29",
+          "high": 72.0,
+          "close": 70.02,
+          "max_vol": 44466,
+          "avg_price": 70.308
+        },
+        "seg4": {
+          "start_min": "2025-12-25 11:30",
+          "end_min": "2025-12-25 13:39",
+          "high": 70.31,
+          "close": 66.71,
+          "max_vol": 63494,
+          "avg_price": 68.13575
+        },
+        "seg5": {
+          "start_min": "2025-12-25 13:40",
+          "end_min": "2025-12-25 14:19",
+          "high": 67.38,
+          "close": 63.61,
+          "max_vol": 33387,
+          "avg_price": 64.9425
+        },
+        "seg6": {
+          "start_min": "2025-12-25 14:20",
+          "end_min": "2025-12-25 14:59",
+          "high": 63.6,
+          "close": 59.63,
+          "max_vol": 56783,
+          "avg_price": 61.484500000000004
+        }
+      },
+      "final_to_pct": 93.8
+    },
+    {
+      "code": "920045",
+      "name": "蘅东光",
+      "ipo_date": "2025-12-31",
+      "ipo_price": 31.59,
+      "float_shares": 20127535,
+      "bars": 241,
+      "open": 350.0,
+      "close": 309.0,
+      "high": 388.0,
+      "low": 307.0,
+      "vwap": 336.92,
+      "vwap_above_pct": 13.7,
+      "open_gap_pct": 1007.9,
+      "max_gain_pct": 1128.2,
+      "actual_gain_pct": 878.2,
+      "gain_retention_pct": 77.8,
+      "high_to_close_pct": 20.4,
+      "max_dd_from_high_pct": 20.9,
+      "high_time": "2025-12-31 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2025-12-31 14:57",
+      "low_minute": 1457,
+      "vol_peak_minute": 930,
+      "total_turnover": 53.79,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 934,
+          "price": 330.0,
+          "index": 4
+        },
+        "to30": {
+          "minute": 956,
+          "price": 339.11,
+          "index": 26
+        },
+        "to40": {
+          "minute": 1125,
+          "price": 321.0,
+          "index": 115
+        },
+        "to50": {
+          "minute": 1446,
+          "price": 308.58,
+          "index": 226
+        }
+      },
+      "volatility_score": 1.16,
+      "segments": {
+        "seg1": {
+          "start_min": "2025-12-31 09:30",
+          "end_min": "2025-12-31 10:09",
+          "high": 388.0,
+          "close": 336.0,
+          "max_vol": 1780580,
+          "avg_price": 337.807
+        },
+        "seg2": {
+          "start_min": "2025-12-31 10:10",
+          "end_min": "2025-12-31 10:49",
+          "high": 348.68,
+          "close": 324.01,
+          "max_vol": 59525,
+          "avg_price": 334.264
+        },
+        "seg3": {
+          "start_min": "2025-12-31 10:50",
+          "end_min": "2025-12-31 11:29",
+          "high": 327.0,
+          "close": 322.0,
+          "max_vol": 57807,
+          "avg_price": 317.842
+        },
+        "seg4": {
+          "start_min": "2025-12-31 11:30",
+          "end_min": "2025-12-31 13:39",
+          "high": 325.0,
+          "close": 315.66,
+          "max_vol": 49437,
+          "avg_price": 318.45225
+        },
+        "seg5": {
+          "start_min": "2025-12-31 13:40",
+          "end_min": "2025-12-31 14:19",
+          "high": 324.0,
+          "close": 320.5,
+          "max_vol": 69719,
+          "avg_price": 317.79075
+        },
+        "seg6": {
+          "start_min": "2025-12-31 14:20",
+          "end_min": "2025-12-31 14:59",
+          "high": 321.0,
+          "close": 307.97,
+          "max_vol": 82337,
+          "avg_price": 312.26025
+        }
+      },
+      "final_to_pct": 53.8
+    },
+    {
+      "code": "920086",
+      "name": "科马材料",
+      "ipo_date": "2026-01-16",
+      "ipo_price": 11.66,
+      "float_shares": 18828000,
+      "bars": 241,
+      "open": 50.0,
+      "close": 54.95,
+      "high": 79.93,
+      "low": 49.0,
+      "vwap": 54.56,
+      "vwap_above_pct": 84.6,
+      "open_gap_pct": 328.8,
+      "max_gain_pct": 585.5,
+      "actual_gain_pct": 371.3,
+      "gain_retention_pct": 63.4,
+      "high_to_close_pct": 31.3,
+      "max_dd_from_high_pct": 33.0,
+      "high_time": "2026-01-16 11:01",
+      "high_minute": 1101,
+      "high_session": "AM",
+      "high_elapsed_min": 91,
+      "low_time": "2026-01-16 09:32",
+      "low_minute": 932,
+      "vol_peak_minute": 931,
+      "total_turnover": 96.14,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 50.89,
+          "index": 3
+        },
+        "to30": {
+          "minute": 936,
+          "price": 49.98,
+          "index": 6
+        },
+        "to40": {
+          "minute": 942,
+          "price": 51.88,
+          "index": 12
+        },
+        "to50": {
+          "minute": 952,
+          "price": 51.65,
+          "index": 22
+        },
+        "to60": {
+          "minute": 1001,
+          "price": 56.32,
+          "index": 31
+        },
+        "to70": {
+          "minute": 1015,
+          "price": 58.37,
+          "index": 45
+        },
+        "to80": {
+          "minute": 1100,
+          "price": 79.51,
+          "index": 90
+        },
+        "to90": {
+          "minute": 1417,
+          "price": 58.96,
+          "index": 197
+        }
+      },
+      "volatility_score": 1.95,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-01-16 09:30",
+          "end_min": "2026-01-16 10:09",
+          "high": 58.88,
+          "close": 58.83,
+          "max_vol": 1855589,
+          "avg_price": 52.444500000000005
+        },
+        "seg2": {
+          "start_min": "2026-01-16 10:10",
+          "end_min": "2026-01-16 10:49",
+          "high": 65.0,
+          "close": 65.0,
+          "max_vol": 221947,
+          "avg_price": 58.973749999999995
+        },
+        "seg3": {
+          "start_min": "2026-01-16 10:50",
+          "end_min": "2026-01-16 11:29",
+          "high": 79.93,
+          "close": 66.66,
+          "max_vol": 109693,
+          "avg_price": 68.24600000000001
+        },
+        "seg4": {
+          "start_min": "2026-01-16 11:30",
+          "end_min": "2026-01-16 13:39",
+          "high": 74.87,
+          "close": 66.66,
+          "max_vol": 51875,
+          "avg_price": 67.69275
+        },
+        "seg5": {
+          "start_min": "2026-01-16 13:40",
+          "end_min": "2026-01-16 14:19",
+          "high": 66.87,
+          "close": 58.17,
+          "max_vol": 61275,
+          "avg_price": 60.01925
+        },
+        "seg6": {
+          "start_min": "2026-01-16 14:20",
+          "end_min": "2026-01-16 14:59",
+          "high": 58.2,
+          "close": 55.0,
+          "max_vol": 77491,
+          "avg_price": 56.1185
+        }
+      },
+      "final_to_pct": 96.1
+    },
+    {
+      "code": "920050",
+      "name": "爱舍伦",
+      "ipo_date": "2026-01-21",
+      "ipo_price": 15.98,
+      "float_shares": 18102651,
+      "bars": 241,
+      "open": 48.88,
+      "close": 44.04,
+      "high": 55.0,
+      "low": 44.01,
+      "vwap": 48.64,
+      "vwap_above_pct": 26.6,
+      "open_gap_pct": 205.9,
+      "max_gain_pct": 244.2,
+      "actual_gain_pct": 175.6,
+      "gain_retention_pct": 71.9,
+      "high_to_close_pct": 19.9,
+      "max_dd_from_high_pct": 20.0,
+      "high_time": "2026/1/21 9:34",
+      "high_minute": 934,
+      "high_session": "AM",
+      "high_elapsed_min": 4,
+      "low_time": "2026/1/21 13:38",
+      "low_minute": 1338,
+      "vol_peak_minute": 931,
+      "total_turnover": 78.23,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 938,
+          "price": 53.0,
+          "index": 8
+        },
+        "to30": {
+          "minute": 956,
+          "price": 51.19,
+          "index": 26
+        },
+        "to40": {
+          "minute": 1025,
+          "price": 49.01,
+          "index": 55
+        },
+        "to50": {
+          "minute": 1104,
+          "price": 47.44,
+          "index": 94
+        },
+        "to60": {
+          "minute": 1328,
+          "price": 45.35,
+          "index": 148
+        },
+        "to70": {
+          "minute": 1425,
+          "price": 44.08,
+          "index": 205
+        }
+      },
+      "volatility_score": 0.84,
+      "segments": {
+        "seg1": {
+          "start_min": "2026/1/21 9:30",
+          "end_min": "2026/1/21 10:09",
+          "high": 55.0,
+          "close": 50.65,
+          "max_vol": 1059754,
+          "avg_price": 51.16525
+        },
+        "seg2": {
+          "start_min": "2026/1/21 10:10",
+          "end_min": "2026/1/21 10:49",
+          "high": 50.71,
+          "close": 48.01,
+          "max_vol": 111356,
+          "avg_price": 48.9245
+        },
+        "seg3": {
+          "start_min": "2026/1/21 10:50",
+          "end_min": "2026/1/21 11:29",
+          "high": 48.07,
+          "close": 47.0,
+          "max_vol": 63205,
+          "avg_price": 47.3595
+        },
+        "seg4": {
+          "start_min": "2026/1/21 11:30",
+          "end_min": "2026/1/21 13:39",
+          "high": 47.0,
+          "close": 44.12,
+          "max_vol": 77176,
+          "avg_price": 45.41975
+        },
+        "seg5": {
+          "start_min": "2026/1/21 13:40",
+          "end_min": "2026/1/21 14:19",
+          "high": 46.88,
+          "close": 44.45,
+          "max_vol": 139916,
+          "avg_price": 44.87225
+        },
+        "seg6": {
+          "start_min": "2026/1/21 14:20",
+          "end_min": "2026/1/21 14:59",
+          "high": 44.55,
+          "close": 44.06,
+          "max_vol": 101712,
+          "avg_price": 44.207
+        }
+      },
+      "final_to_pct": 78.2
+    },
+    {
+      "code": "920076",
+      "name": "国亮新材",
+      "ipo_date": "2026-01-22",
+      "ipo_price": 10.76,
+      "float_shares": 19761417,
+      "bars": 241,
+      "open": 33.11,
+      "close": 28.06,
+      "high": 34.34,
+      "low": 27.68,
+      "vwap": 29.91,
+      "vwap_above_pct": 10.8,
+      "open_gap_pct": 207.7,
+      "max_gain_pct": 219.1,
+      "actual_gain_pct": 160.8,
+      "gain_retention_pct": 73.4,
+      "high_to_close_pct": 18.3,
+      "max_dd_from_high_pct": 19.4,
+      "high_time": "2026-01-22 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2026-01-22 14:50",
+      "low_minute": 1450,
+      "vol_peak_minute": 931,
+      "total_turnover": 81.73,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 938,
+          "price": 30.8,
+          "index": 8
+        },
+        "to30": {
+          "minute": 950,
+          "price": 29.99,
+          "index": 20
+        },
+        "to40": {
+          "minute": 1003,
+          "price": 29.1,
+          "index": 33
+        },
+        "to50": {
+          "minute": 1033,
+          "price": 29.8,
+          "index": 63
+        },
+        "to60": {
+          "minute": 1126,
+          "price": 29.01,
+          "index": 116
+        },
+        "to70": {
+          "minute": 1404,
+          "price": 28.01,
+          "index": 184
+        },
+        "to80": {
+          "minute": 1456,
+          "price": 27.89,
+          "index": 236
+        }
+      },
+      "volatility_score": 0.75,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-01-22 09:30",
+          "end_min": "2026-01-22 10:09",
+          "high": 34.34,
+          "close": 29.57,
+          "max_vol": 1009925,
+          "avg_price": 30.157249999999998
+        },
+        "seg2": {
+          "start_min": "2026-01-22 10:10",
+          "end_min": "2026-01-22 10:49",
+          "high": 30.0,
+          "close": 29.06,
+          "max_vol": 126215,
+          "avg_price": 29.5165
+        },
+        "seg3": {
+          "start_min": "2026-01-22 10:50",
+          "end_min": "2026-01-22 11:29",
+          "high": 29.29,
+          "close": 29.05,
+          "max_vol": 87983,
+          "avg_price": 28.99325
+        },
+        "seg4": {
+          "start_min": "2026-01-22 11:30",
+          "end_min": "2026-01-22 13:39",
+          "high": 29.6,
+          "close": 28.6,
+          "max_vol": 115532,
+          "avg_price": 28.77725
+        },
+        "seg5": {
+          "start_min": "2026-01-22 13:40",
+          "end_min": "2026-01-22 14:19",
+          "high": 28.99,
+          "close": 28.5,
+          "max_vol": 70732,
+          "avg_price": 28.33375
+        },
+        "seg6": {
+          "start_min": "2026-01-22 14:20",
+          "end_min": "2026-01-22 14:59",
+          "high": 28.63,
+          "close": 28.07,
+          "max_vol": 180511,
+          "avg_price": 27.96875
+        }
+      },
+      "final_to_pct": 81.7
+    },
+    {
+      "code": "920159",
+      "name": "农大科技",
+      "ipo_date": "2026-01-28",
+      "ipo_price": 25.0,
+      "float_shares": 14400000,
+      "bars": 241,
+      "open": 49.9,
+      "close": 52.89,
+      "high": 65.18,
+      "low": 47.07,
+      "vwap": 51.41,
+      "vwap_above_pct": 68.5,
+      "open_gap_pct": 99.6,
+      "max_gain_pct": 160.7,
+      "actual_gain_pct": 111.6,
+      "gain_retention_pct": 69.4,
+      "high_to_close_pct": 18.9,
+      "max_dd_from_high_pct": 20.2,
+      "high_time": "2026-01-28 13:14",
+      "high_minute": 1314,
+      "high_session": "PM",
+      "high_elapsed_min": 134,
+      "low_time": "2026-01-28 09:43",
+      "low_minute": 943,
+      "vol_peak_minute": 931,
+      "total_turnover": 95.03,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 935,
+          "price": 49.13,
+          "index": 5
+        },
+        "to30": {
+          "minute": 942,
+          "price": 47.79,
+          "index": 12
+        },
+        "to40": {
+          "minute": 953,
+          "price": 47.24,
+          "index": 23
+        },
+        "to50": {
+          "minute": 1001,
+          "price": 52.99,
+          "index": 31
+        },
+        "to60": {
+          "minute": 1013,
+          "price": 51.6,
+          "index": 43
+        },
+        "to70": {
+          "minute": 1055,
+          "price": 51.0,
+          "index": 85
+        },
+        "to80": {
+          "minute": 1302,
+          "price": 63.18,
+          "index": 122
+        },
+        "to90": {
+          "minute": 1428,
+          "price": 54.34,
+          "index": 208
+        }
+      },
+      "volatility_score": 1.3,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-01-28 09:30",
+          "end_min": "2026-01-28 10:09",
+          "high": 53.8,
+          "close": 51.0,
+          "max_vol": 961923,
+          "avg_price": 49.40975
+        },
+        "seg2": {
+          "start_min": "2026-01-28 10:10",
+          "end_min": "2026-01-28 10:49",
+          "high": 52.15,
+          "close": 50.3,
+          "max_vol": 121228,
+          "avg_price": 51.09225
+        },
+        "seg3": {
+          "start_min": "2026-01-28 10:50",
+          "end_min": "2026-01-28 11:29",
+          "high": 58.5,
+          "close": 58.44,
+          "max_vol": 109838,
+          "avg_price": 51.93125
+        },
+        "seg4": {
+          "start_min": "2026-01-28 11:30",
+          "end_min": "2026-01-28 13:39",
+          "high": 65.18,
+          "close": 58.02,
+          "max_vol": 147562,
+          "avg_price": 60.701
+        },
+        "seg5": {
+          "start_min": "2026-01-28 13:40",
+          "end_min": "2026-01-28 14:19",
+          "high": 58.4,
+          "close": 54.67,
+          "max_vol": 29679,
+          "avg_price": 56.337
+        },
+        "seg6": {
+          "start_min": "2026-01-28 14:20",
+          "end_min": "2026-01-28 14:59",
+          "high": 54.66,
+          "close": 52.81,
+          "max_vol": 41315,
+          "avg_price": 53.602
+        }
+      },
+      "final_to_pct": 95.0
+    },
+    {
+      "code": "920119",
+      "name": "美德乐",
+      "ipo_date": "2026-01-30",
+      "ipo_price": 41.88,
+      "float_shares": 14400000,
+      "bars": 241,
+      "open": 135.0,
+      "close": 109.5,
+      "high": 142.65,
+      "low": 108.31,
+      "vwap": 120.17,
+      "vwap_above_pct": 39.4,
+      "open_gap_pct": 222.3,
+      "max_gain_pct": 240.6,
+      "actual_gain_pct": 161.5,
+      "gain_retention_pct": 67.1,
+      "high_to_close_pct": 23.2,
+      "max_dd_from_high_pct": 24.1,
+      "high_time": "2026-01-30 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2026-01-30 14:39",
+      "low_minute": 1439,
+      "vol_peak_minute": 931,
+      "total_turnover": 71.65,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 947,
+          "price": 126.0,
+          "index": 17
+        },
+        "to30": {
+          "minute": 1018,
+          "price": 120.76,
+          "index": 48
+        },
+        "to40": {
+          "minute": 1116,
+          "price": 116.53,
+          "index": 106
+        },
+        "to50": {
+          "minute": 1334,
+          "price": 110.42,
+          "index": 154
+        },
+        "to60": {
+          "minute": 1433,
+          "price": 110.23,
+          "index": 213
+        },
+        "to70": {
+          "minute": 1457,
+          "price": 108.84,
+          "index": 237
+        }
+      },
+      "volatility_score": 0.63,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-01-30 09:30",
+          "end_min": "2026-01-30 10:09",
+          "high": 142.65,
+          "close": 123.97,
+          "max_vol": 790900,
+          "avg_price": 125.57825
+        },
+        "seg2": {
+          "start_min": "2026-01-30 10:10",
+          "end_min": "2026-01-30 10:49",
+          "high": 126.54,
+          "close": 121.06,
+          "max_vol": 106037,
+          "avg_price": 121.79249999999999
+        },
+        "seg3": {
+          "start_min": "2026-01-30 10:50",
+          "end_min": "2026-01-30 11:29",
+          "high": 121.51,
+          "close": 115.08,
+          "max_vol": 50440,
+          "avg_price": 118.64425000000001
+        },
+        "seg4": {
+          "start_min": "2026-01-30 11:30",
+          "end_min": "2026-01-30 13:39",
+          "high": 115.07,
+          "close": 110.5,
+          "max_vol": 90451,
+          "avg_price": 111.455
+        },
+        "seg5": {
+          "start_min": "2026-01-30 13:40",
+          "end_min": "2026-01-30 14:19",
+          "high": 116.2,
+          "close": 111.44,
+          "max_vol": 40061,
+          "avg_price": 111.53175000000002
+        },
+        "seg6": {
+          "start_min": "2026-01-30 14:20",
+          "end_min": "2026-01-30 14:59",
+          "high": 112.1,
+          "close": 108.81,
+          "max_vol": 109117,
+          "avg_price": 109.79075
+        }
+      },
+      "final_to_pct": 71.7
+    },
+    {
+      "code": "920180",
+      "name": "爱得科技",
+      "ipo_date": "2026-02-10",
+      "ipo_price": 7.67,
+      "float_shares": 26577686,
+      "bars": 241,
+      "open": 25.0,
+      "close": 21.23,
+      "high": 26.0,
+      "low": 21.23,
+      "vwap": 23.24,
+      "vwap_above_pct": 17.8,
+      "open_gap_pct": 225.9,
+      "max_gain_pct": 239.0,
+      "actual_gain_pct": 176.8,
+      "gain_retention_pct": 74.0,
+      "high_to_close_pct": 18.3,
+      "max_dd_from_high_pct": 18.3,
+      "high_time": "2026-02-10 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2026-02-10 14:51",
+      "low_minute": 1451,
+      "vol_peak_minute": 931,
+      "total_turnover": 89.61,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 23.66,
+          "index": 3
+        },
+        "to30": {
+          "minute": 940,
+          "price": 22.99,
+          "index": 10
+        },
+        "to40": {
+          "minute": 950,
+          "price": 23.6,
+          "index": 20
+        },
+        "to50": {
+          "minute": 1013,
+          "price": 23.82,
+          "index": 43
+        },
+        "to60": {
+          "minute": 1054,
+          "price": 22.77,
+          "index": 84
+        },
+        "to70": {
+          "minute": 1322,
+          "price": 21.98,
+          "index": 142
+        },
+        "to80": {
+          "minute": 1421,
+          "price": 21.78,
+          "index": 201
+        }
+      },
+      "volatility_score": 0.77,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-02-10 09:30",
+          "end_min": "2026-02-10 10:09",
+          "high": 26.0,
+          "close": 23.94,
+          "max_vol": 2423317,
+          "avg_price": 23.6535
+        },
+        "seg2": {
+          "start_min": "2026-02-10 10:10",
+          "end_min": "2026-02-10 10:49",
+          "high": 23.93,
+          "close": 22.9,
+          "max_vol": 118235,
+          "avg_price": 23.186
+        },
+        "seg3": {
+          "start_min": "2026-02-10 10:50",
+          "end_min": "2026-02-10 11:29",
+          "high": 22.98,
+          "close": 22.7,
+          "max_vol": 78171,
+          "avg_price": 22.762
+        },
+        "seg4": {
+          "start_min": "2026-02-10 11:30",
+          "end_min": "2026-02-10 13:39",
+          "high": 22.71,
+          "close": 22.0,
+          "max_vol": 133778,
+          "avg_price": 22.179750000000002
+        },
+        "seg5": {
+          "start_min": "2026-02-10 13:40",
+          "end_min": "2026-02-10 14:19",
+          "high": 22.04,
+          "close": 21.71,
+          "max_vol": 83230,
+          "avg_price": 21.7135
+        },
+        "seg6": {
+          "start_min": "2026-02-10 14:20",
+          "end_min": "2026-02-10 14:59",
+          "high": 21.79,
+          "close": 21.27,
+          "max_vol": 137236,
+          "avg_price": 21.50125
+        }
+      },
+      "final_to_pct": 89.6
+    },
+    {
+      "code": "920166",
+      "name": "海圣医疗",
+      "ipo_date": "2026-02-12",
+      "ipo_price": 12.64,
+      "float_shares": 23764707,
+      "bars": 241,
+      "open": 28.0,
+      "close": 34.49,
+      "high": 43.6,
+      "low": 27.16,
+      "vwap": 30.63,
+      "vwap_above_pct": 51.5,
+      "open_gap_pct": 121.5,
+      "max_gain_pct": 244.9,
+      "actual_gain_pct": 172.9,
+      "gain_retention_pct": 70.6,
+      "high_to_close_pct": 20.9,
+      "max_dd_from_high_pct": 22.0,
+      "high_time": "2026-02-12 14:09",
+      "high_minute": 1409,
+      "high_session": "PM",
+      "high_elapsed_min": 189,
+      "low_time": "2026-02-12 09:33",
+      "low_minute": 933,
+      "vol_peak_minute": 931,
+      "total_turnover": 41.8,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 943,
+          "price": 31.5,
+          "index": 13
+        },
+        "to30": {
+          "minute": 1052,
+          "price": 29.2,
+          "index": 82
+        },
+        "to40": {
+          "minute": 1427,
+          "price": 34.28,
+          "index": 207
+        }
+      },
+      "volatility_score": 1.54,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-02-12 09:30",
+          "end_min": "2026-02-12 10:09",
+          "high": 33.8,
+          "close": 30.23,
+          "max_vol": 1459152,
+          "avg_price": 30.5165
+        },
+        "seg2": {
+          "start_min": "2026-02-12 10:10",
+          "end_min": "2026-02-12 10:49",
+          "high": 30.33,
+          "close": 28.75,
+          "max_vol": 41028,
+          "avg_price": 29.62775
+        },
+        "seg3": {
+          "start_min": "2026-02-12 10:50",
+          "end_min": "2026-02-12 11:29",
+          "high": 29.8,
+          "close": 29.11,
+          "max_vol": 21916,
+          "avg_price": 29.1265
+        },
+        "seg4": {
+          "start_min": "2026-02-12 11:30",
+          "end_min": "2026-02-12 13:39",
+          "high": 33.11,
+          "close": 31.68,
+          "max_vol": 66823,
+          "avg_price": 30.6575
+        },
+        "seg5": {
+          "start_min": "2026-02-12 13:40",
+          "end_min": "2026-02-12 14:19",
+          "high": 43.6,
+          "close": 35.2,
+          "max_vol": 92184,
+          "avg_price": 35.2105
+        },
+        "seg6": {
+          "start_min": "2026-02-12 14:20",
+          "end_min": "2026-02-12 14:59",
+          "high": 36.6,
+          "close": 34.49,
+          "max_vol": 45989,
+          "avg_price": 34.97175
+        }
+      },
+      "final_to_pct": 41.8
+    },
+    {
+      "code": "920168",
+      "name": "通宝光电",
+      "ipo_date": "2026-02-26",
+      "ipo_price": 16.17,
+      "float_shares": 28174514,
+      "bars": 241,
+      "open": 29.5,
+      "close": 27.49,
+      "high": 31.6,
+      "low": 27.38,
+      "vwap": 29.45,
+      "vwap_above_pct": 46.9,
+      "open_gap_pct": 82.4,
+      "max_gain_pct": 95.4,
+      "actual_gain_pct": 70.0,
+      "gain_retention_pct": 73.4,
+      "high_to_close_pct": 13.0,
+      "max_dd_from_high_pct": 13.4,
+      "high_time": "2026-02-26 09:37",
+      "high_minute": 937,
+      "high_session": "AM",
+      "high_elapsed_min": 7,
+      "low_time": "2026-02-26 14:51",
+      "low_minute": 1451,
+      "vol_peak_minute": 931,
+      "total_turnover": 66.75,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 939,
+          "price": 30.4,
+          "index": 9
+        },
+        "to30": {
+          "minute": 1000,
+          "price": 29.83,
+          "index": 30
+        },
+        "to40": {
+          "minute": 1039,
+          "price": 29.65,
+          "index": 69
+        },
+        "to50": {
+          "minute": 1330,
+          "price": 28.91,
+          "index": 150
+        },
+        "to60": {
+          "minute": 1437,
+          "price": 27.82,
+          "index": 217
+        }
+      },
+      "volatility_score": 0.4,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-02-26 09:30",
+          "end_min": "2026-02-26 10:09",
+          "high": 31.6,
+          "close": 29.71,
+          "max_vol": 1697579,
+          "avg_price": 30.028750000000002
+        },
+        "seg2": {
+          "start_min": "2026-02-26 10:10",
+          "end_min": "2026-02-26 10:49",
+          "high": 29.83,
+          "close": 29.52,
+          "max_vol": 195310,
+          "avg_price": 29.55075
+        },
+        "seg3": {
+          "start_min": "2026-02-26 10:50",
+          "end_min": "2026-02-26 11:29",
+          "high": 29.58,
+          "close": 29.53,
+          "max_vol": 72106,
+          "avg_price": 29.51725
+        },
+        "seg4": {
+          "start_min": "2026-02-26 11:30",
+          "end_min": "2026-02-26 13:39",
+          "high": 29.54,
+          "close": 28.75,
+          "max_vol": 95036,
+          "avg_price": 29.101999999999997
+        },
+        "seg5": {
+          "start_min": "2026-02-26 13:40",
+          "end_min": "2026-02-26 14:19",
+          "high": 28.86,
+          "close": 28.23,
+          "max_vol": 124459,
+          "avg_price": 28.554000000000002
+        },
+        "seg6": {
+          "start_min": "2026-02-26 14:20",
+          "end_min": "2026-02-26 14:59",
+          "high": 28.22,
+          "close": 27.45,
+          "max_vol": 152607,
+          "avg_price": 27.73225
+        }
+      },
+      "final_to_pct": 66.8
+    },
+    {
+      "code": "920183",
+      "name": "海菲曼",
+      "ipo_date": "2026-03-04",
+      "ipo_price": 19.71,
+      "float_shares": 11249827,
+      "bars": 241,
+      "open": 51.17,
+      "close": 53.3,
+      "high": 64.5,
+      "low": 50.0,
+      "vwap": 54.69,
+      "vwap_above_pct": 60.6,
+      "open_gap_pct": 159.6,
+      "max_gain_pct": 227.2,
+      "actual_gain_pct": 170.4,
+      "gain_retention_pct": 75.0,
+      "high_to_close_pct": 17.4,
+      "max_dd_from_high_pct": 17.5,
+      "high_time": "2026-03-04 13:20",
+      "high_minute": 1320,
+      "high_session": "PM",
+      "high_elapsed_min": 140,
+      "low_time": "2026-03-04 09:31",
+      "low_minute": 931,
+      "vol_peak_minute": 931,
+      "total_turnover": 81.06,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 54.92,
+          "index": 2
+        },
+        "to30": {
+          "minute": 935,
+          "price": 54.5,
+          "index": 5
+        },
+        "to40": {
+          "minute": 942,
+          "price": 56.79,
+          "index": 12
+        },
+        "to50": {
+          "minute": 959,
+          "price": 59.19,
+          "index": 29
+        },
+        "to60": {
+          "minute": 1047,
+          "price": 55.03,
+          "index": 77
+        },
+        "to70": {
+          "minute": 1320,
+          "price": 63.08,
+          "index": 140
+        },
+        "to80": {
+          "minute": 1454,
+          "price": 53.38,
+          "index": 234
+        }
+      },
+      "volatility_score": 1.23,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-03-04 09:30",
+          "end_min": "2026-03-04 10:09",
+          "high": 60.0,
+          "close": 56.3,
+          "max_vol": 1504318,
+          "avg_price": 55.79449999999999
+        },
+        "seg2": {
+          "start_min": "2026-03-04 10:10",
+          "end_min": "2026-03-04 10:49",
+          "high": 58.0,
+          "close": 55.01,
+          "max_vol": 36997,
+          "avg_price": 55.809000000000005
+        },
+        "seg3": {
+          "start_min": "2026-03-04 10:50",
+          "end_min": "2026-03-04 11:29",
+          "high": 55.02,
+          "close": 52.68,
+          "max_vol": 77055,
+          "avg_price": 53.7105
+        },
+        "seg4": {
+          "start_min": "2026-03-04 11:30",
+          "end_min": "2026-03-04 13:39",
+          "high": 64.5,
+          "close": 57.0,
+          "max_vol": 91715,
+          "avg_price": 56.66799999999999
+        },
+        "seg5": {
+          "start_min": "2026-03-04 13:40",
+          "end_min": "2026-03-04 14:19",
+          "high": 58.88,
+          "close": 54.5,
+          "max_vol": 13166,
+          "avg_price": 56.241499999999995
+        },
+        "seg6": {
+          "start_min": "2026-03-04 14:20",
+          "end_min": "2026-03-04 14:59",
+          "high": 55.08,
+          "close": 53.29,
+          "max_vol": 24104,
+          "avg_price": 53.91375000000001
+        }
+      },
+      "final_to_pct": 81.1
+    },
+    {
+      "code": "920187",
+      "name": "通领科技",
+      "ipo_date": "2026-03-05",
+      "ipo_price": 29.62,
+      "float_shares": 20953886,
+      "bars": 241,
+      "open": 45.0,
+      "close": 41.89,
+      "high": 49.38,
+      "low": 41.41,
+      "vwap": 45.09,
+      "vwap_above_pct": 32.4,
+      "open_gap_pct": 51.9,
+      "max_gain_pct": 66.7,
+      "actual_gain_pct": 41.4,
+      "gain_retention_pct": 62.1,
+      "high_to_close_pct": 15.2,
+      "max_dd_from_high_pct": 16.1,
+      "high_time": "2026-03-05 09:34",
+      "high_minute": 934,
+      "high_session": "AM",
+      "high_elapsed_min": 4,
+      "low_time": "2026-03-05 14:51",
+      "low_minute": 1451,
+      "vol_peak_minute": 931,
+      "total_turnover": 67.28,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 942,
+          "price": 46.1,
+          "index": 12
+        },
+        "to30": {
+          "minute": 959,
+          "price": 45.9,
+          "index": 29
+        },
+        "to40": {
+          "minute": 1042,
+          "price": 45.17,
+          "index": 72
+        },
+        "to50": {
+          "minute": 1317,
+          "price": 43.78,
+          "index": 137
+        },
+        "to60": {
+          "minute": 1423,
+          "price": 42.17,
+          "index": 203
+        }
+      },
+      "volatility_score": 0.56,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-03-05 09:30",
+          "end_min": "2026-03-05 10:09",
+          "high": 49.38,
+          "close": 45.99,
+          "max_vol": 825199,
+          "avg_price": 46.25475
+        },
+        "seg2": {
+          "start_min": "2026-03-05 10:10",
+          "end_min": "2026-03-05 10:49",
+          "high": 46.0,
+          "close": 44.72,
+          "max_vol": 157115,
+          "avg_price": 45.3925
+        },
+        "seg3": {
+          "start_min": "2026-03-05 10:50",
+          "end_min": "2026-03-05 11:29",
+          "high": 45.26,
+          "close": 44.67,
+          "max_vol": 60942,
+          "avg_price": 44.689499999999995
+        },
+        "seg4": {
+          "start_min": "2026-03-05 11:30",
+          "end_min": "2026-03-05 13:39",
+          "high": 44.8,
+          "close": 42.97,
+          "max_vol": 72151,
+          "avg_price": 43.76775
+        },
+        "seg5": {
+          "start_min": "2026-03-05 13:40",
+          "end_min": "2026-03-05 14:19",
+          "high": 43.05,
+          "close": 42.23,
+          "max_vol": 62733,
+          "avg_price": 42.5085
+        },
+        "seg6": {
+          "start_min": "2026-03-05 14:20",
+          "end_min": "2026-03-05 14:59",
+          "high": 42.24,
+          "close": 41.96,
+          "max_vol": 91649,
+          "avg_price": 41.787
+        }
+      },
+      "final_to_pct": 67.3
+    },
+    {
+      "code": "920036",
+      "name": "觅睿科技",
+      "ipo_date": "2026-03-09",
+      "ipo_price": 21.52,
+      "float_shares": 13061277,
+      "bars": 241,
+      "open": 48.8,
+      "close": 41.3,
+      "high": 49.66,
+      "low": 40.88,
+      "vwap": 43.63,
+      "vwap_above_pct": 21.6,
+      "open_gap_pct": 126.8,
+      "max_gain_pct": 130.8,
+      "actual_gain_pct": 91.9,
+      "gain_retention_pct": 70.3,
+      "high_to_close_pct": 16.8,
+      "max_dd_from_high_pct": 17.7,
+      "high_time": "2026-03-09 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2026-03-09 13:51",
+      "low_minute": 1351,
+      "vol_peak_minute": 931,
+      "total_turnover": 88.86,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 939,
+          "price": 44.34,
+          "index": 9
+        },
+        "to30": {
+          "minute": 952,
+          "price": 44.09,
+          "index": 22
+        },
+        "to40": {
+          "minute": 1012,
+          "price": 43.92,
+          "index": 42
+        },
+        "to50": {
+          "minute": 1042,
+          "price": 42.51,
+          "index": 72
+        },
+        "to60": {
+          "minute": 1306,
+          "price": 42.25,
+          "index": 126
+        },
+        "to70": {
+          "minute": 1347,
+          "price": 41.06,
+          "index": 167
+        },
+        "to80": {
+          "minute": 1424,
+          "price": 41.39,
+          "index": 204
+        }
+      },
+      "volatility_score": 0.72,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-03-09 09:30",
+          "end_min": "2026-03-09 10:09",
+          "high": 49.66,
+          "close": 44.1,
+          "max_vol": 594408,
+          "avg_price": 44.402499999999996
+        },
+        "seg2": {
+          "start_min": "2026-03-09 10:10",
+          "end_min": "2026-03-09 10:49",
+          "high": 44.15,
+          "close": 42.65,
+          "max_vol": 61620,
+          "avg_price": 43.158
+        },
+        "seg3": {
+          "start_min": "2026-03-09 10:50",
+          "end_min": "2026-03-09 11:29",
+          "high": 42.66,
+          "close": 42.38,
+          "max_vol": 49197,
+          "avg_price": 42.29825
+        },
+        "seg4": {
+          "start_min": "2026-03-09 11:30",
+          "end_min": "2026-03-09 13:39",
+          "high": 42.6,
+          "close": 41.06,
+          "max_vol": 81174,
+          "avg_price": 41.72475
+        },
+        "seg5": {
+          "start_min": "2026-03-09 13:40",
+          "end_min": "2026-03-09 14:19",
+          "high": 44.41,
+          "close": 42.22,
+          "max_vol": 100604,
+          "avg_price": 42.158249999999995
+        },
+        "seg6": {
+          "start_min": "2026-03-09 14:20",
+          "end_min": "2026-03-09 14:59",
+          "high": 42.2,
+          "close": 41.38,
+          "max_vol": 69238,
+          "avg_price": 41.42425
+        }
+      },
+      "final_to_pct": 88.9
+    },
+    {
+      "code": "920078",
+      "name": "族兴新材",
+      "ipo_date": "2026-03-18",
+      "ipo_price": 6.98,
+      "float_shares": 20700000,
+      "bars": 241,
+      "open": 33.0,
+      "close": 35.3,
+      "high": 42.89,
+      "low": 31.5,
+      "vwap": 35.71,
+      "vwap_above_pct": 94.2,
+      "open_gap_pct": 372.8,
+      "max_gain_pct": 514.5,
+      "actual_gain_pct": 405.7,
+      "gain_retention_pct": 78.9,
+      "high_to_close_pct": 17.7,
+      "max_dd_from_high_pct": 18.2,
+      "high_time": "2026-03-18 11:08",
+      "high_minute": 1108,
+      "high_session": "AM",
+      "high_elapsed_min": 98,
+      "low_time": "2026-03-18 09:31",
+      "low_minute": 931,
+      "vol_peak_minute": 931,
+      "total_turnover": 96.39,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 931,
+          "price": 34.2,
+          "index": 1
+        },
+        "to30": {
+          "minute": 932,
+          "price": 34.24,
+          "index": 2
+        },
+        "to40": {
+          "minute": 934,
+          "price": 35.25,
+          "index": 4
+        },
+        "to50": {
+          "minute": 937,
+          "price": 36.33,
+          "index": 7
+        },
+        "to60": {
+          "minute": 944,
+          "price": 37.58,
+          "index": 14
+        },
+        "to70": {
+          "minute": 1007,
+          "price": 39.04,
+          "index": 37
+        },
+        "to80": {
+          "minute": 1056,
+          "price": 41.25,
+          "index": 86
+        },
+        "to90": {
+          "minute": 1413,
+          "price": 36.1,
+          "index": 193
+        }
+      },
+      "volatility_score": 1.34,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-03-18 09:30",
+          "end_min": "2026-03-18 10:09",
+          "high": 40.0,
+          "close": 39.82,
+          "max_vol": 3924313,
+          "avg_price": 36.557249999999996
+        },
+        "seg2": {
+          "start_min": "2026-03-18 10:10",
+          "end_min": "2026-03-18 10:49",
+          "high": 41.64,
+          "close": 41.0,
+          "max_vol": 102742,
+          "avg_price": 38.9305
+        },
+        "seg3": {
+          "start_min": "2026-03-18 10:50",
+          "end_min": "2026-03-18 11:29",
+          "high": 42.89,
+          "close": 38.06,
+          "max_vol": 82856,
+          "avg_price": 40.67125
+        },
+        "seg4": {
+          "start_min": "2026-03-18 11:30",
+          "end_min": "2026-03-18 13:39",
+          "high": 38.45,
+          "close": 37.6,
+          "max_vol": 61221,
+          "avg_price": 37.81
+        },
+        "seg5": {
+          "start_min": "2026-03-18 13:40",
+          "end_min": "2026-03-18 14:19",
+          "high": 37.78,
+          "close": 36.17,
+          "max_vol": 42602,
+          "avg_price": 36.6465
+        },
+        "seg6": {
+          "start_min": "2026-03-18 14:20",
+          "end_min": "2026-03-18 14:59",
+          "high": 36.65,
+          "close": 35.2,
+          "max_vol": 73374,
+          "avg_price": 35.922250000000005
+        }
+      },
+      "final_to_pct": 96.4
+    },
+    {
+      "code": "920028",
+      "name": "新恒泰",
+      "ipo_date": "2026-03-20",
+      "ipo_price": 9.4,
+      "float_shares": 42559100,
+      "bars": 241,
+      "open": 21.0,
+      "close": 22.7,
+      "high": 22.8,
+      "low": 20.28,
+      "vwap": 21.22,
+      "vwap_above_pct": 13.3,
+      "open_gap_pct": 123.4,
+      "max_gain_pct": 142.6,
+      "actual_gain_pct": 141.5,
+      "gain_retention_pct": 99.3,
+      "high_to_close_pct": 0.4,
+      "max_dd_from_high_pct": 1.3,
+      "high_time": "2026-03-20 14:57",
+      "high_minute": 1457,
+      "high_session": "PM",
+      "high_elapsed_min": 237,
+      "low_time": "2026-03-20 09:51",
+      "low_minute": 951,
+      "vol_peak_minute": 931,
+      "total_turnover": 84.89,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 21.43,
+          "index": 3
+        },
+        "to30": {
+          "minute": 938,
+          "price": 21.6,
+          "index": 8
+        },
+        "to40": {
+          "minute": 951,
+          "price": 20.66,
+          "index": 21
+        },
+        "to50": {
+          "minute": 1006,
+          "price": 21.0,
+          "index": 36
+        },
+        "to60": {
+          "minute": 1039,
+          "price": 20.87,
+          "index": 69
+        },
+        "to70": {
+          "minute": 1320,
+          "price": 20.98,
+          "index": 140
+        },
+        "to80": {
+          "minute": 1443,
+          "price": 20.38,
+          "index": 223
+        }
+      },
+      "volatility_score": 0.65,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-03-20 09:30",
+          "end_min": "2026-03-20 10:09",
+          "high": 22.18,
+          "close": 20.98,
+          "max_vol": 4216953,
+          "avg_price": 21.171
+        },
+        "seg2": {
+          "start_min": "2026-03-20 10:10",
+          "end_min": "2026-03-20 10:49",
+          "high": 21.62,
+          "close": 21.03,
+          "max_vol": 465218,
+          "avg_price": 21.03
+        },
+        "seg3": {
+          "start_min": "2026-03-20 10:50",
+          "end_min": "2026-03-20 11:29",
+          "high": 21.06,
+          "close": 20.83,
+          "max_vol": 82345,
+          "avg_price": 20.89025
+        },
+        "seg4": {
+          "start_min": "2026-03-20 11:30",
+          "end_min": "2026-03-20 13:39",
+          "high": 21.18,
+          "close": 20.49,
+          "max_vol": 217012,
+          "avg_price": 20.8095
+        },
+        "seg5": {
+          "start_min": "2026-03-20 13:40",
+          "end_min": "2026-03-20 14:19",
+          "high": 20.67,
+          "close": 20.41,
+          "max_vol": 79356,
+          "avg_price": 20.4525
+        },
+        "seg6": {
+          "start_min": "2026-03-20 14:20",
+          "end_min": "2026-03-20 14:59",
+          "high": 22.8,
+          "close": 22.69,
+          "max_vol": 296688,
+          "avg_price": 20.7035
+        }
+      },
+      "final_to_pct": 84.9
+    },
+    {
+      "code": "920069",
+      "name": "普昂医疗",
+      "ipo_date": "2026-03-27",
+      "ipo_price": 18.38,
+      "float_shares": 14777735,
+      "bars": 241,
+      "open": 39.0,
+      "close": 43.48,
+      "high": 50.0,
+      "low": 37.88,
+      "vwap": 42.34,
+      "vwap_above_pct": 92.5,
+      "open_gap_pct": 112.2,
+      "max_gain_pct": 172.0,
+      "actual_gain_pct": 136.6,
+      "gain_retention_pct": 79.4,
+      "high_to_close_pct": 13.0,
+      "max_dd_from_high_pct": 14.2,
+      "high_time": "2026-03-27 10:10",
+      "high_minute": 1010,
+      "high_session": "AM",
+      "high_elapsed_min": 40,
+      "low_time": "2026-03-27 09:32",
+      "low_minute": 932,
+      "vol_peak_minute": 931,
+      "total_turnover": 65.53,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 937,
+          "price": 39.38,
+          "index": 7
+        },
+        "to30": {
+          "minute": 947,
+          "price": 41.94,
+          "index": 17
+        },
+        "to40": {
+          "minute": 954,
+          "price": 45.0,
+          "index": 24
+        },
+        "to50": {
+          "minute": 1027,
+          "price": 47.18,
+          "index": 57
+        },
+        "to60": {
+          "minute": 1414,
+          "price": 43.74,
+          "index": 194
+        }
+      },
+      "volatility_score": 0.88,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-03-27 09:30",
+          "end_min": "2026-03-27 10:09",
+          "high": 49.67,
+          "close": 49.67,
+          "max_vol": 955276,
+          "avg_price": 42.79925
+        },
+        "seg2": {
+          "start_min": "2026-03-27 10:10",
+          "end_min": "2026-03-27 10:49",
+          "high": 50.0,
+          "close": 45.4,
+          "max_vol": 94623,
+          "avg_price": 46.292500000000004
+        },
+        "seg3": {
+          "start_min": "2026-03-27 10:50",
+          "end_min": "2026-03-27 11:29",
+          "high": 45.4,
+          "close": 43.12,
+          "max_vol": 34200,
+          "avg_price": 43.727
+        },
+        "seg4": {
+          "start_min": "2026-03-27 11:30",
+          "end_min": "2026-03-27 13:39",
+          "high": 45.1,
+          "close": 45.08,
+          "max_vol": 50204,
+          "avg_price": 43.766000000000005
+        },
+        "seg5": {
+          "start_min": "2026-03-27 13:40",
+          "end_min": "2026-03-27 14:19",
+          "high": 45.1,
+          "close": 43.98,
+          "max_vol": 38884,
+          "avg_price": 43.908
+        },
+        "seg6": {
+          "start_min": "2026-03-27 14:20",
+          "end_min": "2026-03-27 14:59",
+          "high": 43.99,
+          "close": 43.49,
+          "max_vol": 88940,
+          "avg_price": 43.646249999999995
+        }
+      },
+      "final_to_pct": 65.5
+    },
+    {
+      "code": "920188",
+      "name": "悦龙科技",
+      "ipo_date": "2026-03-30",
+      "ipo_price": 14.04,
+      "float_shares": 19793879,
+      "bars": 241,
+      "open": 39.86,
+      "close": 30.2,
+      "high": 40.0,
+      "low": 30.11,
+      "vwap": 33.94,
+      "vwap_above_pct": 8.7,
+      "open_gap_pct": 183.9,
+      "max_gain_pct": 184.9,
+      "actual_gain_pct": 115.1,
+      "gain_retention_pct": 62.2,
+      "high_to_close_pct": 24.5,
+      "max_dd_from_high_pct": 24.7,
+      "high_time": "2026-03-30 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2026-03-30 14:53",
+      "low_minute": 1453,
+      "vol_peak_minute": 931,
+      "total_turnover": 87.45,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 936,
+          "price": 36.14,
+          "index": 6
+        },
+        "to30": {
+          "minute": 944,
+          "price": 35.01,
+          "index": 14
+        },
+        "to40": {
+          "minute": 1003,
+          "price": 32.63,
+          "index": 33
+        },
+        "to50": {
+          "minute": 1024,
+          "price": 33.0,
+          "index": 54
+        },
+        "to60": {
+          "minute": 1123,
+          "price": 31.89,
+          "index": 113
+        },
+        "to70": {
+          "minute": 1400,
+          "price": 31.87,
+          "index": 180
+        },
+        "to80": {
+          "minute": 1444,
+          "price": 30.5,
+          "index": 224
+        }
+      },
+      "volatility_score": 0.8,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-03-30 09:30",
+          "end_min": "2026-03-30 10:09",
+          "high": 40.0,
+          "close": 32.06,
+          "max_vol": 1070392,
+          "avg_price": 34.59925
+        },
+        "seg2": {
+          "start_min": "2026-03-30 10:10",
+          "end_min": "2026-03-30 10:49",
+          "high": 34.0,
+          "close": 31.88,
+          "max_vol": 148636,
+          "avg_price": 32.18675
+        },
+        "seg3": {
+          "start_min": "2026-03-30 10:50",
+          "end_min": "2026-03-30 11:29",
+          "high": 32.08,
+          "close": 31.88,
+          "max_vol": 63723,
+          "avg_price": 31.92025
+        },
+        "seg4": {
+          "start_min": "2026-03-30 11:30",
+          "end_min": "2026-03-30 13:39",
+          "high": 32.88,
+          "close": 31.9,
+          "max_vol": 93655,
+          "avg_price": 31.99125
+        },
+        "seg5": {
+          "start_min": "2026-03-30 13:40",
+          "end_min": "2026-03-30 14:19",
+          "high": 31.92,
+          "close": 31.68,
+          "max_vol": 167429,
+          "avg_price": 31.859249999999996
+        },
+        "seg6": {
+          "start_min": "2026-03-30 14:20",
+          "end_min": "2026-03-30 14:59",
+          "high": 31.69,
+          "close": 30.19,
+          "max_vol": 153324,
+          "avg_price": 30.747750000000003
+        }
+      },
+      "final_to_pct": 87.5
+    },
+    {
+      "code": "920055",
+      "name": "隆源股份",
+      "ipo_date": "2026-03-31",
+      "ipo_price": 24.7,
+      "float_shares": 15300000,
+      "bars": 241,
+      "open": 36.0,
+      "close": 37.8,
+      "high": 43.11,
+      "low": 36.0,
+      "vwap": 38.08,
+      "vwap_above_pct": 58.1,
+      "open_gap_pct": 45.7,
+      "max_gain_pct": 74.5,
+      "actual_gain_pct": 53.0,
+      "gain_retention_pct": 71.2,
+      "high_to_close_pct": 12.3,
+      "max_dd_from_high_pct": 13.2,
+      "high_time": "2026-03-31 13:01",
+      "high_minute": 1301,
+      "high_session": "PM",
+      "high_elapsed_min": 121,
+      "low_time": "2026-03-31 09:30",
+      "low_minute": 930,
+      "vol_peak_minute": 931,
+      "total_turnover": 93.35,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 935,
+          "price": 38.3,
+          "index": 5
+        },
+        "to30": {
+          "minute": 942,
+          "price": 37.99,
+          "index": 12
+        },
+        "to40": {
+          "minute": 956,
+          "price": 37.06,
+          "index": 26
+        },
+        "to50": {
+          "minute": 1018,
+          "price": 36.75,
+          "index": 48
+        },
+        "to60": {
+          "minute": 1042,
+          "price": 39.19,
+          "index": 72
+        },
+        "to70": {
+          "minute": 1105,
+          "price": 39.44,
+          "index": 95
+        },
+        "to80": {
+          "minute": 1318,
+          "price": 39.92,
+          "index": 138
+        },
+        "to90": {
+          "minute": 1446,
+          "price": 37.58,
+          "index": 226
+        }
+      },
+      "volatility_score": 0.96,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-03-31 09:30",
+          "end_min": "2026-03-31 10:09",
+          "high": 39.88,
+          "close": 36.5,
+          "max_vol": 1144455,
+          "avg_price": 37.246249999999996
+        },
+        "seg2": {
+          "start_min": "2026-03-31 10:10",
+          "end_min": "2026-03-31 10:49",
+          "high": 41.0,
+          "close": 38.61,
+          "max_vol": 216205,
+          "avg_price": 37.1705
+        },
+        "seg3": {
+          "start_min": "2026-03-31 10:50",
+          "end_min": "2026-03-31 11:29",
+          "high": 41.55,
+          "close": 41.5,
+          "max_vol": 110511,
+          "avg_price": 39.0075
+        },
+        "seg4": {
+          "start_min": "2026-03-31 11:30",
+          "end_min": "2026-03-31 13:39",
+          "high": 43.11,
+          "close": 39.93,
+          "max_vol": 142916,
+          "avg_price": 40.221
+        },
+        "seg5": {
+          "start_min": "2026-03-31 13:40",
+          "end_min": "2026-03-31 14:19",
+          "high": 40.0,
+          "close": 38.49,
+          "max_vol": 44550,
+          "avg_price": 38.8935
+        },
+        "seg6": {
+          "start_min": "2026-03-31 14:20",
+          "end_min": "2026-03-31 14:59",
+          "high": 38.56,
+          "close": 37.82,
+          "max_vol": 63134,
+          "avg_price": 37.9605
+        }
+      },
+      "final_to_pct": 93.3
+    },
+    {
+      "code": "920011",
+      "name": "晨光电机",
+      "ipo_date": "2026-04-08",
+      "ipo_price": 15.5,
+      "float_shares": 18600001,
+      "bars": 241,
+      "open": 30.0,
+      "close": 29.04,
+      "high": 32.05,
+      "low": 28.5,
+      "vwap": 29.66,
+      "vwap_above_pct": 32.0,
+      "open_gap_pct": 93.5,
+      "max_gain_pct": 106.8,
+      "actual_gain_pct": 87.4,
+      "gain_retention_pct": 81.8,
+      "high_to_close_pct": 9.4,
+      "max_dd_from_high_pct": 9.6,
+      "high_time": "2026-04-08 13:33",
+      "high_minute": 1333,
+      "high_session": "PM",
+      "high_elapsed_min": 153,
+      "low_time": "2026-04-08 09:36",
+      "low_minute": 936,
+      "vol_peak_minute": 931,
+      "total_turnover": 92.77,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 936,
+          "price": 28.82,
+          "index": 6
+        },
+        "to30": {
+          "minute": 946,
+          "price": 29.1,
+          "index": 16
+        },
+        "to40": {
+          "minute": 959,
+          "price": 29.8,
+          "index": 29
+        },
+        "to50": {
+          "minute": 1028,
+          "price": 29.33,
+          "index": 58
+        },
+        "to60": {
+          "minute": 1117,
+          "price": 29.24,
+          "index": 107
+        },
+        "to70": {
+          "minute": 1330,
+          "price": 30.36,
+          "index": 150
+        },
+        "to80": {
+          "minute": 1358,
+          "price": 30.04,
+          "index": 178
+        },
+        "to90": {
+          "minute": 1454,
+          "price": 29.02,
+          "index": 234
+        }
+      },
+      "volatility_score": 0.72,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-04-08 09:30",
+          "end_min": "2026-04-08 10:09",
+          "high": 31.0,
+          "close": 30.15,
+          "max_vol": 1166096,
+          "avg_price": 29.606
+        },
+        "seg2": {
+          "start_min": "2026-04-08 10:10",
+          "end_min": "2026-04-08 10:49",
+          "high": 30.08,
+          "close": 29.28,
+          "max_vol": 104526,
+          "avg_price": 29.352749999999997
+        },
+        "seg3": {
+          "start_min": "2026-04-08 10:50",
+          "end_min": "2026-04-08 11:29",
+          "high": 29.98,
+          "close": 29.22,
+          "max_vol": 124237,
+          "avg_price": 29.183749999999996
+        },
+        "seg4": {
+          "start_min": "2026-04-08 11:30",
+          "end_min": "2026-04-08 13:39",
+          "high": 32.05,
+          "close": 30.09,
+          "max_vol": 309817,
+          "avg_price": 29.5905
+        },
+        "seg5": {
+          "start_min": "2026-04-08 13:40",
+          "end_min": "2026-04-08 14:19",
+          "high": 30.45,
+          "close": 29.5,
+          "max_vol": 58068,
+          "avg_price": 29.944
+        },
+        "seg6": {
+          "start_min": "2026-04-08 14:20",
+          "end_min": "2026-04-08 14:59",
+          "high": 29.5,
+          "close": 28.99,
+          "max_vol": 115816,
+          "avg_price": 29.12975
+        }
+      },
+      "final_to_pct": 92.8
+    },
+    {
+      "code": "920181",
+      "name": "赛英电子",
+      "ipo_date": "2026-04-10",
+      "ipo_price": 28.0,
+      "float_shares": 10020000,
+      "bars": 241,
+      "open": 60,
+      "close": 61.8,
+      "high": 68.6,
+      "low": 60,
+      "vwap": 63.0,
+      "vwap_above_pct": 58.5,
+      "open_gap_pct": 114.3,
+      "max_gain_pct": 145.0,
+      "actual_gain_pct": 120.7,
+      "gain_retention_pct": 83.3,
+      "high_to_close_pct": 9.9,
+      "max_dd_from_high_pct": 10.4,
+      "high_time": "2026-04-10 09:57",
+      "high_minute": 957,
+      "high_session": "AM",
+      "high_elapsed_min": 27,
+      "low_time": "2026-04-10 09:30",
+      "low_minute": 930,
+      "vol_peak_minute": 931,
+      "total_turnover": 91.45,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 62.48,
+          "index": 3
+        },
+        "to30": {
+          "minute": 937,
+          "price": 63.7,
+          "index": 7
+        },
+        "to40": {
+          "minute": 945,
+          "price": 63.41,
+          "index": 15
+        },
+        "to50": {
+          "minute": 957,
+          "price": 68.38,
+          "index": 27
+        },
+        "to60": {
+          "minute": 1024,
+          "price": 63.92,
+          "index": 54
+        },
+        "to70": {
+          "minute": 1117,
+          "price": 63.33,
+          "index": 107
+        },
+        "to80": {
+          "minute": 1405,
+          "price": 63.01,
+          "index": 185
+        },
+        "to90": {
+          "minute": 1456,
+          "price": 62.08,
+          "index": 236
+        }
+      },
+      "volatility_score": 0.56,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-04-10 09:30",
+          "end_min": "2026-04-10 10:09",
+          "high": 68.6,
+          "close": 65.08,
+          "max_vol": 1087523,
+          "avg_price": 64.4735
+        },
+        "seg2": {
+          "start_min": "2026-04-10 10:10",
+          "end_min": "2026-04-10 10:49",
+          "high": 65.32,
+          "close": 62.54,
+          "max_vol": 61919,
+          "avg_price": 63.53075
+        },
+        "seg3": {
+          "start_min": "2026-04-10 10:50",
+          "end_min": "2026-04-10 11:29",
+          "high": 65,
+          "close": 63.87,
+          "max_vol": 56903,
+          "avg_price": 63.454750000000004
+        },
+        "seg4": {
+          "start_min": "2026-04-10 11:30",
+          "end_min": "2026-04-10 13:39",
+          "high": 63.94,
+          "close": 63,
+          "max_vol": 47098,
+          "avg_price": 62.997
+        },
+        "seg5": {
+          "start_min": "2026-04-10 13:40",
+          "end_min": "2026-04-10 14:19",
+          "high": 64.35,
+          "close": 63,
+          "max_vol": 24399,
+          "avg_price": 63.211
+        },
+        "seg6": {
+          "start_min": "2026-04-10 14:20",
+          "end_min": "2026-04-10 14:59",
+          "high": 63,
+          "close": 61.82,
+          "max_vol": 49929,
+          "avg_price": 62.009
+        }
+      },
+      "final_to_pct": 91.5
+    },
+    {
+      "code": "920012",
+      "name": "创达新材",
+      "ipo_date": "2026-04-13",
+      "ipo_price": 19.58,
+      "float_shares": 13268667,
+      "bars": 241,
+      "open": 43.06,
+      "close": 51.67,
+      "high": 54.93,
+      "low": 42.0,
+      "vwap": 46.36,
+      "vwap_above_pct": 82.2,
+      "open_gap_pct": 119.9,
+      "max_gain_pct": 180.5,
+      "actual_gain_pct": 163.9,
+      "gain_retention_pct": 90.8,
+      "high_to_close_pct": 5.9,
+      "max_dd_from_high_pct": 11.0,
+      "high_time": "2026-04-13 10:44",
+      "high_minute": 1044,
+      "high_session": "AM",
+      "high_elapsed_min": 74,
+      "low_time": "2026-04-13 09:38",
+      "low_minute": 938,
+      "vol_peak_minute": 931,
+      "total_turnover": 88.17,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 43.07,
+          "index": 3
+        },
+        "to30": {
+          "minute": 941,
+          "price": 42.9,
+          "index": 11
+        },
+        "to40": {
+          "minute": 949,
+          "price": 44.5,
+          "index": 19
+        },
+        "to50": {
+          "minute": 1005,
+          "price": 45.5,
+          "index": 35
+        },
+        "to60": {
+          "minute": 1018,
+          "price": 47.5,
+          "index": 48
+        },
+        "to70": {
+          "minute": 1044,
+          "price": 53.87,
+          "index": 74
+        },
+        "to80": {
+          "minute": 1326,
+          "price": 52.7,
+          "index": 146
+        }
+      },
+      "volatility_score": 1.03,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-04-13 09:30",
+          "end_min": "2026-04-13 10:09",
+          "high": 46.0,
+          "close": 45.28,
+          "max_vol": 1012600,
+          "avg_price": 44.142250000000004
+        },
+        "seg2": {
+          "start_min": "2026-04-13 10:10",
+          "end_min": "2026-04-13 10:49",
+          "high": 54.93,
+          "close": 50.5,
+          "max_vol": 143794,
+          "avg_price": 49.1105
+        },
+        "seg3": {
+          "start_min": "2026-04-13 10:50",
+          "end_min": "2026-04-13 11:29",
+          "high": 53.7,
+          "close": 52.59,
+          "max_vol": 36238,
+          "avg_price": 51.356500000000004
+        },
+        "seg4": {
+          "start_min": "2026-04-13 11:30",
+          "end_min": "2026-04-13 13:39",
+          "high": 53.2,
+          "close": 50.98,
+          "max_vol": 61377,
+          "avg_price": 51.579750000000004
+        },
+        "seg5": {
+          "start_min": "2026-04-13 13:40",
+          "end_min": "2026-04-13 14:19",
+          "high": 52.7,
+          "close": 51.29,
+          "max_vol": 19708,
+          "avg_price": 51.798
+        },
+        "seg6": {
+          "start_min": "2026-04-13 14:20",
+          "end_min": "2026-04-13 14:59",
+          "high": 51.68,
+          "close": 51.68,
+          "max_vol": 52455,
+          "avg_price": 50.53275
+        }
+      },
+      "final_to_pct": 88.2
+    },
+    {
+      "code": "920177",
+      "name": "恒道科技",
+      "ipo_date": "2026-04-16",
+      "ipo_price": 21.8,
+      "float_shares": 11772000,
+      "bars": 241,
+      "open": 40.0,
+      "close": 36.58,
+      "high": 41.01,
+      "low": 36.54,
+      "vwap": 38.38,
+      "vwap_above_pct": 15.4,
+      "open_gap_pct": 83.5,
+      "max_gain_pct": 88.1,
+      "actual_gain_pct": 67.8,
+      "gain_retention_pct": 76.9,
+      "high_to_close_pct": 10.8,
+      "max_dd_from_high_pct": 10.9,
+      "high_time": "2026-04-16 09:34",
+      "high_minute": 934,
+      "high_session": "AM",
+      "high_elapsed_min": 4,
+      "low_time": "2026-04-16 14:51",
+      "low_minute": 1451,
+      "vol_peak_minute": 931,
+      "total_turnover": 90.25,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 935,
+          "price": 40.38,
+          "index": 5
+        },
+        "to30": {
+          "minute": 945,
+          "price": 38.82,
+          "index": 15
+        },
+        "to40": {
+          "minute": 1003,
+          "price": 37.89,
+          "index": 33
+        },
+        "to50": {
+          "minute": 1030,
+          "price": 38.0,
+          "index": 60
+        },
+        "to60": {
+          "minute": 1119,
+          "price": 37.07,
+          "index": 109
+        },
+        "to70": {
+          "minute": 1346,
+          "price": 37.11,
+          "index": 166
+        },
+        "to80": {
+          "minute": 1435,
+          "price": 36.73,
+          "index": 215
+        },
+        "to90": {
+          "minute": 1500,
+          "price": 36.58,
+          "index": 240
+        }
+      },
+      "volatility_score": 0.28,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-04-16 09:30",
+          "end_min": "2026-04-16 10:09",
+          "high": 41.01,
+          "close": 38.16,
+          "max_vol": 947375,
+          "avg_price": 38.96175
+        },
+        "seg2": {
+          "start_min": "2026-04-16 10:10",
+          "end_min": "2026-04-16 10:49",
+          "high": 38.59,
+          "close": 37.71,
+          "max_vol": 71298,
+          "avg_price": 38.027499999999996
+        },
+        "seg3": {
+          "start_min": "2026-04-16 10:50",
+          "end_min": "2026-04-16 11:29",
+          "high": 37.74,
+          "close": 37.32,
+          "max_vol": 42223,
+          "avg_price": 37.3175
+        },
+        "seg4": {
+          "start_min": "2026-04-16 11:30",
+          "end_min": "2026-04-16 13:39",
+          "high": 37.6,
+          "close": 37.06,
+          "max_vol": 52326,
+          "avg_price": 37.1605
+        },
+        "seg5": {
+          "start_min": "2026-04-16 13:40",
+          "end_min": "2026-04-16 14:19",
+          "high": 37.27,
+          "close": 36.76,
+          "max_vol": 59336,
+          "avg_price": 37.02375
+        },
+        "seg6": {
+          "start_min": "2026-04-16 14:20",
+          "end_min": "2026-04-16 14:59",
+          "high": 36.81,
+          "close": 36.6,
+          "max_vol": 94448,
+          "avg_price": 36.70075
+        }
+      },
+      "final_to_pct": 90.2
+    },
+    {
+      "code": "920191",
+      "name": "瑞尔竞达",
+      "ipo_date": "2026-04-20",
+      "ipo_price": 7.71,
+      "float_shares": 39915000,
+      "bars": 241,
+      "open": 15.99,
+      "close": 14.88,
+      "high": 16.38,
+      "low": 14.5,
+      "vwap": 15.19,
+      "vwap_above_pct": 10.4,
+      "open_gap_pct": 107.4,
+      "max_gain_pct": 112.5,
+      "actual_gain_pct": 93.0,
+      "gain_retention_pct": 82.7,
+      "high_to_close_pct": 9.2,
+      "max_dd_from_high_pct": 11.5,
+      "high_time": "2026-04-20 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2026-04-20 09:36",
+      "low_minute": 936,
+      "vol_peak_minute": 931,
+      "total_turnover": 92.12,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 934,
+          "price": 15.21,
+          "index": 4
+        },
+        "to30": {
+          "minute": 941,
+          "price": 14.92,
+          "index": 11
+        },
+        "to40": {
+          "minute": 951,
+          "price": 15.15,
+          "index": 21
+        },
+        "to50": {
+          "minute": 1003,
+          "price": 15.55,
+          "index": 33
+        },
+        "to60": {
+          "minute": 1041,
+          "price": 15.16,
+          "index": 71
+        },
+        "to70": {
+          "minute": 1309,
+          "price": 14.88,
+          "index": 129
+        },
+        "to80": {
+          "minute": 1404,
+          "price": 15.29,
+          "index": 184
+        },
+        "to90": {
+          "minute": 1454,
+          "price": 14.85,
+          "index": 234
+        }
+      },
+      "volatility_score": 0.78,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-04-20 09:30",
+          "end_min": "2026-04-20 10:09",
+          "high": 16.38,
+          "close": 15.18,
+          "max_vol": 3554546,
+          "avg_price": 15.254499999999998
+        },
+        "seg2": {
+          "start_min": "2026-04-20 10:10",
+          "end_min": "2026-04-20 10:49",
+          "high": 15.25,
+          "close": 15.05,
+          "max_vol": 146353,
+          "avg_price": 15.108500000000001
+        },
+        "seg3": {
+          "start_min": "2026-04-20 10:50",
+          "end_min": "2026-04-20 11:29",
+          "high": 15.12,
+          "close": 14.91,
+          "max_vol": 253485,
+          "avg_price": 15.003
+        },
+        "seg4": {
+          "start_min": "2026-04-20 11:30",
+          "end_min": "2026-04-20 13:39",
+          "high": 15.08,
+          "close": 14.68,
+          "max_vol": 252968,
+          "avg_price": 14.777750000000001
+        },
+        "seg5": {
+          "start_min": "2026-04-20 13:40",
+          "end_min": "2026-04-20 14:19",
+          "high": 15.33,
+          "close": 14.9,
+          "max_vol": 335252,
+          "avg_price": 14.77825
+        },
+        "seg6": {
+          "start_min": "2026-04-20 14:20",
+          "end_min": "2026-04-20 14:59",
+          "high": 15.24,
+          "close": 14.87,
+          "max_vol": 237051,
+          "avg_price": 14.91125
+        }
+      },
+      "final_to_pct": 92.1
+    },
+    {
+      "code": "920125",
+      "name": "鸿仕达",
+      "ipo_date": "2026-04-24",
+      "ipo_price": 16.57,
+      "float_shares": 16481539,
+      "bars": 241,
+      "open": 46.0,
+      "close": 50.02,
+      "high": 55.54,
+      "low": 46.0,
+      "vwap": 49.36,
+      "vwap_above_pct": 90.5,
+      "open_gap_pct": 177.6,
+      "max_gain_pct": 235.2,
+      "actual_gain_pct": 201.9,
+      "gain_retention_pct": 85.8,
+      "high_to_close_pct": 9.9,
+      "max_dd_from_high_pct": 10.9,
+      "high_time": "2026-04-24 10:02",
+      "high_minute": 1002,
+      "high_session": "AM",
+      "high_elapsed_min": 32,
+      "low_time": "2026-04-24 09:30",
+      "low_minute": 930,
+      "vol_peak_minute": 931,
+      "total_turnover": 81.09,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 46.5,
+          "index": 2
+        },
+        "to30": {
+          "minute": 936,
+          "price": 49.71,
+          "index": 6
+        },
+        "to40": {
+          "minute": 944,
+          "price": 47.89,
+          "index": 14
+        },
+        "to50": {
+          "minute": 957,
+          "price": 50.05,
+          "index": 27
+        },
+        "to60": {
+          "minute": 1011,
+          "price": 53.05,
+          "index": 41
+        },
+        "to70": {
+          "minute": 1119,
+          "price": 51.6,
+          "index": 109
+        },
+        "to80": {
+          "minute": 1455,
+          "price": 49.98,
+          "index": 235
+        }
+      },
+      "volatility_score": 0.81,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-04-24 09:30",
+          "end_min": "2026-04-24 10:09",
+          "high": 55.54,
+          "close": 54.02,
+          "max_vol": 1964528,
+          "avg_price": 49.7415
+        },
+        "seg2": {
+          "start_min": "2026-04-24 10:10",
+          "end_min": "2026-04-24 10:49",
+          "high": 54.82,
+          "close": 54.08,
+          "max_vol": 98123,
+          "avg_price": 52.746249999999996
+        },
+        "seg3": {
+          "start_min": "2026-04-24 10:50",
+          "end_min": "2026-04-24 11:29",
+          "high": 54.18,
+          "close": 52.2,
+          "max_vol": 75937,
+          "avg_price": 52.38075
+        },
+        "seg4": {
+          "start_min": "2026-04-24 11:30",
+          "end_min": "2026-04-24 13:39",
+          "high": 52.43,
+          "close": 51.9,
+          "max_vol": 39551,
+          "avg_price": 51.729499999999994
+        },
+        "seg5": {
+          "start_min": "2026-04-24 13:40",
+          "end_min": "2026-04-24 14:19",
+          "high": 51.98,
+          "close": 50.6,
+          "max_vol": 17767,
+          "avg_price": 51.05525
+        },
+        "seg6": {
+          "start_min": "2026-04-24 14:20",
+          "end_min": "2026-04-24 14:59",
+          "high": 50.88,
+          "close": 50.06,
+          "max_vol": 78479,
+          "avg_price": 50.1115
+        }
+      },
+      "final_to_pct": 81.1
+    },
+    {
+      "code": "920156",
+      "name": "海昌智能",
+      "ipo_date": "2026-04-27",
+      "ipo_price": 20.93,
+      "float_shares": 21708000,
+      "bars": 241,
+      "open": 44.12,
+      "close": 40.6,
+      "high": 44.59,
+      "low": 38.68,
+      "vwap": 40.36,
+      "vwap_above_pct": 5.0,
+      "open_gap_pct": 110.8,
+      "max_gain_pct": 113.0,
+      "actual_gain_pct": 94.0,
+      "gain_retention_pct": 83.1,
+      "high_to_close_pct": 8.9,
+      "max_dd_from_high_pct": 13.3,
+      "high_time": "2026-04-27 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2026-04-27 09:59",
+      "low_minute": 959,
+      "vol_peak_minute": 931,
+      "total_turnover": 91.44,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 937,
+          "price": 40.21,
+          "index": 7
+        },
+        "to30": {
+          "minute": 949,
+          "price": 39.88,
+          "index": 19
+        },
+        "to40": {
+          "minute": 1006,
+          "price": 38.89,
+          "index": 36
+        },
+        "to50": {
+          "minute": 1024,
+          "price": 39.94,
+          "index": 54
+        },
+        "to60": {
+          "minute": 1108,
+          "price": 39.6,
+          "index": 98
+        },
+        "to70": {
+          "minute": 1320,
+          "price": 40.19,
+          "index": 140
+        },
+        "to80": {
+          "minute": 1418,
+          "price": 40.09,
+          "index": 198
+        },
+        "to90": {
+          "minute": 1457,
+          "price": 40.33,
+          "index": 237
+        }
+      },
+      "volatility_score": 0.46,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-04-27 09:30",
+          "end_min": "2026-04-27 10:09",
+          "high": 44.59,
+          "close": 39.11,
+          "max_vol": 1432509,
+          "avg_price": 39.78625
+        },
+        "seg2": {
+          "start_min": "2026-04-27 10:10",
+          "end_min": "2026-04-27 10:49",
+          "high": 40.55,
+          "close": 39.78,
+          "max_vol": 350816,
+          "avg_price": 39.85475
+        },
+        "seg3": {
+          "start_min": "2026-04-27 10:50",
+          "end_min": "2026-04-27 11:29",
+          "high": 40.12,
+          "close": 39.95,
+          "max_vol": 144010,
+          "avg_price": 39.81525
+        },
+        "seg4": {
+          "start_min": "2026-04-27 11:30",
+          "end_min": "2026-04-27 13:39",
+          "high": 40.4,
+          "close": 39.95,
+          "max_vol": 196307,
+          "avg_price": 40.095749999999995
+        },
+        "seg5": {
+          "start_min": "2026-04-27 13:40",
+          "end_min": "2026-04-27 14:19",
+          "high": 40.15,
+          "close": 39.98,
+          "max_vol": 117223,
+          "avg_price": 39.7085
+        },
+        "seg6": {
+          "start_min": "2026-04-27 14:20",
+          "end_min": "2026-04-27 14:59",
+          "high": 40.49,
+          "close": 40.33,
+          "max_vol": 163913,
+          "avg_price": 39.9405
+        }
+      },
+      "final_to_pct": 91.4
+    },
+    {
+      "code": "920186",
+      "name": "中科仪",
+      "ipo_date": "2026-04-29",
+      "ipo_price": 16.21,
+      "float_shares": 95530478,
+      "bars": 241,
+      "open": 61.0,
+      "close": 71.98,
+      "high": 79.0,
+      "low": 60.0,
+      "vwap": 64.76,
+      "vwap_above_pct": 64.7,
+      "open_gap_pct": 276.3,
+      "max_gain_pct": 387.4,
+      "actual_gain_pct": 344.0,
+      "gain_retention_pct": 88.8,
+      "high_to_close_pct": 8.9,
+      "max_dd_from_high_pct": 11.4,
+      "high_time": "2026-04-29 14:05",
+      "high_minute": 1405,
+      "high_session": "PM",
+      "high_elapsed_min": 185,
+      "low_time": "2026-04-29 09:31",
+      "low_minute": 931,
+      "vol_peak_minute": 931,
+      "total_turnover": 55.82,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 939,
+          "price": 64.98,
+          "index": 9
+        },
+        "to30": {
+          "minute": 1001,
+          "price": 64.03,
+          "index": 31
+        },
+        "to40": {
+          "minute": 1103,
+          "price": 64.47,
+          "index": 93
+        },
+        "to50": {
+          "minute": 1356,
+          "price": 73.3,
+          "index": 176
+        }
+      },
+      "volatility_score": 0.67,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-04-29 09:30",
+          "end_min": "2026-04-29 10:09",
+          "high": 65.4,
+          "close": 63.2,
+          "max_vol": 5945912,
+          "avg_price": 62.810249999999996
+        },
+        "seg2": {
+          "start_min": "2026-04-29 10:10",
+          "end_min": "2026-04-29 10:49",
+          "high": 65.0,
+          "close": 64.56,
+          "max_vol": 417579,
+          "avg_price": 64.03099999999999
+        },
+        "seg3": {
+          "start_min": "2026-04-29 10:50",
+          "end_min": "2026-04-29 11:29",
+          "high": 69.38,
+          "close": 68.63,
+          "max_vol": 762095,
+          "avg_price": 65.65599999999999
+        },
+        "seg4": {
+          "start_min": "2026-04-29 11:30",
+          "end_min": "2026-04-29 13:39",
+          "high": 70.15,
+          "close": 69.3,
+          "max_vol": 274626,
+          "avg_price": 68.55075000000001
+        },
+        "seg5": {
+          "start_min": "2026-04-29 13:40",
+          "end_min": "2026-04-29 14:19",
+          "high": 79.0,
+          "close": 74.5,
+          "max_vol": 157200,
+          "avg_price": 73.4435
+        },
+        "seg6": {
+          "start_min": "2026-04-29 14:20",
+          "end_min": "2026-04-29 14:59",
+          "high": 74.51,
+          "close": 71.98,
+          "max_vol": 194897,
+          "avg_price": 71.96950000000001
+        }
+      },
+      "final_to_pct": 55.8
+    },
+    {
+      "code": "920200",
+      "name": "振宏股份",
+      "ipo_date": "2026-05-07",
+      "ipo_price": 20.58,
+      "float_shares": 24219000,
+      "bars": 241,
+      "open": 45.0,
+      "close": 94.02,
+      "high": 130.0,
+      "low": 45.0,
+      "vwap": 53.7,
+      "vwap_above_pct": 78.8,
+      "open_gap_pct": 118.7,
+      "max_gain_pct": 531.7,
+      "actual_gain_pct": 356.9,
+      "gain_retention_pct": 67.1,
+      "high_to_close_pct": 27.7,
+      "max_dd_from_high_pct": 42.3,
+      "high_time": "2026-05-07 14:39",
+      "high_minute": 1439,
+      "high_session": "PM",
+      "high_elapsed_min": 219,
+      "low_time": "2026-05-07 09:30",
+      "low_minute": 930,
+      "vol_peak_minute": 931,
+      "total_turnover": 94.22,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 47.69,
+          "index": 2
+        },
+        "to30": {
+          "minute": 935,
+          "price": 47.69,
+          "index": 5
+        },
+        "to40": {
+          "minute": 941,
+          "price": 49.15,
+          "index": 11
+        },
+        "to50": {
+          "minute": 948,
+          "price": 51.05,
+          "index": 18
+        },
+        "to60": {
+          "minute": 1002,
+          "price": 52.82,
+          "index": 32
+        },
+        "to70": {
+          "minute": 1044,
+          "price": 54.46,
+          "index": 74
+        },
+        "to80": {
+          "minute": 1332,
+          "price": 55.54,
+          "index": 152
+        },
+        "to90": {
+          "minute": 1439,
+          "price": 108.0,
+          "index": 219
+        }
+      },
+      "volatility_score": 2.96,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-05-07 09:30",
+          "end_min": "2026-05-07 10:09",
+          "high": 57.67,
+          "close": 53.99,
+          "max_vol": 2923292,
+          "avg_price": 51.66925
+        },
+        "seg2": {
+          "start_min": "2026-05-07 10:10",
+          "end_min": "2026-05-07 10:49",
+          "high": 55.0,
+          "close": 53.53,
+          "max_vol": 133718,
+          "avg_price": 53.58775000000001
+        },
+        "seg3": {
+          "start_min": "2026-05-07 10:50",
+          "end_min": "2026-05-07 11:29",
+          "high": 54.19,
+          "close": 54.1,
+          "max_vol": 61181,
+          "avg_price": 54.03275
+        },
+        "seg4": {
+          "start_min": "2026-05-07 11:30",
+          "end_min": "2026-05-07 13:39",
+          "high": 57.0,
+          "close": 55.08,
+          "max_vol": 133893,
+          "avg_price": 55.24325
+        },
+        "seg5": {
+          "start_min": "2026-05-07 13:40",
+          "end_min": "2026-05-07 14:19",
+          "high": 59.93,
+          "close": 59.93,
+          "max_vol": 125569,
+          "avg_price": 57.0135
+        },
+        "seg6": {
+          "start_min": "2026-05-07 14:20",
+          "end_min": "2026-05-07 14:59",
+          "high": 130.0,
+          "close": 94.02,
+          "max_vol": 132227,
+          "avg_price": 84.49249999999999
+        }
+      },
+      "final_to_pct": 94.2
+    },
+    {
+      "code": "920178",
+      "name": "锐翔智能",
+      "ipo_date": "2026-05-15",
+      "ipo_price": 29.47,
+      "float_shares": 14609551,
+      "bars": 241,
+      "open": 165.0,
+      "close": 173.99,
+      "high": 197.0,
+      "low": 165.0,
+      "vwap": 176.48,
+      "vwap_above_pct": 85.9,
+      "open_gap_pct": 459.9,
+      "max_gain_pct": 568.5,
+      "actual_gain_pct": 490.4,
+      "gain_retention_pct": 86.3,
+      "high_to_close_pct": 11.7,
+      "max_dd_from_high_pct": 13.7,
+      "high_time": "2026-05-15 13:32",
+      "high_minute": 1332,
+      "high_session": "PM",
+      "high_elapsed_min": 152,
+      "low_time": "2026-05-15 09:30",
+      "low_minute": 930,
+      "vol_peak_minute": 931,
+      "total_turnover": 79.45,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 931,
+          "price": 175.1,
+          "index": 1
+        },
+        "to30": {
+          "minute": 933,
+          "price": 175.1,
+          "index": 3
+        },
+        "to40": {
+          "minute": 940,
+          "price": 180.3,
+          "index": 10
+        },
+        "to50": {
+          "minute": 1001,
+          "price": 178.76,
+          "index": 31
+        },
+        "to60": {
+          "minute": 1054,
+          "price": 179.74,
+          "index": 84
+        },
+        "to70": {
+          "minute": 1358,
+          "price": 182.22,
+          "index": 178
+        }
+      },
+      "volatility_score": 0.78,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-05-15 09:30",
+          "end_min": "2026-05-15 10:09",
+          "high": 187.98,
+          "close": 183.52,
+          "max_vol": 2012833,
+          "avg_price": 178.848
+        },
+        "seg2": {
+          "start_min": "2026-05-15 10:10",
+          "end_min": "2026-05-15 10:49",
+          "high": 183.8,
+          "close": 180.0,
+          "max_vol": 40266,
+          "avg_price": 180.47425
+        },
+        "seg3": {
+          "start_min": "2026-05-15 10:50",
+          "end_min": "2026-05-15 11:29",
+          "high": 185.0,
+          "close": 180.77,
+          "max_vol": 34854,
+          "avg_price": 181.2065
+        },
+        "seg4": {
+          "start_min": "2026-05-15 11:30",
+          "end_min": "2026-05-15 13:39",
+          "high": 197.0,
+          "close": 185.0,
+          "max_vol": 102169,
+          "avg_price": 184.777
+        },
+        "seg5": {
+          "start_min": "2026-05-15 13:40",
+          "end_min": "2026-05-15 14:19",
+          "high": 188.0,
+          "close": 180.75,
+          "max_vol": 32474,
+          "avg_price": 182.1755
+        },
+        "seg6": {
+          "start_min": "2026-05-15 14:20",
+          "end_min": "2026-05-15 14:59",
+          "high": 182.21,
+          "close": 173.01,
+          "max_vol": 64994,
+          "avg_price": 175.232
+        }
+      },
+      "final_to_pct": 79.5
+    },
+    {
+      "code": "920096",
+      "name": "嘉晨智能",
+      "ipo_date": "2026-05-18",
+      "ipo_price": 14.43,
+      "float_shares": 16200000,
+      "bars": 241,
+      "open": 70.0,
+      "close": 112.01,
+      "high": 112.01,
+      "low": 70.0,
+      "vwap": 79.8,
+      "vwap_above_pct": 76.8,
+      "open_gap_pct": 385.1,
+      "max_gain_pct": 676.2,
+      "actual_gain_pct": 676.2,
+      "gain_retention_pct": 100.0,
+      "high_to_close_pct": 0.0,
+      "max_dd_from_high_pct": 0,
+      "high_time": "2026-05-18 15:00",
+      "high_minute": 1500,
+      "high_session": "PM",
+      "high_elapsed_min": 240,
+      "low_time": "2026-05-18 09:30",
+      "low_minute": 930,
+      "vol_peak_minute": 931,
+      "total_turnover": 94.99,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 72.0,
+          "index": 3
+        },
+        "to30": {
+          "minute": 939,
+          "price": 71.45,
+          "index": 9
+        },
+        "to40": {
+          "minute": 951,
+          "price": 71.16,
+          "index": 21
+        },
+        "to50": {
+          "minute": 1006,
+          "price": 75.18,
+          "index": 36
+        },
+        "to60": {
+          "minute": 1018,
+          "price": 79.01,
+          "index": 48
+        },
+        "to70": {
+          "minute": 1033,
+          "price": 81.5,
+          "index": 63
+        },
+        "to80": {
+          "minute": 1311,
+          "price": 95.55,
+          "index": 131
+        },
+        "to90": {
+          "minute": 1438,
+          "price": 104.5,
+          "index": 218
+        }
+      },
+      "volatility_score": 1.6,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-05-18 09:30",
+          "end_min": "2026-05-18 10:09",
+          "high": 76.03,
+          "close": 73.86,
+          "max_vol": 1473104,
+          "avg_price": 71.78025
+        },
+        "seg2": {
+          "start_min": "2026-05-18 10:10",
+          "end_min": "2026-05-18 10:49",
+          "high": 86.37,
+          "close": 83.88,
+          "max_vol": 213504,
+          "avg_price": 80.376
+        },
+        "seg3": {
+          "start_min": "2026-05-18 10:50",
+          "end_min": "2026-05-18 11:29",
+          "high": 90.0,
+          "close": 90.0,
+          "max_vol": 70858,
+          "avg_price": 87.22200000000001
+        },
+        "seg4": {
+          "start_min": "2026-05-18 11:30",
+          "end_min": "2026-05-18 13:39",
+          "high": 110.01,
+          "close": 104.98,
+          "max_vol": 135806,
+          "avg_price": 97.1525
+        },
+        "seg5": {
+          "start_min": "2026-05-18 13:40",
+          "end_min": "2026-05-18 14:19",
+          "high": 108.58,
+          "close": 101.11,
+          "max_vol": 35435,
+          "avg_price": 102.95474999999999
+        },
+        "seg6": {
+          "start_min": "2026-05-18 14:20",
+          "end_min": "2026-05-18 14:59",
+          "high": 112.0,
+          "close": 112.0,
+          "max_vol": 54608,
+          "avg_price": 103.82025000000002
+        }
+      },
+      "final_to_pct": 94.6
+    },
+    {
+      "code": "920220",
+      "name": "朗信电气",
+      "ipo_date": "2026-05-22",
+      "ipo_price": 28.29,
+      "float_shares": 11917127,
+      "bars": 241,
+      "open": 180.0,
+      "close": 138.8,
+      "high": 195.88,
+      "low": 130.0,
+      "vwap": 175.0,
+      "vwap_above_pct": 51.9,
+      "open_gap_pct": 536.3,
+      "max_gain_pct": 592.4,
+      "actual_gain_pct": 390.6,
+      "gain_retention_pct": 65.9,
+      "high_to_close_pct": 29.1,
+      "max_dd_from_high_pct": 33.6,
+      "high_time": "2026-05-22 09:33",
+      "high_minute": 933,
+      "high_session": "AM",
+      "high_elapsed_min": 3,
+      "low_time": "2026-05-22 14:45",
+      "low_minute": 1445,
+      "vol_peak_minute": 931,
+      "total_turnover": 89.91,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 195.0,
+          "index": 2
+        },
+        "to30": {
+          "minute": 936,
+          "price": 186.01,
+          "index": 6
+        },
+        "to40": {
+          "minute": 949,
+          "price": 188.12,
+          "index": 19
+        },
+        "to50": {
+          "minute": 1023,
+          "price": 181.87,
+          "index": 53
+        },
+        "to60": {
+          "minute": 1104,
+          "price": 183.52,
+          "index": 94
+        },
+        "to70": {
+          "minute": 1330,
+          "price": 153.24,
+          "index": 150
+        },
+        "to80": {
+          "minute": 1434,
+          "price": 142.6,
+          "index": 214
+        }
+      },
+      "volatility_score": 1.1,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-05-22 09:30",
+          "end_min": "2026-05-22 10:09",
+          "high": 195.88,
+          "close": 186.0,
+          "max_vol": 1391646,
+          "avg_price": 187.5115
+        },
+        "seg2": {
+          "start_min": "2026-05-22 10:10",
+          "end_min": "2026-05-22 10:49",
+          "high": 188.8,
+          "close": 182.72,
+          "max_vol": 95105,
+          "avg_price": 183.5355
+        },
+        "seg3": {
+          "start_min": "2026-05-22 10:50",
+          "end_min": "2026-05-22 11:29",
+          "high": 183.87,
+          "close": 180.88,
+          "max_vol": 17829,
+          "avg_price": 182.10025000000002
+        },
+        "seg4": {
+          "start_min": "2026-05-22 11:30",
+          "end_min": "2026-05-22 13:39",
+          "high": 180.81,
+          "close": 155.7,
+          "max_vol": 62798,
+          "avg_price": 163.988
+        },
+        "seg5": {
+          "start_min": "2026-05-22 13:40",
+          "end_min": "2026-05-22 14:19",
+          "high": 155.78,
+          "close": 148.98,
+          "max_vol": 56726,
+          "avg_price": 150.0825
+        },
+        "seg6": {
+          "start_min": "2026-05-22 14:20",
+          "end_min": "2026-05-22 14:59",
+          "high": 148.99,
+          "close": 138.9,
+          "max_vol": 90078,
+          "avg_price": 141.9185
+        }
+      },
+      "final_to_pct": 89.9
+    },
+    {
+      "code": "920161",
+      "name": "龙辰科技",
+      "ipo_date": "2026-05-27",
+      "ipo_price": 9.21,
+      "float_shares": 36898840,
+      "bars": 241,
+      "open": 55.0,
+      "close": 40.95,
+      "high": 59.0,
+      "low": 40.0,
+      "vwap": 50.62,
+      "vwap_above_pct": 8.7,
+      "open_gap_pct": 497.2,
+      "max_gain_pct": 540.6,
+      "actual_gain_pct": 344.6,
+      "gain_retention_pct": 63.7,
+      "high_to_close_pct": 30.6,
+      "max_dd_from_high_pct": 32.2,
+      "high_time": "2026-05-27 09:36",
+      "high_minute": 936,
+      "high_session": "AM",
+      "high_elapsed_min": 6,
+      "low_time": "2026-05-27 14:47",
+      "low_minute": 1447,
+      "vol_peak_minute": 931,
+      "total_turnover": 90.18,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 56.06,
+          "index": 2
+        },
+        "to30": {
+          "minute": 936,
+          "price": 57.55,
+          "index": 6
+        },
+        "to40": {
+          "minute": 946,
+          "price": 55.5,
+          "index": 16
+        },
+        "to50": {
+          "minute": 958,
+          "price": 47.19,
+          "index": 28
+        },
+        "to60": {
+          "minute": 1032,
+          "price": 45.85,
+          "index": 62
+        },
+        "to70": {
+          "minute": 1301,
+          "price": 46.34,
+          "index": 121
+        },
+        "to80": {
+          "minute": 1412,
+          "price": 42.81,
+          "index": 192
+        },
+        "to90": {
+          "minute": 1500,
+          "price": 40.95,
+          "index": 240
+        }
+      },
+      "volatility_score": 1.04,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-05-27 09:30",
+          "end_min": "2026-05-27 10:09",
+          "high": 59.0,
+          "close": 47.9,
+          "max_vol": 3931205,
+          "avg_price": 52.02175
+        },
+        "seg2": {
+          "start_min": "2026-05-27 10:10",
+          "end_min": "2026-05-27 10:49",
+          "high": 48.0,
+          "close": 47.97,
+          "max_vol": 156928,
+          "avg_price": 46.340999999999994
+        },
+        "seg3": {
+          "start_min": "2026-05-27 10:50",
+          "end_min": "2026-05-27 11:29",
+          "high": 48.26,
+          "close": 46.22,
+          "max_vol": 128744,
+          "avg_price": 46.45425
+        },
+        "seg4": {
+          "start_min": "2026-05-27 11:30",
+          "end_min": "2026-05-27 13:39",
+          "high": 48.13,
+          "close": 45.49,
+          "max_vol": 151695,
+          "avg_price": 46.26975
+        },
+        "seg5": {
+          "start_min": "2026-05-27 13:40",
+          "end_min": "2026-05-27 14:19",
+          "high": 45.49,
+          "close": 43.22,
+          "max_vol": 126391,
+          "avg_price": 43.8795
+        },
+        "seg6": {
+          "start_min": "2026-05-27 14:20",
+          "end_min": "2026-05-27 14:59",
+          "high": 44.58,
+          "close": 40.96,
+          "max_vol": 243036,
+          "avg_price": 42.2155
+        }
+      },
+      "final_to_pct": 90.2
+    },
+    {
+      "code": "920218",
+      "name": "新天力",
+      "ipo_date": "2026-05-29",
+      "ipo_price": 12.19,
+      "float_shares": 21076229,
+      "bars": 241,
+      "open": 44.97,
+      "close": 45.2,
+      "high": 58.18,
+      "low": 38.11,
+      "vwap": 44.19,
+      "vwap_above_pct": 85.1,
+      "open_gap_pct": 268.9,
+      "max_gain_pct": 377.3,
+      "actual_gain_pct": 270.8,
+      "gain_retention_pct": 71.8,
+      "high_to_close_pct": 22.3,
+      "max_dd_from_high_pct": 22.3,
+      "high_time": "2026-05-29 13:10",
+      "high_minute": 1310,
+      "high_session": "PM",
+      "high_elapsed_min": 130,
+      "low_time": "2026-05-29 09:32",
+      "low_minute": 932,
+      "vol_peak_minute": 931,
+      "total_turnover": 95.88,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 38.89,
+          "index": 3
+        },
+        "to30": {
+          "minute": 938,
+          "price": 38.38,
+          "index": 8
+        },
+        "to40": {
+          "minute": 947,
+          "price": 38.74,
+          "index": 17
+        },
+        "to50": {
+          "minute": 955,
+          "price": 41.33,
+          "index": 25
+        },
+        "to60": {
+          "minute": 1005,
+          "price": 46.0,
+          "index": 35
+        },
+        "to70": {
+          "minute": 1029,
+          "price": 47.39,
+          "index": 59
+        },
+        "to80": {
+          "minute": 1102,
+          "price": 47.99,
+          "index": 92
+        },
+        "to90": {
+          "minute": 1421,
+          "price": 49.09,
+          "index": 201
+        }
+      },
+      "volatility_score": 1.95,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-05-29 09:30",
+          "end_min": "2026-05-29 10:09",
+          "high": 47.87,
+          "close": 44.5,
+          "max_vol": 1893783,
+          "avg_price": 41.242000000000004
+        },
+        "seg2": {
+          "start_min": "2026-05-29 10:10",
+          "end_min": "2026-05-29 10:49",
+          "high": 56.58,
+          "close": 53.42,
+          "max_vol": 219243,
+          "avg_price": 48.769
+        },
+        "seg3": {
+          "start_min": "2026-05-29 10:50",
+          "end_min": "2026-05-29 11:29",
+          "high": 55.0,
+          "close": 51.69,
+          "max_vol": 52623,
+          "avg_price": 51.372
+        },
+        "seg4": {
+          "start_min": "2026-05-29 11:30",
+          "end_min": "2026-05-29 13:39",
+          "high": 58.18,
+          "close": 51.76,
+          "max_vol": 93521,
+          "avg_price": 53.068
+        },
+        "seg5": {
+          "start_min": "2026-05-29 13:40",
+          "end_min": "2026-05-29 14:19",
+          "high": 52.07,
+          "close": 49.09,
+          "max_vol": 31147,
+          "avg_price": 49.12325
+        },
+        "seg6": {
+          "start_min": "2026-05-29 14:20",
+          "end_min": "2026-05-29 14:59",
+          "high": 51.1,
+          "close": 45.39,
+          "max_vol": 104419,
+          "avg_price": 47.131
+        }
+      },
+      "final_to_pct": 95.9
+    },
+    {
+      "code": "920211",
+      "name": "新睿电子",
+      "ipo_date": "2026-06-05",
+      "ipo_price": 25.19,
+      "float_shares": 5760000,
+      "bars": 241,
+      "open": 278.87,
+      "close": 226.88,
+      "high": 280.0,
+      "low": 226.68,
+      "vwap": 253.43,
+      "vwap_above_pct": 22.4,
+      "open_gap_pct": 1007.1,
+      "max_gain_pct": 1011.6,
+      "actual_gain_pct": 800.7,
+      "gain_retention_pct": 79.2,
+      "high_to_close_pct": 19.0,
+      "max_dd_from_high_pct": 19.0,
+      "high_time": "2026-06-05 09:31",
+      "high_minute": 931,
+      "high_session": "AM",
+      "high_elapsed_min": 1,
+      "low_time": "2026-06-05 14:53",
+      "low_minute": 1453,
+      "vol_peak_minute": 931,
+      "total_turnover": 94.73,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 932,
+          "price": 270.0,
+          "index": 2
+        },
+        "to30": {
+          "minute": 935,
+          "price": 273.0,
+          "index": 5
+        },
+        "to40": {
+          "minute": 948,
+          "price": 257.01,
+          "index": 18
+        },
+        "to50": {
+          "minute": 1007,
+          "price": 245.0,
+          "index": 37
+        },
+        "to60": {
+          "minute": 1035,
+          "price": 232.68,
+          "index": 65
+        },
+        "to70": {
+          "minute": 1118,
+          "price": 247.0,
+          "index": 108
+        },
+        "to80": {
+          "minute": 1336,
+          "price": 256.8,
+          "index": 156
+        },
+        "to90": {
+          "minute": 1448,
+          "price": 230.15,
+          "index": 228
+        }
+      },
+      "volatility_score": 1.55,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-06-05 09:30",
+          "end_min": "2026-06-05 10:09",
+          "high": 280.0,
+          "close": 237.02,
+          "max_vol": 665558,
+          "avg_price": 257.30025
+        },
+        "seg2": {
+          "start_min": "2026-06-05 10:10",
+          "end_min": "2026-06-05 10:49",
+          "high": 245.89,
+          "close": 233.34,
+          "max_vol": 55861,
+          "avg_price": 234.86875
+        },
+        "seg3": {
+          "start_min": "2026-06-05 10:50",
+          "end_min": "2026-06-05 11:29",
+          "high": 249.9,
+          "close": 244.1,
+          "max_vol": 22398,
+          "avg_price": 244.59225
+        },
+        "seg4": {
+          "start_min": "2026-06-05 11:30",
+          "end_min": "2026-06-05 13:39",
+          "high": 271.0,
+          "close": 254.0,
+          "max_vol": 51759,
+          "avg_price": 252.03425000000001
+        },
+        "seg5": {
+          "start_min": "2026-06-05 13:40",
+          "end_min": "2026-06-05 14:19",
+          "high": 254.99,
+          "close": 240.5,
+          "max_vol": 11543,
+          "avg_price": 245.3875
+        },
+        "seg6": {
+          "start_min": "2026-06-05 14:20",
+          "end_min": "2026-06-05 14:59",
+          "high": 242.0,
+          "close": 227.44,
+          "max_vol": 44709,
+          "avg_price": 233.05599999999998
+        }
+      },
+      "final_to_pct": 94.7
+    },
+    {
+      "code": "920206",
+      "name": "彩客科技",
+      "ipo_date": "2026-06-08",
+      "ipo_price": 30.28,
+      "float_shares": 14255832,
+      "bars": 241,
+      "open": 78.11,
+      "close": 81.87,
+      "high": 116.85,
+      "low": 78.11,
+      "vwap": 90.04,
+      "vwap_above_pct": 25.7,
+      "open_gap_pct": 158.0,
+      "max_gain_pct": 285.9,
+      "actual_gain_pct": 170.4,
+      "gain_retention_pct": 59.6,
+      "high_to_close_pct": 29.9,
+      "max_dd_from_high_pct": 30.8,
+      "high_time": "2026-06-08 09:43",
+      "high_minute": 943,
+      "high_session": "AM",
+      "high_elapsed_min": 13,
+      "low_time": "2026-06-08 09:30",
+      "low_minute": 930,
+      "vol_peak_minute": 930,
+      "total_turnover": 71.22,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 946,
+          "price": 99.66,
+          "index": 16
+        },
+        "to30": {
+          "minute": 959,
+          "price": 93.55,
+          "index": 29
+        },
+        "to40": {
+          "minute": 1036,
+          "price": 90.01,
+          "index": 66
+        },
+        "to50": {
+          "minute": 1317,
+          "price": 83.66,
+          "index": 137
+        },
+        "to60": {
+          "minute": 1407,
+          "price": 87.96,
+          "index": 187
+        },
+        "to70": {
+          "minute": 1457,
+          "price": 81.8,
+          "index": 237
+        }
+      },
+      "volatility_score": 1.62,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-06-08 09:30",
+          "end_min": "2026-06-08 10:09",
+          "high": 116.85,
+          "close": 91.0,
+          "max_vol": 718118,
+          "avg_price": 96.901
+        },
+        "seg2": {
+          "start_min": "2026-06-08 10:10",
+          "end_min": "2026-06-08 10:49",
+          "high": 95.0,
+          "close": 87.02,
+          "max_vol": 125959,
+          "avg_price": 90.9555
+        },
+        "seg3": {
+          "start_min": "2026-06-08 10:50",
+          "end_min": "2026-06-08 11:29",
+          "high": 89.94,
+          "close": 88.52,
+          "max_vol": 47261,
+          "avg_price": 88.7595
+        },
+        "seg4": {
+          "start_min": "2026-06-08 11:30",
+          "end_min": "2026-06-08 13:39",
+          "high": 88.59,
+          "close": 85.02,
+          "max_vol": 89326,
+          "avg_price": 84.83500000000001
+        },
+        "seg5": {
+          "start_min": "2026-06-08 13:40",
+          "end_min": "2026-06-08 14:19",
+          "high": 88.65,
+          "close": 86.13,
+          "max_vol": 84833,
+          "avg_price": 86.435
+        },
+        "seg6": {
+          "start_min": "2026-06-08 14:20",
+          "end_min": "2026-06-08 14:59",
+          "high": 86.19,
+          "close": 81.85,
+          "max_vol": 95700,
+          "avg_price": 83.05675
+        }
+      },
+      "final_to_pct": 71.2
+    },
+    {
+      "code": "920083",
+      "name": "金戈新材",
+      "ipo_date": "2026-06-11",
+      "ipo_price": 9.65,
+      "float_shares": 20089392,
+      "bars": 241,
+      "open": 53.16,
+      "close": 51.51,
+      "high": 60.0,
+      "low": 47.7,
+      "vwap": 52.86,
+      "vwap_above_pct": 66.0,
+      "open_gap_pct": 450.9,
+      "max_gain_pct": 521.8,
+      "actual_gain_pct": 433.8,
+      "gain_retention_pct": 83.1,
+      "high_to_close_pct": 14.2,
+      "max_dd_from_high_pct": 16.7,
+      "high_time": "2026-06-11 11:06",
+      "high_minute": 1106,
+      "high_session": "AM",
+      "high_elapsed_min": 96,
+      "low_time": "2026-06-11 10:00",
+      "low_minute": 1000,
+      "vol_peak_minute": 931,
+      "total_turnover": 96.16,
+      "turnover_milestones": {
+        "to20": {
+          "minute": 933,
+          "price": 51.29,
+          "index": 3
+        },
+        "to30": {
+          "minute": 937,
+          "price": 50.96,
+          "index": 7
+        },
+        "to40": {
+          "minute": 947,
+          "price": 50.81,
+          "index": 17
+        },
+        "to50": {
+          "minute": 1005,
+          "price": 48.8,
+          "index": 35
+        },
+        "to60": {
+          "minute": 1025,
+          "price": 49.53,
+          "index": 55
+        },
+        "to70": {
+          "minute": 1046,
+          "price": 55.55,
+          "index": 76
+        },
+        "to80": {
+          "minute": 1120,
+          "price": 59.94,
+          "index": 110
+        },
+        "to90": {
+          "minute": 1430,
+          "price": 55.67,
+          "index": 210
+        }
+      },
+      "volatility_score": 1.39,
+      "segments": {
+        "seg1": {
+          "start_min": "2026-06-11 09:30",
+          "end_min": "2026-06-11 10:09",
+          "high": 54.88,
+          "close": 49.99,
+          "max_vol": 1954070,
+          "avg_price": 50.27425
+        },
+        "seg2": {
+          "start_min": "2026-06-11 10:10",
+          "end_min": "2026-06-11 10:49",
+          "high": 58.0,
+          "close": 57.99,
+          "max_vol": 298570,
+          "avg_price": 51.854499999999994
+        },
+        "seg3": {
+          "start_min": "2026-06-11 10:50",
+          "end_min": "2026-06-11 11:29",
+          "high": 60.0,
+          "close": 57.23,
+          "max_vol": 172455,
+          "avg_price": 57.816250000000004
+        },
+        "seg4": {
+          "start_min": "2026-06-11 11:30",
+          "end_min": "2026-06-11 13:39",
+          "high": 59.88,
+          "close": 57.0,
+          "max_vol": 120613,
+          "avg_price": 56.225
+        },
+        "seg5": {
+          "start_min": "2026-06-11 13:40",
+          "end_min": "2026-06-11 14:19",
+          "high": 57.03,
+          "close": 56.2,
+          "max_vol": 39254,
+          "avg_price": 55.541999999999994
+        },
+        "seg6": {
+          "start_min": "2026-06-11 14:20",
+          "end_min": "2026-06-11 14:59",
+          "high": 59.5,
+          "close": 51.6,
+          "max_vol": 89732,
+          "avg_price": 54.4405
+        }
+      },
+      "final_to_pct": 96.1
+    }
+  ]
+}

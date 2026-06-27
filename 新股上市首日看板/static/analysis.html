@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新股分析看板 — 方案B+C</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; background: #0f1923; color: #d1d5db; min-height: 100vh; }
+.header { background: #1a2332; border-bottom: 2px solid #2d4a6a; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.header h1 { font-size: 20px; color: #e0e7ff; }
+.header .meta { font-size: 13px; color: #6b7280; }
+.status-bar { display: flex; gap: 16px; align-items: center; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+.status-dot.live { background: #22c55e; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 960px) { .container { grid-template-columns: 1fr; } }
+.panel { background: #1a2332; border-radius: 10px; border: 1px solid #2d4a6a; overflow: hidden; }
+.panel-header { padding: 14px 20px; border-bottom: 1px solid #2d4a6a; font-size: 15px; font-weight: 700; color: #e0e7ff; display: flex; align-items: center; gap: 8px; }
+.panel-body { padding: 16px 20px; }
+.panel.span2 { grid-column: 1 / -1; }
+
+/* Quick stats */
+.quick-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.stat-card { background: #111b26; border-radius: 8px; padding: 12px 16px; text-align: center; }
+.stat-card .val { font-size: 22px; font-weight: 800; }
+.stat-card .lbl { font-size: 11px; color: #6b7280; margin-top: 4px; }
+.val.up { color: #f87171; } .val.down { color: #22c55e; } .val.neutral { color: #fbbf24; }
+
+/* Indicators */
+.indicator-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.indicator-tag { padding: 8px 14px; border-radius: 6px; font-size: 13px; border: 1px solid; display: flex; align-items: center; gap: 8px; }
+.indicator-tag .sig-name { font-weight: 700; }
+.indicator-tag .sig-val { font-family: monospace; font-size: 16px; }
+.indicator-tag .sig-unit { font-size: 11px; color: #9ca3af; }
+.sig-bullish { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); color: #4ade80; }
+.sig-bearish { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.3); color: #f87171; }
+.sig-neutral { background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.3); color: #fbbf24; }
+.sig-golden { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.4); color: #4ade80; }
+.sig-dead { background: rgba(248,113,113,0.15); border-color: rgba(248,113,113,0.4); color: #f87171; }
+.sig-spike { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.4); color: #ef4444; }
+.sig-dry { background: rgba(107,114,128,0.1); border-color: rgba(107,114,128,0.3); color: #9ca3af; }
+.sig-accel { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: #f87171; }
+.sig-decel { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); color: #4ade80; }
+.sig-steady { background: rgba(107,114,128,0.1); border-color: rgba(107,114,128,0.3); color: #9ca3af; }
+.detail-text { font-size: 11px; color: #6b7280; margin-top: 4px; }
+
+/* Key levels */
+.level-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
+.level-row:last-child { border-bottom: none; }
+.level-price { font-family: monospace; font-size: 15px; font-weight: 700; }
+.level-dist { font-size: 12px; }
+.level-dist.above { color: #4ade80; } .level-dist.below { color: #f87171; }
+
+/* Similar */
+.similar-card { background: #111b26; border-radius: 8px; padding: 14px; margin-bottom: 10px; border-left: 3px solid; }
+.similar-card.high { border-color: #4ade80; }
+.similar-card.medium { border-color: #fbbf24; }
+.similar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.similar-code { font-size: 13px; font-weight: 700; }
+.similar-corr { font-family: monospace; font-size: 12px; color: #9ca3af; }
+.similar-result { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 12px; }
+.similar-result div { text-align: center; }
+.similar-result .sr-val { font-size: 16px; font-weight: 700; font-family: monospace; }
+.similar-result .sr-lbl { color: #6b7280; font-size: 10px; }
+.similar-advice { font-size: 12px; color: #fbbf24; margin-top: 8px; }
+
+.chart { width: 100%; height: 350px; }
+.empty { color: #6b7280; text-align: center; padding: 40px; font-size: 14px; }
+.refresh-info { font-size: 11px; color: #4b5563; text-align: right; margin-top: 8px; }
+
+/* Recommendation banner */
+.rec-banner { margin: 0 0 20px 0; border-radius: 12px; padding: 20px 24px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.rec-banner .rec-icon { font-size: 48px; flex-shrink: 0; }
+.rec-banner .rec-body { flex: 1; min-width: 200px; }
+.rec-banner .rec-label { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+.rec-banner .rec-advice { font-size: 15px; opacity: 0.9; }
+.rec-banner .rec-score-box { text-align: center; flex-shrink: 0; }
+.rec-banner .rec-score-num { font-size: 42px; font-weight: 900; line-height: 1; }
+.rec-banner .rec-score-sub { font-size: 11px; opacity: 0.6; margin-top: 2px; }
+.rec-check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
+.rec-check-item { padding: 8px 12px; border-radius: 6px; font-size: 13px; display: flex; align-items: flex-start; gap: 8px; }
+.rec-check-item.triggered { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); }
+.rec-check-item.ok { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); }
+.rec-check-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.rec-b-bonus { font-size: 13px; color: #60a5fa; padding: 8px 12px; border-radius: 6px; background: rgba(96,165,250,0.08); }
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <h1 id="page-title">🔬 新股分析看板</h1>
+    <div class="meta" id="stock-meta">—</div>
+  </div>
+  <div class="status-bar">
+    <span class="status-dot live" id="status-dot"></span>
+    <span style="font-size:13px;color:#9ca3af" id="status-text">连接中…</span>
+  </div>
+</div>
+
+<div class="container">
+  <!-- 综合建议面板 -->
+  <div class="panel span2" id="rec-panel" style="display:none">
+    <div class="rec-banner" id="rec-banner"></div>
+    <div class="panel-body" style="padding-top:0">
+      <div style="font-size:14px;font-weight:700;color:#e0e7ff;margin-bottom:10px">📋 卖出检查清单</div>
+      <div class="rec-check-grid" id="rec-checklist"></div>
+      <div class="rec-b-bonus" id="rec-bonus" style="margin-top:10px;display:none"></div>
+    </div>
+  </div>
+
+  <!-- 快速数据 -->
+  <div class="panel span2">
+    <div class="panel-header" style="font-size:14px">
+      <span id="realtime-label">📊 实时快照</span>
+      <span style="margin-left:auto;color:#6b7280;font-size:12px" id="update-time"></span>
+    </div>
+    <div class="panel-body">
+      <div class="quick-stats" id="quick-stats"></div>
+    </div>
+  </div>
+
+  <!-- 方案C：技术指标 -->
+  <div class="panel">
+    <div class="panel-header">📈 方案C · 技术指标</div>
+    <div class="panel-body">
+      <div class="indicator-list" id="indicator-list">
+        <div class="empty">等待数据…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 关键价位 -->
+  <div class="panel">
+    <div class="panel-header">🎯 关键价位（支撑/阻力）</div>
+    <div class="panel-body" id="key-levels-body">
+      <div class="empty">等待数据…</div>
+    </div>
+  </div>
+
+  <!-- 方案B：形态匹配 -->
+  <div class="panel span2">
+    <div class="panel-header">🧬 方案B · 日内形态匹配 <span style="font-weight:400;color:#6b7280;font-size:12px;margin-left:6px">— 与58只历史新股走势对比</span></div>
+    <div class="panel-body">
+      <div id="similar-list">
+        <div class="empty">等待数据…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 形态匹配图 -->
+  <div class="panel span2">
+    <div class="panel-header">📉 形态对比图 — 当前 vs 最相似历史</div>
+    <div class="panel-body">
+      <div class="chart" id="comparison-chart"></div>
+    </div>
+  </div>
+</div>
+
+<div class="refresh-info" id="refresh-info"></div>
+
+<script>
+var STOCK = { code: '', name: '' };
+var REFRESH_MS = 3000;
+var compChart = null;
+
+function initChart() {
+  compChart = echarts.init(document.getElementById('comparison-chart'));
+}
+
+async function fetchAnalysis() {
+  try {
+    var resp = await fetch('/api/analysis');
+    var json = await resp.json();
+    if (json.status === 'data_insufficient') {
+      document.getElementById('status-text').textContent = '数据不足（盘前/周末）';
+      return;
+    }
+    STOCK.code = json.code;
+    STOCK.name = json.name;
+    updateUI(json);
+    document.getElementById('status-text').textContent = '🟢 实时';
+    document.getElementById('status-dot').classList.add('live');
+  } catch(e) {
+    document.getElementById('status-text').textContent = '🔴 连接失败';
+    document.getElementById('status-dot').classList.remove('live');
+  }
+}
+
+function updateUI(d) {
+  document.getElementById('stock-meta').textContent = d.code + ' ' + d.name + ' · ' + d.time + ' · 开盘' + d.elapsed_min + '分钟';
+  document.getElementById('update-time').textContent = '更新 ' + new Date().toLocaleTimeString();
+  document.getElementById('realtime-label').textContent = '📊 实时快照 · ' + d.price.toFixed(2) + '元 · 换手' + d.turnover.toFixed(1) + '%';
+  renderRecommendation(d);
+  renderQuickStats(d);
+  renderIndicators(d);
+  renderKeyLevels(d);
+  renderSimilar(d);
+  renderComparison(d);
+}
+
+function renderRecommendation(d) {
+  var rec = d.recommendation;
+  if (!rec || !rec.checklist) return;
+  var panel = document.getElementById('rec-panel');
+  panel.style.display = 'block';
+
+  // Banner
+  var banner = document.getElementById('rec-banner');
+  banner.style.background = rec.bg;
+  banner.style.border = '2px solid ' + rec.color;
+  var iconMap = { sell_now: '🔴', sell_soon: '🟠', watch_close: '🟡', hold: '🟢' };
+  banner.innerHTML =
+    '<div class="rec-icon">' + (iconMap[rec.action] || '⚪') + '</div>' +
+    '<div class="rec-body">' +
+      '<div class="rec-label" style="color:' + rec.color + '">' + rec.label + '</div>' +
+      '<div class="rec-advice">' + rec.advice + '</div>' +
+    '</div>' +
+    '<div class="rec-score-box">' +
+      '<div class="rec-score-num" style="color:' + rec.color + '">' + rec.sell_score + '</div>' +
+      '<div class="rec-score-sub">综合评分 / ' + rec.triggers + '条触发</div>' +
+    '</div>';
+
+  // Checklist
+  var clHtml = '';
+  rec.checklist.forEach(function(c) {
+    var cls = c.triggered ? 'triggered' : 'ok';
+    var icon = c.triggered ? '⚠️' : '✅';
+    clHtml += '<div class="rec-check-item ' + cls + '">';
+    clHtml += '<span class="rec-check-icon">' + icon + '</span>';
+    clHtml += '<div><strong>' + c.check + '</strong><br><span style="color:#9ca3af;font-size:11px">' + c.detail + '</span></div>';
+    clHtml += '</div>';
+  });
+  document.getElementById('rec-checklist').innerHTML = clHtml;
+
+  // B方案加成
+  var bonus = document.getElementById('rec-bonus');
+  if (rec.b_bonus) {
+    bonus.style.display = 'block';
+    bonus.textContent = '🧬 ' + rec.b_bonus;
+  } else {
+    bonus.style.display = 'none';
+  }
+}
+
+function renderQuickStats(d) {
+  var vwapDev = ((d.price - d.vwap) / d.vwap * 100) || 0;
+  var ddFromHigh = ((d.intraday_high - d.price) / d.intraday_high * 100) || 0;
+  var cls = function(v, t) { return t === 'up' ? 'up' : (t === 'down' ? 'down' : 'neutral'); };
+  var html = '';
+  html += '<div class="stat-card"><div class="val neutral">' + d.price.toFixed(2) + '</div><div class="lbl">当前价（元）</div></div>';
+  html += '<div class="stat-card"><div class="val ' + cls(vwapDev, vwapDev>0?'up':'down') + '">' + vwapDev.toFixed(2) + '%</div><div class="lbl">VWAP偏离</div></div>';
+  html += '<div class="stat-card"><div class="val neutral">' + d.intraday_high.toFixed(2) + '</div><div class="lbl">日内最高 · ' + d.high_time + '</div></div>';
+  html += '<div class="stat-card"><div class="val ' + cls(ddFromHigh,ddFromHigh>0?'down':'up') + '">' + ddFromHigh.toFixed(1) + '%</div><div class="lbl">距最高回撤</div></div>';
+  html += '<div class="stat-card"><div class="val neutral">' + d.turnover.toFixed(1) + '%</div><div class="lbl">累计换手率</div></div>';
+  html += '<div class="stat-card"><div class="val neutral">' + d.elapsed_min + 'm</div><div class="lbl">开盘时长</div></div>';
+  document.getElementById('quick-stats').innerHTML = html;
+}
+
+function renderIndicators(d) {
+  var indicators = d.indicators || [];
+  if (!indicators.length) {
+    document.getElementById('indicator-list').innerHTML = '<div class="empty">暂无数据（需要≥20分钟K线积累）</div>';
+    return;
+  }
+  var sigCls = {
+    bullish:'sig-bullish', bearish:'sig-bearish', neutral:'sig-neutral',
+    golden:'sig-golden', dead:'sig-dead',
+    volume_spike:'sig-spike', volume_dry:'sig-dry', normal:'sig-neutral',
+    accelerating:'sig-accel', decelerating:'sig-decel', steady:'sig-steady'
+  };
+  var sigEmoji = {
+    bullish:'🟢', bearish:'🔴', neutral:'🟡',
+    golden:'🟢', dead:'🔴',
+    volume_spike:'🔥', volume_dry:'💤', normal:'➖',
+    accelerating:'📈', decelerating:'📉', steady:'➡️'
+  };
+  var html = '';
+  indicators.forEach(function(ind) {
+    var cls = sigCls[ind.signal] || 'sig-neutral';
+    var emoji = sigEmoji[ind.signal] || '';
+    html += '<div class="indicator-tag ' + cls + '">';
+    html += '<span>' + emoji + '</span>';
+    html += '<span class="sig-name">' + ind.name + '</span>';
+    html += '<span class="sig-val">' + ind.value + '</span>';
+    html += '<span class="sig-unit">' + (ind.unit||'') + '</span>';
+    html += '</div>';
+    if (ind.detail) {
+      html += '<div class="detail-text" style="width:100%">' + ind.detail + '</div>';
+    }
+  });
+  document.getElementById('indicator-list').innerHTML = html;
+}
+
+function renderKeyLevels(d) {
+  var levels = d.key_levels || [];
+  if (!levels.length) { document.getElementById('key-levels-body').innerHTML = '<div class="empty">无数据</div>'; return; }
+  var html = '';
+  levels.forEach(function(lv) {
+    var dist = lv.distance_pct || 0;
+    var cls = dist >= 0 ? 'above' : 'below';
+    var sign = dist >= 0 ? '+' : '';
+    var extra = lv.time ? ' (' + lv.time + ')' : '';
+    html += '<div class="level-row">';
+    html += '<div><strong>' + lv.name + '</strong>' + extra + '</div>';
+    html += '<div style="text-align:right">';
+    html += '<span class="level-price">' + lv.price.toFixed(2) + '</span>';
+    html += ' <span class="level-dist ' + cls + '">' + sign + dist.toFixed(1) + '%</span>';
+    html += '</div></div>';
+  });
+  document.getElementById('key-levels-body').innerHTML = html;
+}
+
+function renderSimilar(d) {
+  var sim = d.similar_histories || [];
+  if (!sim.length) {
+    document.getElementById('similar-list').innerHTML = '<div class="empty">暂无匹配（需要≥5分钟数据积累）</div>';
+    return;
+  }
+  var html = '';
+  sim.forEach(function(s, i) {
+    var cls = s.correlation > 0.6 ? 'high' : 'medium';
+    html += '<div class="similar-card ' + cls + '">';
+    html += '<div class="similar-header">';
+    html += '<span class="similar-code">#' + (i+1) + ' ' + s.code + ' ' + s.name + '</span>';
+    html += '<span class="similar-corr">相似度 r=' + s.correlation.toFixed(3) + '</span>';
+    html += '</div>';
+    html += '<div class="similar-result">';
+    html += '<div><div class="sr-val" style="color:#fbbf24">' + s.final_gain.toFixed(0) + '%</div><div class="sr-lbl">首日收盘涨幅</div></div>';
+    html += '<div><div class="sr-val" style="color:#f87171">' + s.max_gain.toFixed(0) + '%</div><div class="sr-lbl">盘中最高涨幅 · ' + (s.high_time||'—') + '</div></div>';
+    html += '<div><div class="sr-val" style="color:#9ca3af">' + s.to_diff.toFixed(1) + '%</div><div class="sr-lbl">换手率差距</div></div>';
+    html += '</div>';
+    if (s.advice) html += '<div class="similar-advice">📌 ' + s.advice + '</div>';
+    html += '</div>';
+  });
+  document.getElementById('similar-list').innerHTML = html;
+}
+
+function renderComparison(d) {
+  if (!compChart) return;
+  fetch('/api/data').then(function(r) { return r.json(); }).then(function(dataJson) {
+    var currentData = dataJson.data || [];
+    if (!currentData.length) return;
+    var sim = d.similar_histories || [];
+    var series = [];
+    var legend = [];
+    var colors = ['#60a5fa','#f472b6','#34d399'];
+
+    // 当前走势
+    var currCloses = currentData.map(function(b) { return b.close; });
+    var currTimes = currentData.map(function(b) { return b.time; });
+    var xAxis = currTimes;
+    legend.push(d.code + ' ' + d.name + ' (当前)');
+    series.push({
+      name: d.code + ' ' + d.name + ' (当前)',
+      type: 'line', data: currCloses,
+      smooth: true, symbol: 'none',
+      lineStyle: { width: 3, color: '#fbbf24' },
+    });
+
+    // 直接从 /api/analysis 返回的 price_series 绘制历史走势
+    sim.forEach(function(s, si) {
+      var histPrices = s.price_series || [];
+      if (!histPrices.length) return;
+      // 对齐长度
+      var data = [];
+      for (var j = 0; j < currCloses.length; j++) {
+        data.push(j < histPrices.length ? histPrices[j] : null);
+      }
+      series.push({
+        name: s.code + ' ' + s.name,
+        type: 'line', data: data, smooth: true, symbol: 'none',
+        lineStyle: { width: 2, color: colors[si % 3], type: 'dashed' },
+      });
+      legend.push(s.code + ' ' + s.name + ' (r=' + s.correlation + ')');
+    });
+
+    var option = {
+      backgroundColor: 'transparent',
+      legend: { data: legend, bottom: 0, textStyle: { color: '#9ca3af', fontSize: 11 } },
+      tooltip: { trigger: 'axis' },
+      grid: { left: 60, right: 30, top: 20, bottom: 40 },
+      xAxis: { type: 'category', data: xAxis, axisLabel: { color: '#6b7280', fontSize: 10, interval: 29 }, axisLine: { lineStyle: { color: '#2d4a6a' } } },
+      yAxis: { type: 'value', axisLabel: { color: '#6b7280' }, splitLine: { lineStyle: { color: 'rgba(255,255,255,0.04)' } }, name: '价格(元)', nameTextStyle: { color: '#6b7280' } },
+      series: series
+    };
+    compChart.setOption(option, true);
+  }).catch(function(e) { console.error(e); });
+}
+
+// Init
+window.addEventListener('load', function() {
+  initChart();
+  fetchAnalysis();
+  setInterval(fetchAnalysis, REFRESH_MS);
+  document.getElementById('refresh-info').textContent = '每3秒自动刷新 · 数据来源: 新浪财经';
+});
+
+window.addEventListener('resize', function() {
+  if (compChart) compChart.resize();
+});
+</script>
+</body>
+</html>

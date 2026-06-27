@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>688797 N臻宝 · 上市首日看板</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#1a1a2e; color:#e0e0e0; font-family:-apple-system,'Microsoft YaHei',sans-serif; }
+.top-bar { display:flex; align-items:center; gap:12px; padding:10px 16px; background:#16213e; border-bottom:1px solid #2a2a4a; flex-wrap:wrap; }
+.top-bar .code { font-size:24px; font-weight:bold; color:#ff9800; }
+.top-bar .name { font-size:16px; color:#ccc; }
+.top-bar .metrics { display:flex; gap:20px; margin-left:auto; flex-wrap:wrap; }
+.top-bar .metric { text-align:center; }
+.top-bar .metric .label { font-size:11px; color:#888; }
+.top-bar .metric .val { font-size:16px; font-weight:bold; }
+.top-bar .metric .val.up { color:#ef5350; } .top-bar .metric .val.down { color:#26a69a; }
+.status-row { display:flex; align-items:center; gap:10px; padding:6px 16px; font-size:12px; color:#888; }
+
+.chart-row { display:flex; gap:0; }
+.chart-box { flex:1; min-width:0; }
+.chart-box h3 { padding:8px 14px; font-size:14px; color:#aaa; font-weight:normal; border-bottom:1px solid #2a2a4a; }
+.chart-inner { width:100%; height:380px; }
+
+.risk-panel { margin:0 16px; padding:12px 14px; background:#16213e; border-radius:8px; border:1px solid #2a2a4a; }
+.risk-header { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:8px; }
+.risk-header .title { font-size:14px; color:#aaa; }
+.score-num { font-size:32px; font-weight:bold; }
+.risk-score-safe { color:#26a69a; } .risk-score-low { color:#ff9800; }
+.risk-score-mid { color:#ef6c00; } .risk-score-high { color:#ef5350; }
+.risk-action { font-size:14px; font-weight:bold; padding:4px 12px; border-radius:4px; }
+.risk-summary { font-size:13px; padding:6px 0; line-height:1.6; }
+.risk-summary-safe { color:#26a69a; } .risk-summary-low { color:#ff9800; }
+.risk-summary-mid { color:#ef6c00; } .risk-summary-high { color:#ef5350; }
+.risk-metrics { display:flex; gap:12px; font-size:11px; color:#888; flex-wrap:wrap; margin-top:4px; }
+.risk-metrics span { background:#1a1a2e; padding:3px 8px; border-radius:4px; }
+.risk-signals { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+.signal-tag { display:inline-block; font-size:11px; padding:2px 8px; border-radius:4px; cursor:default; }
+.signal-positive { background:rgba(38,166,154,0.2); color:#26a69a; border:1px solid rgba(38,166,154,0.3); }
+.signal-info { background:rgba(33,150,243,0.2); color:#42a5f5; border:1px solid rgba(33,150,243,0.3); }
+.signal-warning { background:rgba(255,152,0,0.2); color:#ff9800; border:1px solid rgba(255,152,0,0.3); }
+.signal-danger { background:rgba(239,83,80,0.2); color:#ef5350; border:1px solid rgba(239,83,80,0.3); }
+.risk-ref { font-size:11px; color:#666; margin-top:6px; }
+.risk-similar { margin-top:6px; display:flex; gap:6px; flex-wrap:wrap; }
+.risk-similar span { font-size:11px; background:rgba(156,39,176,0.15); color:#ab47bc; padding:2px 8px; border-radius:4px; cursor:default; }
+
+.analysis-panel { margin:8px 16px 16px; padding:12px 14px; background:#16213e; border-radius:8px; border:1px solid #2a2a4a; }
+.ap-header { font-size:14px; color:#aaa; margin-bottom:10px; }
+.ap-indicators { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+.ap-ind-tag { display:flex; align-items:center; gap:4px; font-size:11px; padding:3px 8px; border-radius:4px; background:#1a1a2e; }
+.ap-ind-tag .name { color:#888; } .ap-ind-tag .val { font-weight:bold; color:#ccc; } .ap-ind-tag .unit { color:#666; font-size:10px; }
+.rec-banner { display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:6px; margin-bottom:8px; flex-wrap:wrap; }
+.rec-icon { font-size:28px; }
+.rec-label { font-size:15px; font-weight:bold; }
+.rec-advice { font-size:12px; color:#aaa; margin-top:2px; }
+.rec-score-box { margin-left:auto; text-align:center; }
+.rec-score-num { font-size:28px; font-weight:bold; }
+.rec-score-sub { font-size:10px; color:#888; }
+.rec-check-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:6px; margin-bottom:8px; }
+.rec-check-item { display:flex; align-items:flex-start; gap:8px; padding:6px 10px; border-radius:4px; background:#1a1a2e; font-size:12px; }
+.rec-check-item.triggered { border-left:3px solid #ef5350; }
+.rec-check-item.ok { border-left:3px solid #26a69a; opacity:0.6; }
+.rec-check-icon { font-size:14px; }
+.rec-b-bonus { font-size:12px; color:#7c4dff; padding:6px 0; }
+.chart-compare { width:100%; height:280px; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="code" id="scode">688797</span>
+  <span class="name" id="sname">N臻宝</span>
+  <div class="metrics" id="top-metrics"></div>
+</div>
+<div class="status-row"><span id="status">🟢 交易中</span></div>
+
+<div class="chart-row">
+  <div class="chart-box" style="flex:1.3">
+    <h3>📈 分时图 · 价格 / 均价 / 成交量</h3>
+    <div class="chart-inner" id="chart-upper"></div>
+  </div>
+  <div class="chart-box" style="flex:0.7">
+    <h3>📊 累计换手率 vs 平均换手率(去低3)</h3>
+    <div class="chart-inner" id="chart-turnover"></div>
+  </div>
+</div>
+
+<div class="risk-panel">
+  <div class="risk-header">
+    <span class="title">🎯 实时卖出风险评分</span>
+    <span class="score-num" id="risk-score">--</span>
+    <span class="risk-action" id="risk-action">等待数据...</span>
+  </div>
+  <div class="risk-summary" id="risk-summary"></div>
+  <div class="risk-signals" id="risk-signals"></div>
+  <div class="risk-metrics">
+    均价 <span id="m-vwap">--</span> 换手 <span id="m-to">--</span> 日内最高 <span id="m-high">--</span> 最高回撤 <span id="m-dd">--</span> 波动率 <span id="m-vol">--</span>
+  </div>
+  <div class="risk-ref">
+    参考：到40%约<span id="r-t40">--</span>分钟 · 到70%约<span id="r-t70">--</span>分钟 · 到80%约<span id="r-t80">--</span>分钟
+  </div>
+  <div class="risk-similar" id="risk-similar"></div>
+</div>
+
+<div class="analysis-panel" id="analysis-panel" style="display:none">
+  <div class="ap-header">🔬 卖出综合分析（方案B形态匹配 + 方案C技术指标）</div>
+  <div class="rec-banner" id="rec-banner2"></div>
+  <div class="rec-check-grid" id="rec-checklist2"></div>
+  <div class="rec-b-bonus" id="rec-bbonus2" style="display:none"></div>
+  <div class="ap-indicators" id="ap-indicators"></div>
+  <div class="chart-compare" id="chart-compare"></div>
+</div>
+
+<script>
+var upperChart = echarts.init(document.getElementById('chart-upper'));
+var turnoverChart = echarts.init(document.getElementById('chart-turnover'));
+var compareChart = echarts.init(document.getElementById('chart-compare'));
+
+var _origData=[], rawData=[], lastAvgPrices=[];
+var turnoverFirstRender=true;
+var latestPrev=1;
+var _lastDataHash='';
+var _lastTurnoverLen=0;
+var _sellMarkers=[];
+var _lastTipTs=0;
+
+function buildFullTimeline(data) {
+  var times=[], result=new Array(241).fill(null), idxMap={};
+  data.forEach(function(d){idxMap[d.time]=d;});
+  var h=9,m=30;
+  for(var i=0;i<241;i++){
+    var t=('0'+h).slice(-2)+':'+('0'+m).slice(-2);
+    times.push(t); result[i]=idxMap[t]||null;
+    m++; if(h===11&&m===31){h=13;m=1;} else if(m===60){h++;m=0;}
+  }
+  return {times:times,data:result};
+}
+
+function fmtVol(v){
+  if(v>=1e8)return (v/1e8).toFixed(2)+'亿';
+  if(v>=1e4)return (v/1e4).toFixed(0)+'万';
+  return v.toString();
+}
+
+function updateTopBar(latest,data){
+  var p=latest.close,prev=latest.prev_close||1;
+  var chg=((p-prev)/prev*100).toFixed(2);
+  var cls=chg>=0?'up':'down',sign=chg>=0?'+':'';
+  var h='<div class="metric"><div class="label">现价</div><div class="val '+cls+'">'+p.toFixed(2)+'</div></div>';
+  h+='<div class="metric"><div class="label">涨幅</div><div class="val '+cls+'">'+sign+chg+'%</div></div>';
+  h+='<div class="metric"><div class="label">最高</div><div class="val">'+(latest.high?latest.high.toFixed(2):'--')+'</div></div>';
+  h+='<div class="metric"><div class="label">最低</div><div class="val">'+(latest.low?latest.low.toFixed(2):'--')+'</div></div>';
+  h+='<div class="metric"><div class="label">成交量</div><div class="val">'+fmtVol(latest.vol||0)+'</div></div>';
+  document.getElementById('top-metrics').innerHTML=h;
+}
+
+function buildSellMarkData(fullTimes){
+  if(!_sellMarkers.length)return[];
+  var r=[];
+  _sellMarkers.forEach(function(m){var idx=fullTimes.indexOf(m.time);if(idx>=0)r.push({value:[idx,m.price,m.score]});});
+  return r;
+}
+
+function renderCharts(data,latest,avgTurnover){
+  _origData=data;rawData=data;
+  var tl=buildFullTimeline(data);
+  var times=tl.times,extData=tl.data;
+  var prices=[],avgPrices=[],volColors=[];
+  extData.forEach(function(d,i){
+    if(d){prices.push(d.close);var tv=d.cum_vol||0,ta=d.cum_amount||(d.close*tv);avgPrices.push((tv>0?(ta/tv):d.close).toFixed(2));var pd=(i>0&&extData[i-1])?extData[i-1]:null;volColors.push(pd&&d.close>=pd.close?'#ef5350':'#26a69a');}
+    else{prices.push('-');avgPrices.push('-');volColors.push('transparent');}
+  });
+  var volItems=extData.map(function(d,i){return d?{value:d.vol,itemStyle:{color:volColors[i],borderWidth:0}}:{value:0,itemStyle:{color:'transparent'}};});
+  rawData=extData;lastAvgPrices=avgPrices;
+
+  upperChart.clear();
+  upperChart.setOption({
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},
+      formatter:function(params){
+        if(!params||!params.length)return'';
+        var idx=params[0].dataIndex,d=rawData[idx];
+        if(!d)return'<b>'+times[idx]+'</b><br/>暂无数据';
+        var chg=((d.close-latestPrev)/latestPrev*100).toFixed(2);
+        return'<b>'+times[idx]+'</b><br/>价格: <b style="color:#ef5350">'+d.close+'</b><br/>均价: <b style="color:#ff9800">'+(lastAvgPrices[idx]||'--')+'</b><br/>成交量: '+fmtVol(d.vol||0)+' 股<br/>涨幅: <b style="color:'+(chg>=0?'#ef5350':'#26a69a')+'">'+(chg>=0?'+':'')+chg+'%</b>';
+      }},
+    legend:{data:['价格','均价'],textStyle:{color:'#888',fontSize:12},top:0,left:'center'},
+    grid:[{left:65,right:20,top:40,height:'60%'},{left:65,right:20,top:'75%',height:'17%'}],
+    xAxis:[{type:'category',data:times,boundaryGap:false,gridIndex:0,axisLine:{lineStyle:{color:'#444'}},axisLabel:{show:false}},{type:'category',data:times,boundaryGap:false,gridIndex:1,axisLine:{lineStyle:{color:'#444'}},axisLabel:{color:'#888',fontSize:11,interval:29,showMaxLabel:true}}],
+    yAxis:[{type:'value',gridIndex:0,scale:true,axisLine:{lineStyle:{color:'#444'}},axisLabel:{color:'#888'},splitLine:{lineStyle:{color:'#333'}},name:'价格',nameTextStyle:{color:'#888',fontSize:11}},{type:'value',gridIndex:1,axisLine:{lineStyle:{color:'#444'}},axisLabel:{color:'#888',fontSize:10,formatter:function(v){return(v/1e4).toFixed(0)+'万'}},splitLine:{show:false}}],
+    series:[{id:'tprice',type:'line',name:'价格',xAxisIndex:0,yAxisIndex:0,data:prices,smooth:false,symbol:'none',connectNulls:false,lineStyle:{color:'#e0e0e0',width:1.5}},{id:'tavg',type:'line',name:'均价',xAxisIndex:0,yAxisIndex:0,data:avgPrices,smooth:false,symbol:'none',connectNulls:false,lineStyle:{color:'#ff9800',width:1.5}},{id:'tvol',type:'bar',name:'成交量',xAxisIndex:1,yAxisIndex:1,data:volItems},{id:'sellMarks',type:'scatter',name:'卖出',xAxisIndex:0,yAxisIndex:0,symbol:'rect',symbolSize:14,z:99,data:buildSellMarkData(times),itemStyle:{color:'#ef5350',borderColor:'#fff',borderWidth:1},label:{show:true,formatter:'S',color:'#fff',fontSize:10,fontWeight:'bold',position:'inside'},tooltip:{formatter:function(p){return'<b style="color:#ef5350">⛔ 卖出信号 S</b><br/>'+p.name+' · 评分 '+p.value[2]+'/100';}}}]
+  },true);
+
+  var turnovers=extData.map(function(d){return d?d.turnover:'-';});
+  var avgSlice=avgTurnover?avgTurnover.slice(0,extData.length):[];
+  var toSeries=[{id:'turnover-main',type:'line',name:'累计换手率',data:turnovers,smooth:false,symbol:'none',lineStyle:{color:'#ff9800',width:2},areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(255,152,0,0.3)'},{offset:1,color:'rgba(255,152,0,0.02)'}])}}];
+  if(avgSlice.length>0)toSeries.push({id:'turnover-avg',type:'line',name:'平均换手率(去低3)',data:avgSlice,smooth:false,symbol:'none',lineStyle:{color:'#e91e63',width:2,type:'dashed'}});
+  turnoverChart.clear();
+  turnoverChart.setOption({
+    tooltip:{trigger:'axis',axisPointer:{type:'cross'},
+      formatter:function(params){var p0=null,p1=null;for(var i=0;i<params.length;i++){if(params[i].seriesName==='累计换手率')p0=params[i];if(params[i].seriesName==='平均换手率(去低3)')p1=params[i];}var html='';if(p0&&p0.value!=null&&p0.value!=='-'&&p0.value!==''){html+='<b>'+p0.axisValue+'</b><br/>累计换手率 <b style="color:#ff9800">'+p0.value+'%</b><br/>';}else{html+='<b>'+(p0?p0.axisValue:'')+'</b><br/>暂无数据';}if(p1){html+='平均换手率 <b style="color:#e91e63">'+p1.value+'%</b>';if(p0&&p0.value!=null){var diff=(p0.value-p1.value).toFixed(2);html+=' (差值 <b style="color:'+(diff>=0?'#ef5350':'#26a69a')+'">'+(diff>=0?'+':'')+diff+'%</b>)';}}return html;}},
+    legend:{data:['累计换手率','平均换手率(去低3)'],textStyle:{color:'#888',fontSize:12},top:0,left:'center'},
+    grid:{left:65,right:20,top:30,bottom:30},
+    xAxis:{type:'category',data:times,boundaryGap:false,axisLine:{lineStyle:{color:'#444'}},axisLabel:{color:'#888',fontSize:11,interval:29,showMaxLabel:true}},
+    yAxis:{type:'value',min:0,axisLine:{lineStyle:{color:'#444'}},axisLabel:{color:'#888',formatter:'{value}%'},splitLine:{lineStyle:{color:'#333'}},name:'换手率',nameTextStyle:{color:'#888',fontSize:11}},
+    series:toSeries
+  },true);
+
+  var _tt=0;
+  upperChart.off('updateAxisPointer');turnoverChart.off('updateAxisPointer');
+  upperChart.on('updateAxisPointer',function(evt){if(evt.dataIndex==null)return;var n=Date.now();if(n-_tt<80)return;_tt=n;turnoverChart.dispatchAction({type:'showTip',seriesIndex:0,dataIndex:evt.dataIndex});});
+  turnoverChart.on('updateAxisPointer',function(evt){if(evt.dataIndex==null)return;var n=Date.now();if(n-_tt<80)return;_tt=n;upperChart.dispatchAction({type:'showTip',seriesIndex:0,dataIndex:evt.dataIndex});});
+
+  turnoverFirstRender=false;
+  _lastTurnoverLen=data.length;
+}
+
+function isTradingTime(){
+  var d=new Date(),ms=d.getHours()*60+d.getMinutes(),day=d.getDay();
+  if(day===0||day===6)return'weekend';
+  if(ms<9*60+30)return'pre';
+  if(ms<=11*60+30)return'trading';
+  if(ms<13*60)return'lunch';
+  if(ms<=15*60)return'trading';
+  return'closed';
+}
+var STATUS_MAP={trading:'🟢 交易中',lunch:'🟡 午休',closed:'⚫ 已收盘',pre:'⚫ 盘前',weekend:'⚫ 周末休市'};
+var REFRESH_MS=3000;
+
+upperChart.getZr().on('mousemove',function(){_lastTipTs=Date.now();});
+turnoverChart.getZr().on('mousemove',function(){_lastTipTs=Date.now();});
+
+function addSellMark(time,price,score){
+  if(!time||time==='--')return;
+  if(_sellMarkers.some(function(m){return m.time===time;}))return;
+  _sellMarkers.push({time:time,price:price,score:score});
+  if(upperChart&&_origData.length>0){
+    var tl=buildFullTimeline(_origData);
+    upperChart.setOption({series:[{id:'sellMarks',data:buildSellMarkData(tl.times)}]});
+  }
+}
+
+// ──── 数据轮询 ────
+async function fetchData(){
+  try{
+    var resp=await fetch('/api/data');
+    var json=await resp.json();
+    var newData=json.data||[],latest=json.latest;
+    document.getElementById('scode').textContent=json.code;
+    document.getElementById('sname').textContent=json.name;
+    if(latest){latestPrev=latest.prev_close;updateTopBar(latest,newData);}
+    var tradeState=isTradingTime();
+    if(newData.length>0){
+      var hash=newData.length+'_'+(newData[newData.length-1]||{}).time+'_'+(newData[newData.length-1]||{}).close;
+      if(hash!==_lastDataHash){
+        _lastDataHash=hash;
+        _origData=newData;
+        var tl=buildFullTimeline(newData);
+        var extData=tl.data;
+        var prices=[],avgPrices=[],volColors=[];
+        extData.forEach(function(d,i){
+          if(d){prices.push(d.close);var tv=d.cum_vol||0,ta=d.cum_amount||(d.close*tv);avgPrices.push((tv>0?(ta/tv):d.close).toFixed(2));var pd=(i>0&&extData[i-1])?extData[i-1]:null;volColors.push(pd&&d.close>=pd.close?'#ef5350':'#26a69a');}
+          else{prices.push('-');avgPrices.push('-');volColors.push('transparent');}
+        });
+        var volItems=extData.map(function(d,i){return d?{value:d.vol,itemStyle:{color:volColors[i],borderWidth:0}}:{value:0,itemStyle:{color:'transparent'}};});
+        upperChart.setOption({animation:false,animationDurationUpdate:0,series:[{id:'tprice',data:prices},{id:'tavg',data:avgPrices},{id:'tvol',data:volItems},{id:'sellMarks',data:buildSellMarkData(tl.times)}]});
+        if(newData.length!==_lastTurnoverLen){
+          _lastTurnoverLen=newData.length;
+          var turnovers=extData.map(function(d){return d?d.turnover:'-';});
+          var avgSlice=json.avg_turnover?json.avg_turnover.slice(0,extData.length):[];
+          turnoverChart.setOption({animation:false,animationDurationUpdate:0,series:[{id:'turnover-main',data:turnovers},{id:'turnover-avg',data:avgSlice}]});
+        }
+      }
+      document.getElementById('status').textContent=STATUS_MAP[tradeState]+' · '+newData.length+' 根K线 · '+new Date().toLocaleTimeString();
+    }else{document.getElementById('status').textContent=STATUS_MAP[tradeState]+' · 等待数据...';}
+  }catch(e){document.getElementById('status').textContent=STATUS_MAP[isTradingTime()]+' · 等待连接...';}
+}
+
+async function fetchRisk(){
+  try{
+    var resp=await fetch('/api/risk');
+    var r=await resp.json();
+    var score=r.score||50;
+    if(score>=40)addSellMark(r.mark_time,r.mark_price,score);
+    var scoreEl=document.getElementById('risk-score');
+    var c=score<20?'risk-score-safe':score<40?'risk-score-low':score<65?'risk-score-mid':'risk-score-high';
+    scoreEl.textContent=score;scoreEl.className='score-num '+c;
+    var amap={hold:'✅ 安全·持有',watch:'👀 低风险·观察',caution:'⚡ 中等风险·关注',sell:'⚠️ 高风险·卖出'};
+    document.getElementById('risk-action').textContent=amap[r.action]||'--';
+    var sumEl=document.getElementById('risk-summary');
+    sumEl.textContent=r.summary||'--';sumEl.className='risk-summary '+(score<20?'risk-summary-safe':score<40?'risk-summary-low':score<65?'risk-summary-mid':'risk-summary-high');
+    var sigs='';
+    (r.signals||[]).forEach(function(s){
+      var lvl=s.level==='positive'?'positive':s.level==='warning'?'warning':s.level==='danger'?'danger':'info';
+      sigs+='<span class="signal-tag signal-'+lvl+'" title="'+(s.detail||'')+'">'+s.label+' ('+(s.weight>0?'+':'')+s.weight+')</span>';
+    });
+    document.getElementById('risk-signals').innerHTML=sigs||'<span style="font-size:12px;color:#666">暂无信号</span>';
+    var m=r.metrics||{};
+    document.getElementById('m-vwap').textContent=m.vwap!=null?m.vwap.toFixed(2):'--';
+    document.getElementById('m-to').textContent=m.current_to!=null?m.current_to.toFixed(1)+'%':'--';
+    document.getElementById('m-high').textContent=m.intraday_high!=null?m.intraday_high.toFixed(2):'--';
+    document.getElementById('m-dd').textContent=m.dd_from_high_pct!=null?m.dd_from_high_pct.toFixed(1)+'%':'--';
+    document.getElementById('m-vol').textContent=m.volatility!=null?m.volatility.toFixed(1)+'%':'--';
+    var ref=r.stats_ref||{};
+    document.getElementById('r-t40').textContent=ref.avg_turnover_40pct_min||'--';
+    document.getElementById('r-t70').textContent=ref.avg_turnover_70pct_min||'--';
+    document.getElementById('r-t80').textContent=ref.avg_turnover_80pct_min||'--';
+    var sh=r.similar_histories||[];
+    var simHtml='';
+    sh.forEach(function(s){simHtml+='<span title="相关度:'+(s.correlation*100).toFixed(1)+'%">'+s.code+' '+s.name+'</span>';});
+    if(simHtml)document.getElementById('risk-similar').innerHTML='<span style="color:#666">📊 相似走势：</span>'+simHtml;
+  }catch(e){}
+}
+
+async function fetchAnalysis(){
+  try{
+    var resp=await fetch('/api/analysis');
+    var d=await resp.json();
+    if(d.status==='data_insufficient'||!d.recommendation)return;
+    document.getElementById('analysis-panel').style.display='block';
+    var rec=d.recommendation;
+    var banner=document.getElementById('rec-banner2');
+    banner.style.background=rec.bg;banner.style.border='2px solid '+rec.color;
+    var icons={sell_now:'🔴',sell_soon:'🟠',watch_close:'🟡',hold:'🟢'};
+    banner.innerHTML='<div class="rec-icon">'+(icons[rec.action]||'⚪')+'</div><div class="rec-body"><div class="rec-label" style="color:'+rec.color+'">'+rec.label+'</div><div class="rec-advice">'+rec.advice+'</div></div><div class="rec-score-box"><div class="rec-score-num" style="color:'+rec.color+'">'+rec.sell_score+'</div><div class="rec-score-sub">评分 / '+rec.triggers+'条触发</div></div>';
+    var clHtml='';
+    (rec.checklist||[]).forEach(function(c){clHtml+='<div class="rec-check-item '+(c.triggered?'triggered':'ok')+'"><span class="rec-check-icon">'+(c.triggered?'⚠️':'✅')+'</span><div><strong>'+c.check+'</strong><br><span style="color:#aaa;font-size:11px">'+c.detail+'</span></div></div>';});
+    document.getElementById('rec-checklist2').innerHTML=clHtml;
+    var bb=document.getElementById('rec-bbonus2');
+    if(rec.b_bonus){bb.style.display='block';bb.textContent='🧬 '+rec.b_bonus;}else{bb.style.display='none';}
+    var emoji={bullish:'🟢',bearish:'🔴',neutral:'🟡',golden:'🟢',dead:'🔴',volume_spike:'🔥',volume_dry:'💤',normal:'➖',accelerating:'📈',decelerating:'📉',steady:'➡️'};
+    var indHtml='';
+    (d.indicators||[]).forEach(function(ind){indHtml+='<div class="ap-ind-tag '+ind.signal+'"><span>'+(emoji[ind.signal]||'')+'</span><span class="name">'+ind.name+'</span><span class="val">'+ind.value+'</span><span class="unit">'+(ind.unit||'')+'</span></div>';});
+    document.getElementById('ap-indicators').innerHTML=indHtml;
+    renderCompareChart(d.price_series,d.timeline,d.similar_histories,d.code);
+    if(rec.sell_score>=3&&d.mark_time&&d.mark_time!=='--')addSellMark(d.mark_time,d.mark_price,rec.sell_score*10);
+  }catch(e){}
+}
+
+function renderCompareChart(curPrices,timeline,similar,curCode){
+  if(!curPrices||!curPrices.length){compareChart.setOption({title:{text:'等待数据…',left:'center',top:'center',textStyle:{color:'#666',fontSize:14}}});return;}
+  var top3=(similar||[]).filter(function(s){return s.normalized_prices&&s.normalized_prices.length>0;}).slice(0,3);
+  if(!top3.length){compareChart.clear();return;}
+  var colors=['#42a5f5','#66bb6a','#ab47bc'];
+  var series=[{name:curCode,type:'line',data:curPrices,smooth:false,symbol:'none',lineStyle:{color:'#ef5350',width:2.5}}];
+  top3.forEach(function(s,i){series.push({name:s.code+' '+s.name,type:'line',data:s.normalized_prices,smooth:false,symbol:'none',lineStyle:{color:colors[i],width:1.5,type:'dashed'}});});
+  compareChart.setOption({animation:false,
+    title:{text:'📊 走势形态对比（归一化收益率 %）',textStyle:{color:'#888',fontSize:12},left:'center',top:4},
+    tooltip:{trigger:'axis'},legend:{data:series.map(function(s){return s.name;}),textStyle:{color:'#888',fontSize:10},bottom:0},
+    grid:{left:65,right:20,top:40,bottom:30},
+    xAxis:{type:'category',data:timeline||[],boundaryGap:false,axisLine:{lineStyle:{color:'#444'}},axisLabel:{color:'#888',fontSize:10,interval:29}},
+    yAxis:{type:'value',axisLine:{lineStyle:{color:'#444'}},axisLabel:{color:'#888',fontSize:10,formatter:'{value}%'},splitLine:{lineStyle:{color:'#333'}}},series:series});
+}
+
+fetchData();fetchRisk();fetchAnalysis();
+setInterval(fetchData,REFRESH_MS);setInterval(fetchRisk,REFRESH_MS);setInterval(fetchAnalysis,REFRESH_MS);
+window.addEventListener('resize',function(){upperChart.resize();turnoverChart.resize();compareChart.resize();});
+</script>
+</body>
+</html>

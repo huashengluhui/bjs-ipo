@@ -1,0 +1,9 @@
+﻿git : '_BINARY:' 不是内部或外部命令，也不是可运行的程序
+所在位置 行:3 字符: 1
++ git show "a5353e5:./新股上市首日看板/server.py" 2>&1 | Out-File -FilePath "C: ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ('_BINARY:' 不是内部或外部命令，也不是可运行的程序:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+或批处理文件。
+fatal: path '鏂拌偂涓婂競棣栨棩鐪嬫澘/server.py' exists on disk, but not in 'a5353e5'

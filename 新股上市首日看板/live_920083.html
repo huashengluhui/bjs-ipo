@@ -1,0 +1,650 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金戈新材 920083 · 实时行情</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a2e;color:#e0e0e0;font-family:-apple-system,'Microsoft YaHei',sans-serif;min-width:900px}
+.top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#16213e;border-bottom:2px solid #0f3460}
+.stock-title{font-size:22px;font-weight:bold}
+.stock-title .code{color:#888;font-size:14px;margin-left:10px}
+.price-box{text-align:right}
+.price-box .price{font-size:28px;font-weight:bold}
+.price-box .change{font-size:14px;margin-left:8px}
+.up{color:#ef5350}.down{color:#26a69a}.flat{color:#888}
+.chart-toggle{display:flex;gap:8px;padding:10px 20px;background:#16213e;border-bottom:2px solid #0f3460}
+.toggle-btn{padding:6px 18px;border:1px solid #0f3460;border-radius:6px;background:transparent;color:#888;cursor:pointer;font-size:13px;transition:all .2s}
+.toggle-btn.active{background:#0f3460;color:#e0e0e0;border-color:#6495ed;font-weight:bold}
+.risk-panel{display:flex;align-items:center;gap:16px;padding:12px 20px;background:linear-gradient(135deg,#0d1b2a,#1b2838);border-bottom:2px solid #0f3460}
+.risk-gauge{width:80px;height:80px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;flex-shrink:0}
+.risk-score-safe{background:conic-gradient(#26a69a var(--pct),#222 0);border:3px solid #26a69a;color:#26a69a}
+.risk-score-caution{background:conic-gradient(#ff9800 var(--pct),#222 0);border:3px solid #ff9800;color:#ff9800}
+.risk-score-danger{background:conic-gradient(#ef5350 var(--pct),#222 0);border:3px solid #ef5350;color:#ef5350}
+.risk-gauge::after{content:'';position:absolute;width:60px;height:60px;border-radius:50%;background:#1a1a2e}
+.risk-gauge span{position:relative;z-index:1}
+.risk-info{flex:1}
+.risk-action{font-size:16px;font-weight:bold;margin-bottom:4px}
+.risk-summary{font-size:12px;color:#888}
+.signal-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.signal-tag{font-size:11px;padding:3px 8px;border-radius:10px;white-space:nowrap}
+.signal-danger{background:rgba(239,83,80,.15);color:#ef5350;border:1px solid rgba(239,83,80,.4)}
+.signal-warning{background:rgba(255,152,0,.15);color:#ff9800;border:1px solid rgba(255,152,0,.4)}
+.signal-info{background:rgba(100,149,237,.15);color:#6495ed;border:1px solid rgba(100,149,237,.4)}
+.signal-positive{background:rgba(38,166,154,.15);color:#26a69a;border:1px solid rgba(38,166,154,.4)}
+.stats{display:flex;gap:1px;background:#0f3460;padding:0 20px;border-bottom:2px solid #0f3460}
+.stat{flex:1;background:#16213e;padding:8px 12px;text-align:center}
+.stat .label{font-size:12px;color:#888}
+.stat .value{font-size:16px;font-weight:bold;margin-top:2px}
+.similar-section{padding:8px 20px;background:#0d1b2a;border-bottom:2px solid #0f3460}
+.similar-title{font-size:12px;color:#888;margin-bottom:6px}
+.similar-cards{display:flex;gap:8px;flex-wrap:wrap}
+.similar-card{flex:1;min-width:180px;background:#16213e;padding:8px 10px;border-radius:6px;border:1px solid #0f3460}
+.similar-card .sc-name{font-size:13px;font-weight:bold}
+.similar-card .sc-code{font-size:11px;color:#888;margin-left:6px}
+.similar-card .sc-sim{font-size:11px;color:#ff9800}
+.similar-card .sc-advice{font-size:11px;color:#aaa;margin-top:4px}
+.analysis-panel .check-item{background:#16213e;border-radius:6px;padding:6px 10px;border:1px solid #0f3460;min-width:160px;flex:1}
+.analysis-panel .check-name{font-size:11px;color:#888}
+.analysis-panel .check-value{font-size:14px;font-weight:bold;margin-top:2px}
+.analysis-panel .check-detail{font-size:10px;color:#666;margin-top:2px}
+.analysis-panel .check-warn{border-color:#ef5350;background:rgba(239,83,80,.08)}
+.analysis-rec-sell{color:#ef5350}
+.analysis-rec-watch{color:#ff9800}
+.analysis-rec-safe{color:#26a69a}
+.chart-wrap{padding:10px 20px}
+.chart-title{font-size:13px;color:#888;padding:0 0 4px 0;display:flex;align-items:center;gap:12px}
+.chart-title .legend{display:flex;gap:12px;font-size:11px}
+.chart-title .legend span{display:flex;align-items:center;gap:4px}
+.chart-title .legend i{display:inline-block;width:12px;height:2px;border-radius:2px}
+.chart{width:100%}
+.status-bar{text-align:center;padding:6px;font-size:12px;color:#666}
+
+@media(max-width:768px){
+.top-bar{flex-direction:column;gap:8px;align-items:flex-start}
+.risk-panel{flex-wrap:wrap}
+.stats{flex-wrap:wrap}
+.stat{min-width:25%}
+.chart-wrap{padding:5px 8px}
+.similar-cards{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div>
+    <span class="stock-title" id="sname">金戈新材</span>
+    <span class="code" id="scode">920083</span>
+  </div>
+  <div class="price-box">
+    <span class="price up" id="sprice">--</span>
+    <span class="change up" id="schange">--</span>
+  </div>
+</div>
+<div class="chart-toggle">
+  <button class="toggle-btn active" data-mode="timeshare" onclick="switchChart('timeshare')">分时图</button>
+  <button class="toggle-btn" data-mode="kline" onclick="switchChart('kline')">1分钟K线</button>
+</div>
+<div class="risk-panel" id="risk-panel">
+  <div class="risk-gauge" id="risk-gauge"><span>--</span></div>
+  <div class="risk-info">
+    <div class="risk-action" id="risk-action">--</div>
+    <div class="risk-summary" id="risk-summary">--</div>
+    <div class="signal-tags" id="signal-tags"></div>
+  </div>
+</div>
+<div class="analysis-panel" id="analysis-panel" style="display:none;padding:10px 20px;background:linear-gradient(135deg,#0d1b2a,#1b2838);border-bottom:2px solid #0f3460">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+    <span style="font-size:14px;font-weight:bold;" id="analysis-rec">--</span>
+    <span style="font-size:11px;color:#888" id="analysis-triggered"></span>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px" id="checklist-container"></div>
+</div>
+<div class="similar-section" id="similar-section" style="display:none">
+  <div class="similar-title">📊 方案B：相似历史走势（58只新股回溯匹配）</div>
+  <div class="similar-cards" id="similar-cards-v2"></div>
+</div>
+<div class="stats">
+  <div class="stat"><div class="label">开盘</div><div class="value" id="sopen">--</div></div>
+  <div class="stat"><div class="label">最高</div><div class="value val-up" id="shigh">--</div></div>
+  <div class="stat"><div class="label">最低</div><div class="value val-down" id="slow">--</div></div>
+  <div class="stat"><div class="label">昨收</div><div class="value" id="sprev">--</div></div>
+  <div class="stat"><div class="label">成交量</div><div class="value" id="svol">--</div></div>
+  <div class="stat"><div class="label">成交额</div><div class="value" id="samt">--</div></div>
+  <div class="stat"><div class="label">换手率</div><div class="value val-up" id="sturn">--</div></div>
+</div>
+<div class="chart-wrap">
+  <div class="chart-title">
+    <span id="chart-main-title">分时走势</span>
+    <span class="legend">
+      <span><i style="background:#00d4ff"></i> 价格</span>
+      <span><i style="background:#ff9800;border-style:dashed"></i> 均价</span>
+      <span><i style="background:rgba(239,83,80,.3)"></i> 成交量</span>
+    </span>
+  </div>
+  <div id="chart-main" class="chart" style="height:420px"></div>
+</div>
+<div class="chart-wrap">
+  <div class="chart-title">📈 累计换手率</div>
+  <div id="chart-turnover" class="chart" style="height:220px"></div>
+</div>
+<div class="chart-wrap">
+  <div class="chart-title">🔍 相似个股 · 上市首日分时对比</div>
+  <div id="chart-compare" class="chart" style="height:300px"></div>
+</div>
+<div class="status-bar" id="status">🔄 正在连接...</div>
+
+<script>
+const mainChart = echarts.init(document.getElementById('chart-main'));
+const turnoverChart = echarts.init(document.getElementById('chart-turnover'));
+const compareChart = echarts.init(document.getElementById('chart-compare'));
+const groupId = '920083-group';
+mainChart.group = groupId;
+turnoverChart.group = groupId;
+compareChart.group = groupId;
+
+// ── 59只北交所新股平均换手率基准 ──
+const BENCHMARK = {
+  '09:30':4.62,'09:40':32.03,'09:50':40.43,'10:00':46.18,
+  '10:30':57.06,'11:00':63.03,'11:30':67.0,
+  '13:30':71.57,'14:00':75.24,'14:30':78.91,'15:00':85.66
+};
+const BENCH_KEYS = Object.keys(BENCHMARK).sort();
+const BENCH_VALS = BENCH_KEYS.map(k => BENCHMARK[k]);
+// 将 "HH:MM" 转为分钟数(从09:30起)
+function timeToMin(hm) { const [h,m]=hm.split(':').map(Number); return h*60+m; }
+const BENCH_MIN = BENCH_KEYS.map(k => timeToMin(k) - timeToMin('09:30'));
+// 对任意分钟数做线性插值
+function benchAt(minutes) {
+  if (minutes <= BENCH_MIN[0]) return BENCH_VALS[0];
+  if (minutes >= BENCH_MIN[BENCH_MIN.length-1]) return BENCH_VALS[BENCH_VALS.length-1];
+  for (let i=0;i<BENCH_MIN.length-1;i++) {
+    if (minutes>=BENCH_MIN[i]&&minutes<=BENCH_MIN[i+1]) {
+      const r = (minutes-BENCH_MIN[i])/(BENCH_MIN[i+1]-BENCH_MIN[i]);
+      return +(BENCH_VALS[i]+r*(BENCH_VALS[i+1]-BENCH_VALS[i])).toFixed(2);
+    }
+  }
+  return null;
+}
+
+// ── 全天时间轴：09:30～11:30 + 13:00～15:00（去除午休空白） ──
+const FULL_TIMELINE = [];
+(function() {
+  // 上午：09:30～11:30
+  for (let h = 9; h <= 11; h++) {
+    const startM = (h === 9) ? 30 : 0;
+    const endM = (h === 11) ? 30 : 59;
+    for (let m = startM; m <= endM; m++) {
+      FULL_TIMELINE.push(String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0'));
+    }
+  }
+  // 下午：13:01～15:00（120分钟）
+  for (let h = 13; h <= 15; h++) {
+    const startM = (h === 13) ? 1 : 0;
+    const endM = (h === 15) ? 0 : 59;
+    for (let m = startM; m <= endM; m++) {
+      FULL_TIMELINE.push(String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0'));
+    }
+  }
+})();
+// 上午121分钟 + 下午120分钟 = 总计241
+// 上午共 121 分钟, 下午共 121 分钟, 总计 242
+const MORNING_COUNT = 121;
+
+// ── 状态 ──
+let currentMode = 'timeshare';
+let cachedData = [];
+let cachedLatest = null;
+let prevClose = 0;
+let openPrice = 0;
+let compareInitDone = false;
+let chartInitDone = false;   // 首次渲染用 replace, 后续用 merge
+
+// ── 将实际数据补齐到全天时间轴 ──
+function padToTimeline(data) {
+  const map = {};
+  for (const d of data) map[d.time] = d;
+  const result = [];
+  let cumVol = 0, cumAmt = 0;
+  for (const t of FULL_TIMELINE) {
+    if (map[t]) {
+      const d = map[t];
+      cumVol += d.vol;
+      cumAmt += d.amount || (d.close * d.vol);
+      result.push({
+        time: t,
+        open: d.open, close: d.close, high: d.high, low: d.low,
+        vol: d.vol, amount: d.amount,
+        turnover: d.turnover,
+        cumVol: cumVol, cumAmt: cumAmt
+      });
+    } else {
+      // 未来时间/未有数据的分钟 → 留空
+      result.push({
+        time: t, open: null, close: null, high: null, low: null,
+        vol: null, amount: null, turnover: null,
+        cumVol: cumVol, cumAmt: cumAmt
+      });
+    }
+  }
+  return result;
+}
+
+// ── 图表切换 ──
+function switchChart(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-mode="'+mode+'"]').classList.add('active');
+  document.getElementById('chart-main-title').textContent = mode === 'timeshare' ? '分时走势' : '1分钟K线';
+  chartInitDone = false; // 切换模式需要完全重绘
+  if (cachedData.length > 0) renderMainChart(cachedData, cachedLatest);
+}
+
+// ── 顶部信息栏 ──
+function updateTopBar(latest) {
+  if (!latest) return;
+  const price = latest.close;
+  const change = prevClose > 0 ? ((price - prevClose) / prevClose * 100) : 0;
+  const sign = change >= 0 ? '+' : '';
+  const cls = change >= 0 ? 'up' : (change < 0 ? 'down' : 'flat');
+  document.getElementById('sprice').textContent = price.toFixed(2);
+  document.getElementById('sprice').className = 'price ' + cls;
+  document.getElementById('schange').textContent = sign + change.toFixed(2) + '%';
+  document.getElementById('schange').className = 'change ' + cls;
+  document.getElementById('sopen').textContent = latest.open.toFixed(2);
+  document.getElementById('shigh').textContent = latest.high.toFixed(2);
+  document.getElementById('slow').textContent = latest.low.toFixed(2);
+  if (latest.vol) document.getElementById('svol').textContent = (latest.vol / 10000).toFixed(0) + '万';
+  if (latest.amount) document.getElementById('samt').textContent = (latest.amount / 10000 / 10000).toFixed(2) + '亿';
+  document.getElementById('sturn').textContent = (latest.turnover || 0).toFixed(2) + '%';
+  if (prevClose > 0) document.getElementById('sprev').textContent = prevClose.toFixed(2);
+  if (latest.open > 0) openPrice = latest.open;
+}
+
+// ── 风险评分 ──
+function updateRiskPanel(risk) {
+  if (!risk) return;
+  const s = risk.score;
+  const gauge = document.getElementById('risk-gauge');
+  let cls = s >= 65 ? 'risk-score-danger' : (s >= 40 ? 'risk-score-caution' : 'risk-score-safe');
+  gauge.className = 'risk-gauge ' + cls;
+  gauge.style.setProperty('--pct', (s / 100) + '%');
+  gauge.querySelector('span').textContent = s;
+  document.getElementById('risk-action').textContent = risk.summary || (s >= 65 ? '⚠ 高风险' : (s >= 40 ? '🟡 注意' : '✅ 安全'));
+  document.getElementById('risk-summary').textContent =
+    risk.metrics ? 'VWAP ' + risk.metrics.vwap + ' | 回撤 ' + risk.metrics.dd_pct + '% | 换手 ' + risk.metrics.turnover + '% | 波动 ' + risk.metrics.volatility + '%' : '';
+  const tagsEl = document.getElementById('signal-tags');
+  tagsEl.innerHTML = '';
+  if (risk.signals) {
+    risk.signals.forEach(function(s) {
+      const levelMap = {danger:'signal-danger', warning:'signal-warning', info:'signal-info', positive:'signal-positive'};
+      const tag = document.createElement('span');
+      tag.className = 'signal-tag ' + (levelMap[s.level] || 'signal-info');
+      tag.textContent = s.label;
+      tag.title = s.detail;
+      tagsEl.appendChild(tag);
+    });
+  }
+}
+
+// ── 方案B：相似历史走势 ──
+function updateSimilarPanel(similar) {
+  const simSec = document.getElementById('similar-section');
+  if (!similar || similar.length === 0) { simSec.style.display = 'none'; return; }
+  simSec.style.display = 'block';
+  const cards = document.getElementById('similar-cards-v2');
+  cards.innerHTML = '';
+  similar.forEach(function(h) {
+    const card = document.createElement('div');
+    card.className = 'similar-card';
+    const score = h.similarity_score || h.score || 0;
+    card.innerHTML = '<span class="sc-name">'+h.name+'</span><span class="sc-code">'+h.code+'</span><span class="sc-sim">匹配 '+score.toFixed(0)+'分</span><div class="sc-advice">首日最高+'+h.max_gain+'%，收盘+'+h.actual_gain+'%，留存'+h.retention+'%</div>';
+    cards.appendChild(card);
+  });
+}
+
+// ── 方案C：回溯统计检查清单 ──
+function updateChecklistPanel(checklist) {
+  if (!checklist || !checklist.checklist) return;
+  const panel = document.getElementById('analysis-panel');
+  panel.style.display = 'block';
+  const recEl = document.getElementById('analysis-rec');
+  recEl.textContent = checklist.recommendation || '--';
+  recEl.className = checklist.suggest_sell ? 'analysis-rec-sell' : (checklist.triggered_count >= 1 ? 'analysis-rec-watch' : 'analysis-rec-safe');
+  document.getElementById('analysis-triggered').textContent = '触发 '+checklist.triggered_count+'/6 项 · 历史均值：回撤'+checklist.avg_dd+'% 换手'+checklist.avg_to+'% 留存'+checklist.avg_retention+'%';
+  const container = document.getElementById('checklist-container');
+  container.innerHTML = '';
+  checklist.checklist.forEach(function(c) {
+    const div = document.createElement('div');
+    div.className = 'check-item' + (c.warn ? ' check-warn' : '');
+    let valHtml = c.warn_label ? (c.value + ' <span style="font-size:10px;color:#ef5350">'+c.warn_label+'</span>') : c.value;
+    div.innerHTML = '<div class="check-name">'+c.name+'</div><div class="check-value">'+valHtml+'</div><div class="check-detail">'+(c.detail||'')+'</div>';
+    container.appendChild(div);
+  });
+}
+
+// ── 格式化 ──
+function fmtVol(n) { return n >= 100000000 ? (n/100000000).toFixed(2)+'亿' : n >= 10000 ? Math.round(n/10000)+'万' : ''+n; }
+
+// ── 主图渲染 ──
+function renderMainChart(rawData, latest) {
+  const padded = padToTimeline(rawData);
+  const times = padded.map(d => d.time);
+  const len = padded.length;
+
+  // 均价曲线（无数据分钟不显示, 不延续）
+  const avgPrices = [];
+  let cumVol = 0, cumAmt = 0;
+  for (let i = 0; i < len; i++) {
+    const d = padded[i];
+    if (d.vol != null) { cumVol += d.vol; cumAmt += d.amount || (d.close * d.vol); }
+    // 只有该分钟有成交量才显示均价，没有则 null（ECharts connectNulls:false 会断开）
+    avgPrices.push((d.vol != null && d.vol > 0 && cumVol > 0) ? +(cumAmt / cumVol).toFixed(2) : null);
+  }
+
+  const prices = padded.map(d => d.close);
+  const volData = padded.map(d => d.vol);
+  const isKline = currentMode === 'kline';
+
+  // 中午休市分割线: 上午最后一分钟 11:30 → 下午开盘前数据可能连续
+  // 用 markArea 或 visualMap 标注午休段
+  // 数据中 11:30 是 index 120, 13:00 是 index 121
+  const lunchEndIdx = MORNING_COUNT - 1; // 11:30 = index 120
+
+  const series = [];
+
+  if (isKline) {
+    const ohlc = padded.map(d => d.open != null ? [d.open, d.close, d.low, d.high] : [null, null, null, null]);
+    series.push({
+      name: 'K线', type: 'candlestick', data: ohlc,
+      itemStyle: { color: '#ef5350', color0: '#26a69a', borderColor: '#ef5350', borderColor0: '#26a69a' },
+    });
+  } else {
+    series.push({
+      name: '价格', type: 'line', data: prices,
+      symbol: 'none', connectNulls: false,
+      lineStyle: { color: '#00d4ff', width: 1.5 },
+      areaStyle: {
+        color: new echarts.graphic.LinearGradient(0,0,0,1,[
+          {offset:0,color:'rgba(0,212,255,.15)'},{offset:1,color:'rgba(0,212,255,.01)'}
+        ])
+      },
+    });
+  }
+
+  // 均价曲线
+  series.push({
+    name: '均价', type: 'line', data: avgPrices,
+    symbol: 'none', connectNulls: false,
+    lineStyle: { color: '#ff9800', width: 1.5, type: 'dashed' },
+    yAxisIndex: 0,
+  });
+
+  // 开盘价水平参考线 (只在分时图且首次渲染时设)
+  const markLine = (!isKline && openPrice > 0 && !chartInitDone) ? {
+    silent: true, symbol: 'none',
+    data: [{ yAxis: openPrice, lineStyle: { color: '#ffffff', type: 'dashed', width: 1 }, label: { formatter: '开 {c}', color: '#ffffff', fontSize: 10 } }],
+  } : undefined;
+
+  if (markLine) series[0].markLine = markLine;
+
+  const option = {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'cross', crossStyle: { color: '#888' } },
+      formatter: function(params) {
+        const pi = params[0];
+        if (!pi || pi.dataIndex === undefined) return '';
+        const d = padded[pi.dataIndex];
+        if (!d || d.close == null) return '<b>' + d.time + '</b><br/>暂无数据';
+        const avg = avgPrices[pi.dataIndex];
+        let html = '<b>' + d.time + '</b><br/>';
+        if (isKline) html += '开 '+d.open+' 收 '+d.close+' 高 '+d.high+' 低 '+d.low+'<br/>';
+        else html += '价格 '+d.close.toFixed(2)+'<br/>';
+        html += '均价 ' + avg.toFixed(2) + '<br/>';
+        html += '成交量 ' + fmtVol(d.vol||0) + '<br/>';
+        html += '换手率 ' + (d.turnover||0).toFixed(2) + '%';
+        return html;
+      }
+    },
+    grid: [
+      { left: 60, right: 20, top: 10, height: '62%' },
+      { left: 60, right: 20, top: '74%', height: '18%' }
+    ],
+    xAxis: [
+      { type: 'category', data: times, gridIndex: 0,
+        axisLine: { lineStyle: { color: '#444' } },
+        axisLabel: { color: '#888', fontSize: 11, show: false },
+        boundaryGap: false,
+      },
+      { type: 'category', data: times, gridIndex: 1,
+        axisLine: { lineStyle: { color: '#444' } },
+        axisLabel: { color: '#888', fontSize: 11 },
+        boundaryGap: false,
+        axisTick: { alignWithLabel: true },
+      }
+    ],
+    yAxis: [
+      { type: 'value', scale: true, gridIndex: 0,
+        axisLine: { lineStyle: { color: '#444' } },
+        axisLabel: { color: '#888' },
+        splitLine: { lineStyle: { color: '#333' } },
+      },
+      { type: 'value', gridIndex: 1,
+        axisLine: { lineStyle: { color: '#444' } },
+        axisLabel: { color: '#888', formatter: function(v) { return fmtVol(v); } },
+        splitLine: { lineStyle: { color: '#333' } },
+      }
+    ],
+    series: [
+      ...series.map(s => ({ ...s, xAxisIndex: 0, yAxisIndex: 0 })),
+      {
+        name: '成交量', type: 'bar', data: volData,
+        xAxisIndex: 1, yAxisIndex: 1,
+        itemStyle: {
+          color: function(p) {
+            const d = padded[p.dataIndex];
+            if (!d || d.close == null || d.open == null) return '#444';
+            return d.close >= d.open ? '#ef5350' : '#26a69a';
+          }
+        },
+      }
+    ]
+  };
+
+  // 首次用 replace, 后续用 merge 避免开盘线抖动
+  mainChart.setOption(option, !chartInitDone);
+  chartInitDone = true;
+}
+
+// ── 累计换手率 ──
+function renderTurnoverChart(rawData) {
+  const padded = padToTimeline(rawData);
+  const times = padded.map(d => d.time);
+  const turnovers = padded.map(d => d.turnover);
+
+  // 平均换手率基准: 59只北交所新股在同一时刻的均值
+  const benchCurve = padded.map(d => benchAt(timeToMin(d.time) - timeToMin('09:30')));
+
+  turnoverChart.setOption({
+    tooltip: {
+      trigger: 'axis',
+      formatter: function(params) {
+        const p0 = params.find(p => p && p.seriesName === '累计换手率');
+        const p1 = params.find(p => p && p.seriesName === '上市均值');
+        if (!p0 || p0.value == null) return '<b>' + p0.axisValue + '</b><br/>暂无数据';
+        let html = '<b>' + p0.axisValue + '</b><br/>累计换手率 <b style="color:#ff9800">' + p0.value.toFixed(2) + '%</b>';
+        if (p1 && p1.value != null) html += '<br/>北证新股均值 <b style="color:#a371f7">' + p1.value.toFixed(2) + '%</b>';
+        return html;
+      }
+    },
+    legend: {
+      data: ['累计换手率', '上市均值'],
+      top: 0, left: 'center',
+      textStyle: { color: '#888', fontSize: 11 },
+    },
+    grid: { left: 60, right: 20, top: 30, bottom: 30 },
+    xAxis: { type: 'category', data: times,
+      axisLine: { lineStyle: { color: '#444' } },
+      axisLabel: { color: '#888', fontSize: 11 },
+      boundaryGap: false,
+    },
+    yAxis: { type: 'value', scale: true,
+      axisLine: { lineStyle: { color: '#444' } },
+      axisLabel: { color: '#888', formatter: '{value}%' },
+      splitLine: { lineStyle: { color: '#333' } },
+      name: '换手率', nameTextStyle: { color: '#888', fontSize: 11 },
+    },
+    series: [
+      {
+        name: '累计换手率',
+        type: 'line', data: turnovers, smooth: false, symbol: 'none', connectNulls: false,
+        lineStyle: { color: '#ff9800', width: 2 },
+        areaStyle: {
+          color: new echarts.graphic.LinearGradient(0,0,0,1,[
+            {offset:0,color:'rgba(255,152,0,.3)'},{offset:1,color:'rgba(255,152,0,.02)'}
+          ])
+        },
+      },
+      {
+        name: '上市均值',
+        type: 'line', data: benchCurve, smooth: false, symbol: 'none', connectNulls: false,
+        lineStyle: { color: '#a371f7', width: 1.5, type: 'dashed' },
+      }
+    ]
+  }, false);
+}
+
+// ── 数据获取 ──
+const REFRESH_MS = 5000;
+
+async function fetchData() {
+  try {
+    const resp = await fetch('/api/data');
+    const json = await resp.json();
+    const newData = json.data || [];
+    const latest = json.latest;
+    document.getElementById('scode').textContent = json.code;
+    document.getElementById('sname').textContent = json.name;
+
+    // 记录昨收 (第一次获取时)
+    if (prevClose === 0 && latest && latest.close) {
+      prevClose = latest.close - (latest.change || 0);
+      // 更准确: 从行情数据中推断昨收
+      const firstBar = newData.find(d => d.open > 0);
+      if (firstBar && latest && latest.change !== undefined) {
+        prevClose = latest.close - latest.change;
+      }
+    }
+    if (latest) updateTopBar(latest);
+
+    cachedData = newData;
+    cachedLatest = latest;
+
+    if (newData.length > 0) {
+      renderMainChart(newData, latest);
+      renderTurnoverChart(newData);
+    }
+
+    // 三方案：一次请求获取全部
+    try {
+      const fullResp = await fetch('/api/full');
+      const full = await fullResp.json();
+      if (full.risk) updateRiskPanel(full.risk);
+      if (full.similar) updateSimilarPanel(full.similar);
+      if (full.checklist) updateChecklistPanel(full.checklist);
+    } catch(e) { console.log('full api:', e); }
+
+    // 相似个股分时对比
+    try {
+      const barsResp = await fetch('/api/similar_bars');
+      const bars = await barsResp.json();
+      renderCompareChart(bars);
+    } catch(e) { console.log('similar_bars:', e); }
+
+    document.getElementById('status').textContent = newData.length > 0
+      ? '✅ 已更新 ' + new Date().toLocaleTimeString() + ' · ' + newData.length + ' 根K线 · 全天 241 分钟'
+      : '⏳ 等待开盘数据...';
+  } catch(e) {
+    document.getElementById('status').textContent = '⏳ 连接中...';
+  }
+}
+
+fetchData();
+setInterval(fetchData, REFRESH_MS);
+window.addEventListener('resize', () => { mainChart.resize(); turnoverChart.resize(); compareChart.resize(); });
+echarts.connect(groupId);
+
+// ── 相似分时对比图（涨跌幅%归一化·全天对齐）──
+function _padToTimeline(timePriceList, openVal, timeline) {
+  const map = {};
+  for (let i = 0; i < timePriceList.length; i++) { map[timePriceList[i][0]] = timePriceList[i][1]; }
+  const pct = [];
+  for (let i = 0; i < timeline.length; i++) {
+    const p = map[timeline[i]];
+    pct.push(p != null ? +((p - openVal) / openVal * 100).toFixed(2) : null);
+  }
+  return pct;
+}
+function renderCompareChart(bars) {
+  if (!bars || !bars.similar || bars.similar.length === 0) {
+    if (!compareInitDone) {
+      compareChart.setOption({ title:{text:'暂无相似数据',left:'center',top:'center',textStyle:{color:'#888',fontSize:13}} }, true);
+      compareInitDone = true;
+    }
+    return;
+  }
+  const colors = ['#ff9800','#e91e63','#00bcd4'];
+  const series = [];
+  // 今日曲线：pad 到全天时间轴
+  var todayOpen = null;
+  var todayPairs = [];
+  if (bars.today && bars.today.times && bars.today.times.length > 0) {
+    todayOpen = bars.today.open || bars.today.prices[0] || 1;
+    for (let i = 0; i < bars.today.times.length; i++) { todayPairs.push([bars.today.times[i], bars.today.prices[i]]); }
+    const todayPct = _padToTimeline(todayPairs, todayOpen, FULL_TIMELINE);
+    var todaySeries = {
+      name: '今日 920083', type: 'line', data: todayPct, connectNulls: false,
+      symbol: 'none', lineStyle: { color: '#00d4ff', width: 2.5 }, z: 10
+    };
+    if (!compareInitDone) {
+      todaySeries.markLine = { silent:true, symbol:'none', data:[{ yAxis:0, lineStyle:{ color:'#888', type:'dashed', width:1 } }] };
+    }
+    series.push(todaySeries);
+  }
+  // 相似个股：也 pad 到全天时间轴
+  bars.similar.forEach(function(s, i) {
+    const sOpen = s.open || s.prices[0] || 1;
+    var sp = [];
+    for (let j = 0; j < s.times.length; j++) { sp.push([s.times[j], s.prices[j]]); }
+    const sPct = _padToTimeline(sp, sOpen, FULL_TIMELINE);
+    series.push({
+      name: s.name + ' +' + s.max_gain.toFixed(0) + '%', type: 'line', data: sPct, connectNulls: false,
+      symbol: 'none', lineStyle: { color: colors[i], width: 1.5, type: 'dashed' }, z: 5,
+    });
+  });
+  compareChart.setOption({
+    tooltip: {
+      trigger: 'axis',
+      formatter: function(params) {
+        var s = '<b>'+params[0].axisValue+'</b><br/>';
+        params.forEach(function(p) {
+          if (p.value == null) return;
+          s += p.marker + p.seriesName + ': ' + (p.value >= 0 ? '+' : '') + p.value + '%<br/>';
+        });
+        return s;
+      }
+    },
+    legend: { data: series.map(function(s){return s.name}), bottom: 0, textStyle: { color: '#888', fontSize: 10 } },
+    grid: { left: 60, right: 20, top: 10, bottom: 35 },
+    xAxis: { type: 'category', data: FULL_TIMELINE, axisLine: { lineStyle: { color: '#444' } }, axisLabel: { color: '#888', fontSize: 10, interval: 29 } },
+    yAxis: { type: 'value', name: '%', nameTextStyle:{color:'#888'}, axisLine: { lineStyle: { color: '#444' } }, axisLabel: { color: '#888', fontSize: 10, formatter: '{value}%' }, splitLine: { lineStyle: { color: '#222' } } },
+    series: series,
+  }, { notMerge: !compareInitDone });
+  compareInitDone = true;
+}
+</script>
+</body>
+</html>

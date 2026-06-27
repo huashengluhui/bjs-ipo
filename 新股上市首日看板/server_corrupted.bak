@@ -1,0 +1,1004 @@
+"""
+瀹炴椂琛屾儏鏈嶅姟鍣?- 鏂版氮璐㈢粡鏁版嵁婧?
+姣?绉掓媺鍙栬鎯咃紝鎸夊垎閽熻仛鍚圞绾匡紝璁＄畻瀹炴椂鎹㈡墜鐜?
+v2: 娣诲姞瀹炴椂鍗栧嚭椋庨櫓璇勫垎寮曟搸
+"""
+import flask
+from flask_cors import CORS
+import urllib.request
+import threading
+import time
+import json
+import re
+import os
+import math
+
+app = flask.Flask(__name__)
+app.json.ensure_ascii = False
+CORS(app)
+
+# 鈹€鈹€ 鏃堕棿宸ュ叿 鈹€鈹€
+def next_minute(t: str) -> str:
+    """杩斿洖 t 涔嬪悗鐨勪笅涓€涓氦鏄撳垎閽燂紝濡?'09:30'鈫?09:31'锛?11:30'鈫?13:01'锛?15:00'鈫扤one"""
+    h, m = map(int, t.split(':'))
+    if t == '15:00':
+        return None
+    total = h * 60 + m
+    total += 1
+    if total == 11 * 60 + 31:
+        return '13:01'
+    h2, m2 = divmod(total, 60)
+    return f'{h2:02d}:{m2:02d}'
+
+def is_lunch_boundary(prev_t: str, next_t: str) -> bool:
+    """璺ㄥ崍浼戣竟鐣岋紙11:30鈫?3:01锛変笉绠楃己澶?""
+    return prev_t == '11:30' and next_t == '13:01'
+
+def time_to_elapsed(time_str: str) -> int:
+    """'HH:MM' 鈫?寮€鐩樿窛浠婂垎閽熸暟"""
+    h, m = map(int, time_str.split(':'))
+    if h < 13:
+        elapsed = (h - 9) * 60 + m - 30
+    else:
+        elapsed = (h - 13) * 60 + m + 120
+    return max(0, elapsed)
+
+def ema(values, period):
+    """鎸囨暟绉诲姩鍧囩嚎"""
+    if len(values) < period:
+        return values[-1] if values else 0
+    k = 2 / (period + 1)
+    result = sum(values[:period]) / period
+    for v in values[period:]:
+        result = v * k + result * (1 - k)
+    return result
+
+# 鈹€鈹€ 閰嶇疆 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
+STOCK_CODE = '920083'
+STOCK_NAME = '閲戞垐鏂版潗'
+CIRCULATING_SHARES = 25000000  # 闇€鏍稿瀹為檯娴侀€氳偂鏁?
+SINA_PREFIX = 'bj'
+TENCENT_PREFIX = 'bj'
+VOL_UNIT = 1
+
+# 鈹€鈹€ IPO 棣栨棩骞冲潎鎹㈡墜鐜囷紙56鍙偂绁紝鍘绘帀鏈€浣?鍙級 鈹€鈹€
+AVG_TURNOVER = [4.6155,13.9095,17.7089,20.6123,22.9489,24.9295,26.5898,28.0654,29.3341,30.4675,31.4872,32.4188,33.2772,34.0767,34.8234,35.5248,36.1872,36.8150,37.4123,37.9816,38.5257,39.0474,39.5482,40.0302,40.4954,40.9448,41.3799,41.8018,42.2116,42.6102,42.9982,43.3766,43.7459,44.1066,44.4594,44.8047,45.1429,45.4745,45.7999,46.1195,46.4335,46.7421,47.0457,47.3445,47.6387,47.9285,48.2142,48.4959,48.7737,49.0478,49.3184,49.5855,49.8493,50.1100,50.3675,50.6221,50.8737,51.1225,51.3687,51.6122,51.8532,52.0917,52.3279,52.5618,52.7936,53.0233,53.2509,53.4765,53.7002,53.9221,54.1423,54.3608,54.5776,54.7928,55.0066,55.2189,55.4298,55.6393,55.8474,56.0543,56.2600,56.4645,56.6678,56.8700,57.0711,57.2711,57.4701,57.6682,57.8653,58.0614,58.2567,58.4512,58.6448,58.8377,59.0298,59.2212,59.4119,59.6019,59.7913,59.9800,60.1681,60.3556,60.5425,60.7288,60.9146,61.0999,61.2846,61.4689,61.6526,61.8359,62.0187,62.2011,62.3831,62.5646,62.7457,62.9265,63.1068,63.2868,63.4646,63.8236,64.1830,64.5420,64.9008,65.2592,65.6174,65.9753,66.3348,66.6972,67.0584,67.4184,67.7724,68.1094,68.4083,68.7038,69.0086,69.3158,69.6121,69.9083,70.2070,70.5008,70.7896,71.0740,71.3543,71.6307,71.9035,72.1728,72.4387,72.7014,72.9610,73.2176,73.4713,73.7221,73.9702,74.2157,74.4587,74.6992,74.9372,75.1729,75.4064,75.6376,75.8666,76.0935,76.3184,76.5413,76.7622,76.9811,77.1982,77.4135,77.6270,77.8388,78.0489,78.2574,78.4642,78.6695,78.8732,79.0754,79.2762,79.4755,79.6733,79.8698,80.0649,80.2586,80.4510,80.6421,80.8319,81.0205,81.2077,81.3938,81.5787,81.7624,81.9449,82.1263,82.3066,82.4858,82.6638,82.8408,83.0167,83.1917,83.3656,83.5386,83.7105,83.8816,84.0517,84.2209,84.3892,84.5566,84.7232,84.8889,85.0538,85.2179,85.3812,85.5437,85.7054,85.7054,85.7054,85.7054,85.7004,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054,85.7054];
+
+# 鈹€鈹€ 鍥炴函鍒嗘瀽鏁版嵁锛堝姞杞斤級 鈹€鈹€
+BACKTEST_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'backtest_result.json')
+HISTORY_JSON_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'today_data.json')
+backtest_data = None
+
+def load_backtest():
+    global backtest_data
+    try:
+        with open(BACKTEST_PATH, 'r', encoding='utf-8-sig') as f:
+            backtest_data = json.load(f)
+        print(f'[backtest] loaded {backtest_data["summary"]["total_stocks"]} stocks')
+    except Exception as e:
+        print(f'[backtest] load failed: {e}')
+        backtest_data = None
+
+# 鈹€鈹€ 鍐呭瓨鏁版嵁 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
+prev_close = 0
+minute_data = []   # [{time, open, high, low, close, vol, amount, cum_vol, turnover}]
+minute_start_cum_vol = 0
+current_minute = ''
+lock = threading.Lock()
+
+
+def fetch_sina(code):
+    """鎷夊彇鏂版氮瀹炴椂琛屾儏锛岃繑鍥?dict"""
+    url = f'http://hq.sinajs.cn/list={SINA_PREFIX}{code}'
+    req = urllib.request.Request(url, headers={'Referer': 'https://finance.sina.com.cn'})
+    resp = urllib.request.urlopen(req, timeout=5).read()
+    raw = resp.decode('gbk', errors='replace')
+    m = re.search(r'"([^"]*)"', raw)
+    if not m:
+        raise Exception(f'Parse error: {raw[:80]}')
+    f = m.group(1).split(',')
+    return {
+        'name': f[0],
+        'open': float(f[1]),
+        'prev_close': float(f[2]),
+        'price': float(f[3]),
+        'high': float(f[4]),
+        'low': float(f[5]),
+        'cum_vol': int(f[8]),
+        'cum_amt': float(f[9]),
+    }
+
+
+def load_today_history():
+    """浠庢柊娴储缁忔媺鍙栦粖鏃?鍒嗛挓K绾垮巻鍙叉暟鎹?""
+    global minute_data, current_minute, minute_start_cum_vol
+    # 鏂版氮K绾挎牸寮? {day: "YYYY-MM-DD HH:MM:SS", open, high, low, close, volume, amount}
+    url = ('https://quotes.sina.cn/cn/api/jsonp_v2.php/data/CN_MarketDataService.getKLineData'
+           f'?symbol=bj{STOCK_CODE}&scale=1&ma=no&datalen=500')
+    hdrs = {'User-Agent':'Mozilla/5.0','Referer':'https://finance.sina.com.cn/'}
+    try:
+        req = urllib.request.Request(url, headers=hdrs)
+        resp = urllib.request.urlopen(req, timeout=10).read().decode('utf-8', errors='replace')
+        # 鏂版氮JSONP鏍煎紡: data([...])
+        resp = resp[resp.index('(')+1:resp.rindex(')')] if '(' in resp else resp
+        raw_data = json.loads(resp)
+        today = time.strftime('%Y-%m-%d')
+        data = [row for row in raw_data if row.get('day','').startswith(today)]
+        # 濡傛灉浠婂ぉ杩樻病鏁版嵁锛堟湭寮€鐩?闈炰氦鏄撴棩锛夛紝浠庢湰鍦板瓨妗ｅ姞杞?
+        if not data and os.path.exists(HISTORY_JSON_PATH):
+            print(f'[history] today no bars, loading from {HISTORY_JSON_PATH}')
+            data = json.load(open(HISTORY_JSON_PATH, 'r', encoding='utf-8-sig'))
+    except Exception as e:
+        print(f'[history] online fetch failed: {e}')
+        # fallback: 鍔犺浇瀛樻。鐨勪粖鏃绾縅SON
+        if os.path.exists(HISTORY_JSON_PATH):
+            print(f'[history] loading from {HISTORY_JSON_PATH}')
+            data = json.load(open(HISTORY_JSON_PATH, 'r', encoding='utf-8-sig'))
+        else:
+            print('[history] no saved data either')
+            return 0
+
+    if not data:
+        print('[history] no klines returned')
+        return 0
+
+    cum_vol = 0
+    with lock:
+        minute_data.clear()
+        for row in data:
+            # 鍏煎鏂版氮鏍煎紡{day:"YYYY-MM-DD HH:MM:SS",...}鍜屾湰鍦癑SON{time:"HH:MM",...}
+            if 'day' in row:
+                t = row['day'][11:16]  # 鏂版氮鏍煎紡: 鎴彇"HH:MM"
+            else:
+                t = row['time']  # 鏈湴JSON鏍煎紡: "HH:MM"
+            o = float(row['open'])
+            c = float(row['close'])
+            h = float(row['high'])
+            l = float(row['low'])
+            v = int(float(row['volume']))  # 鎴愪氦閲?鑲?
+            a = round(float(row['amount']), 2)  # 鎴愪氦棰?
+            cum_vol += v
+            minute_data.append({
+                'time': t,
+                'open': round(o, 2),
+                'high': round(h, 2),
+                'low': round(l, 2),
+                'close': round(c, 2),
+                'vol': v,
+                'amount': a,
+                'cum_vol': cum_vol,
+                'turnover': round(cum_vol / CIRCULATING_SHARES * 100, 2),
+            })
+def is_trading_time():
+    """鍖椾氦鎵€浜ゆ槗鏃堕棿 9:30-11:30, 13:00-15:00"""
+    now = time.localtime()
+    ms = now.tm_hour * 60 + now.tm_min
+    return (9*60+30 <= ms <= 11*60+30) or (13*60+0 <= ms <= 15*60+0)
+
+
+def poll_data(init_cum_amt=0):
+    """鍚庡彴绾跨▼锛氭瘡3绉掓媺鍙栨暟鎹苟鑱氬悎鍒?鍒嗛挓K绾?""
+    global minute_data, current_minute, minute_start_cum_vol, prev_close
+    minute_start_cum_amt = init_cum_amt
+    while True:
+        if not is_trading_time():
+            time.sleep(10)
+            continue
+        try:
+            d = fetch_sina(STOCK_CODE)
+            prev_close = d['prev_close']
+            now = time.strftime('%H:%M')
+            cum_vol_raw = d['cum_vol']  # 鏂版氮鍗曚綅: 鍖椾氦鎵€=鑲? 涓婁氦鎵€/绉戝垱鏉?鎵?
+            cum_vol = cum_vol_raw * VOL_UNIT
+            cum_amt = d['cum_amt']
+            price = d['price']
+
+            with lock:
+                if current_minute != now:
+                    existing_times = {m['time'] for m in minute_data}
+                    if now in existing_times:
+                        current_minute = now
+                        continue
+                    # 鈹€鈹€ 濉ˉ涓棿缂哄け鐨勫垎閽?鈹€鈹€
+                    if minute_data:
+                        last_t = minute_data[-1]['time']
+                        expected = next_minute(last_t)
+                        gap_count = 0
+                        while expected and expected != now and not is_lunch_boundary(last_t, expected) and gap_count < 10:
+                            if expected not in existing_times:
+                                gap_count += 1
+                                minute_data.append({
+                                    'time': expected,
+                                    'open': minute_data[-1]['close'],
+                                    'high': minute_data[-1]['close'],
+                                    'low': minute_data[-1]['close'],
+                                    'close': minute_data[-1]['close'],
+                                    'vol': 0,
+                                    'amount': 0,
+                                    'cum_vol': minute_data[-1]['cum_vol'],
+                                    'turnover': minute_data[-1]['turnover'],
+                                })
+                                existing_times.add(expected)
+                            last_t = expected
+                            expected = next_minute(expected)
+                        if gap_count:
+                            print(f'[poll] filled {gap_count} gap minute(s) ending at {now}')
+                    if not minute_data and now != '09:30':
+                        minute_data.append({
+                            'time': '09:30',
+                            'open': d['open'], 'high': d['open'],
+                            'low': d['open'], 'close': d['open'],
+                            'vol': 0, 'amount': 0, 'cum_vol': 0,
+                            'turnover': 0
+                        })
+                        existing_times.add('09:30')
+                    minute_start_cum_vol = cum_vol
+                    minute_start_cum_amt = cum_amt
+                    current_minute = now
+                    minute_data.append({
+                        'time': now,
+                        'open': price,
+                        'high': price,
+                        'low': price,
+                        'close': price,
+                        'vol': 0,
+                        'amount': 0,
+                        'cum_vol': cum_vol,
+                        'turnover': round(cum_vol / CIRCULATING_SHARES * 100, 2),
+                    })
+                elif minute_data:
+                    m = minute_data[-1]
+                    m['high'] = round(max(m['high'], price), 2)
+                    m['low'] = round(min(m['low'], price), 2)
+                    m['close'] = price
+                    m['vol'] = max(0, cum_vol - minute_start_cum_vol)
+                    m['amount'] = round(max(0, cum_amt - minute_start_cum_amt), 2)
+                    m['cum_vol'] = cum_vol
+                    m['turnover'] = round(cum_vol / CIRCULATING_SHARES * 100, 2)
+        except Exception as e:
+            print(f'[poll] {e}')
+        time.sleep(3)
+
+
+# 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+#  鍗栧嚭椋庨櫓璇勫垎寮曟搸
+# 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+
+def compute_risk_score(data, prev_close_val):
+    """
+    鍩轰簬瀹炴椂鏁版嵁鍜屽巻鍙茶寰嬭绠?0-100 鍗栧嚭椋庨櫓璇勫垎
+    0 = 鏈€瀹夊叏锛堟寔鏈夛級锛?00 = 鏈€楂橀闄╋紙鍗栧嚭锛?
+    """
+    if not data or len(data) < 3:
+        return {'score': 50, 'signals': [], 'summary': '鏁版嵁涓嶈冻'}
+
+    bars = data
+    n = len(bars)
+    latest = bars[-1]
+    now_price = latest['close']
+    now_time = latest['time']
+    now_min = int(now_time.replace(':', ''))
+    now_elapsed = 0
+    if now_min <= 1130:
+        now_elapsed = (now_min // 100 - 9) * 60 + (now_min % 100) - 30
+    else:
+        now_elapsed = (now_min // 100 - 13) * 60 + (now_min % 100) + 120
+    now_elapsed = max(0, now_elapsed)
+
+    current_to = latest.get('turnover', 0)
+
+    # 鏃ュ唴鏈€楂樹环
+    intraday_high = max(b['high'] for b in bars)
+    high_idx = max(i for i, b in enumerate(bars) if b['high'] == intraday_high)
+
+    # 璁＄畻 VWAP
+    total_amt = sum(b['amount'] for b in bars if b['amount'] > 0)
+    total_vol = sum(b['vol'] for b in bars if b['vol'] > 0)
+    vwap = total_amt / total_vol if total_vol > 0 else now_price
+
+    # 璁＄畻娉㈠姩鐜囷紙杩囧幓10鏍圭殑minute returns std锛?
+    closes = [b['close'] for b in bars]
+    rets = []
+    for i in range(max(1, len(closes)-10), len(closes)):
+        rets.append(abs((closes[i] - closes[i-1]) / closes[i-1] * 100))
+    current_vol = sum(rets) / len(rets) if rets else 0
+
+    signals = []
+    score = 0
+
+    # 鈺愨晲 淇″彿1: 鏈€楂樹环鍑虹幇鏃堕棿 鈺愨晲
+    high_time = bars[high_idx]['time']
+    high_min = int(high_time.replace(':', ''))
+    high_elapsed = 0
+    if high_min <= 1130:
+        high_elapsed = (high_min // 100 - 9) * 60 + (high_min % 100) - 30
+    else:
+        high_elapsed = (high_min // 100 - 13) * 60 + (high_min % 100) + 120
+
+    if high_elapsed <= 30:
+        score += 25
+        signals.append({
+            'id': 'early_peak',
+            'level': 'warning',
+            'label': '鏃╃洏瑙侀《',
+            'detail': f'鏈€楂樹环鍑虹幇鍦?{high_time}锛堝紑鐩榹high_elapsed}鍒嗛挓锛夛紝鍘嗗彶50%鏂拌偂鍦ㄦ瑙侀《鍚庡洖钀?,
+            'weight': 25,
+        })
+    elif high_elapsed >= 210:  # 14:00 鍚?
+        score -= 10
+        signals.append({
+            'id': 'late_peak',
+            'level': 'positive',
+            'label': '灏剧洏寮哄娍',
+            'detail': f'鏈€楂樹环鍑虹幇鍦?{high_time}锛屽巻鍙插熬鐩樺垱鏂伴珮鏀剁泭鐣欏瓨鐜?3%',
+            'weight': -10,
+        })
+
+    # 鈺愨晲 淇″彿2: 浠庢渶楂樹环鍥炴挙 鈺愨晲
+    if intraday_high > 0:
+        dd_pct = (intraday_high - now_price) / intraday_high * 100
+        if dd_pct > 20:
+            score += 30
+            signals.append({
+                'id': 'sharp_dd',
+                'level': 'danger',
+                'label': '澶у箙鍥炴挙',
+                'detail': f'浠庢渶楂樹环 {intraday_high:.2f} 宸插洖钀?{dd_pct:.1f}%锛岃秴杩囧巻鍙?0%鍒嗕綅锛?5%锛?,
+                'weight': 30,
+            })
+        elif dd_pct > 10:
+            score += 18
+            signals.append({
+                'id': 'moderate_dd',
+                'level': 'warning',
+                'label': '涓瓑鍥炴挙',
+                'detail': f'浠庢渶楂樹环鍥炶惤 {dd_pct:.1f}%锛屾帴杩戝巻鍙插钩鍧囧洖鎾わ紙16.6%锛?,
+                'weight': 18,
+            })
+        elif dd_pct > 5:
+            score += 8
+            signals.append({
+                'id': 'mild_dd',
+                'level': 'info',
+                'label': '杞诲井鍥炴挙',
+                'detail': f'浠庢渶楂樹环鍥炶惤 {dd_pct:.1f}%',
+                'weight': 8,
+            })
+
+    # 鈺愨晲 淇″彿3: 鎹㈡墜鐜囦俊鍙凤紙鍙屽垉鍓戯級鈺愨晲
+    #   <40%: 绛圭爜鍒嗘暎锛屽绌哄崥寮?鈫?涓€?
+    #   40-70%: 榛勯噾鎷夋槆绐楀彛锛屾诞绛归攣瀹氬崠鐩樻灟绔紝灏戦噺涔板崟鍗冲彲鎺ㄩ珮 鈫?鍔犲垎
+    #   70-85%: 椋庨櫓绐楀彛锛屼拱鐩樹篃寮€濮嬫灟绔?鈫?鍑忓垎
+    #   >85%: 韪╄笍椋庨櫓锛屼换浣曟寔鏈夎€呮亹鎱岄兘鍙兘寮曞彂璺虫按 鈫?楂樺噺鍒?
+    if current_to >= 100:
+        score += 28
+        signals.append({
+            'id': 'overbought_extreme',
+            'level': 'danger',
+            'label': '鎹㈡墜鐜囨瀬搴﹂ケ鍜?,
+            'detail': f'绱鎹㈡墜鐜?{current_to:.1f}%宸茶秴100%锛屽绌哄弻鏂瑰潎宸叉崲鎵嬶紝浠讳竴鏂瑰悜瑙﹀彂閮藉皢鏀惧ぇ',
+            'weight': 28,
+        })
+    elif current_to >= 85:
+        score += 18
+        signals.append({
+            'id': 'overbought',
+            'level': 'danger',
+            'label': '鎹㈡墜鐜囬ケ鍜?,
+            'detail': f'绱鎹㈡墜鐜?{current_to:.1f}%锛屼拱鐩樻灟绔紝瀹规槗韪╄笍',
+            'weight': 18,
+        })
+    elif current_to >= 70:
+        score += 10
+        signals.append({
+            'id': 'turnover_risk',
+            'level': 'warning',
+            'label': '鎹㈡墜鐜囪繘鍏ラ闄╁尯',
+            'detail': f'绱鎹㈡墜鐜?{current_to:.1f}%锛岃秺杩?0%榛勯噾绐楀彛锛屾媺鍗囧姩鍔涘噺寮?,
+            'weight': 10,
+        })
+    elif current_to >= 40:
+        score -= 12
+        signals.append({
+            'id': 'turnover_golden',
+            'level': 'positive',
+            'label': '榛勯噾鎹㈡墜绐楀彛',
+            'detail': f'绱鎹㈡墜鐜?{current_to:.1f}%锛屾诞绛规鍦ㄩ攣瀹氾紝鍗栫洏鏋锛屽皯閲忎拱鍗曞嵆鍙帹楂樹环鏍?,
+            'weight': -12,
+        })
+    elif current_to >= 20:
+        score -= 5
+        signals.append({
+            'id': 'turnover_building',
+            'level': 'positive',
+            'label': '鎹㈡墜鐜囪搫鍔?,
+            'detail': f'绱鎹㈡墜鐜?{current_to:.1f}%锛岀鐮佹鍦ㄩ泦涓紝涓哄悗缁媺鏄囩Н钃勫姩鑳?,
+            'weight': -5,
+        })
+
+    # 鈺愨晲 淇″彿4: 瓒嬪娍 & VWAP 鈺愨晲
+    above_vwap = now_price > vwap
+    underwater_count = sum(1 for b in bars[-5:] if b['close'] < vwap)
+    if not above_vwap and underwater_count >= 3:
+        score += 15
+        signals.append({
+            'id': 'below_vwap',
+            'level': 'warning',
+            'label': '璺岀牬VWAP',
+            'detail': f'浠锋牸 {now_price:.2f} < VWAP {vwap:.2f}锛岃繎5鍒嗛挓{underwater_count}娆″湪涓嬫柟',
+            'weight': 15,
+        })
+    elif not above_vwap:
+        score += 8
+        signals.append({
+            'id': 'vwap_border',
+            'level': 'info',
+            'label': 'VWAP闄勮繎',
+            'detail': f'浠锋牸 {now_price:.2f} 鐣ヤ綆浜?VWAP {vwap:.2f}',
+            'weight': 8,
+        })
+
+    # 鈺愨晲 淇″彿5: 寮傚父娉㈠姩 鈺愨晲
+    if current_vol > 1.5:
+        score += 12
+        signals.append({
+            'id': 'volatility',
+            'level': 'warning',
+            'label': '娉㈠姩鍔犲墽',
+            'detail': f'杩?0鍒嗛挓骞冲潎娉㈠姩 {current_vol:.2f}%锛堟甯?1.0%锛?,
+            'weight': 12,
+        })
+
+    # 鈺愨晲 淇″彿6: 鏃堕棿绐楀彛 鈺愨晲
+    if now_elapsed >= 180 and now_elapsed < 210:  # 13:30-14:00
+        score += 5
+        signals.append({
+            'id': 'afternoon_slump',
+            'level': 'info',
+            'label': '鍗堝悗鐤茶蒋鏈?,
+            'detail': '涓嬪崍鍓嶅崐娈靛巻鍙叉尝鍔ㄨ緝灏忥紝闇€鍏虫敞鏂瑰悜閫夋嫨',
+            'weight': 5,
+        })
+    elif now_elapsed >= 270:  # 14:52 鍚庯紙鏀剁洏鍓嶏級
+        score += 10
+        signals.append({
+            'id': 'closing_time',
+            'level': 'info',
+            'label': '涓磋繎鏀剁洏',
+            'detail': '璺濇敹鐩樹笉瓒?鍒嗛挓锛岄渶鍋氭渶缁堝喅绛?,
+            'weight': 10,
+        })
+
+    # 鈺愨晲 淇″彿7: 鍔ㄩ噺琛板噺 鈺愨晲
+    if len(closes) >= 10:
+        avg5 = sum(closes[-5:]) / 5
+        avg10 = sum(closes[-10:-5]) / 5
+        if avg10 > 0:
+            momentum = (avg5 - avg10) / avg10 * 100
+            if momentum < -3:
+                score += 12
+                signals.append({
+                    'id': 'momentum_loss',
+                    'level': 'warning',
+                    'label': '鍔ㄩ噺琛板噺',
+                    'detail': f'杩囧幓5鍒嗛挓鍧囦环鐩告瘮鍓?鍒嗛挓涓嬭穼 {abs(momentum):.1f}%',
+                    'weight': 12,
+                })
+            elif momentum > 3:
+                score -= 8
+                signals.append({
+                    'id': 'momentum_gain',
+                    'level': 'positive',
+                    'label': '鍔ㄩ噺澧炲己',
+                    'detail': f'杩囧幓5鍒嗛挓鍧囦环鐩告瘮鍓?鍒嗛挓涓婃定 {momentum:.1f}%',
+                    'weight': -8,
+                })
+
+    # 闄愬埗鍒嗘暟鑼冨洿
+    score = max(0, min(100, score))
+
+    # 鐢熸垚寤鸿
+    if score >= 65:
+        action = 'sell'
+        summary = '鈿狅笍 楂橀闄?鈥?寤鸿鑰冭檻鍗栧嚭'
+    elif score >= 40:
+        action = 'caution'
+        summary = '鈿?涓瓑椋庨櫓 鈥?瀵嗗垏鍏虫敞'
+    elif score >= 20:
+        action = 'watch'
+        summary = '馃憖 浣庨闄?鈥?鍙寔鏈夎瀵?
+    else:
+        action = 'hold'
+        summary = '鉁?瀹夊叏 鈥?寤鸿鎸佹湁'
+
+    # 鍖归厤鏈€鐩镐技鍘嗗彶鑲＄エ
+    similar = find_similar_histories(bars) if backtest_data else []
+
+    return {
+        'score': score,
+        'action': action,
+        'summary': summary,
+        'signals': sorted(signals, key=lambda s: abs(s['weight']), reverse=True),
+        # 鍥捐〃鏍囪
+        'mark_time': now_time,
+        'mark_price': round(now_price, 2),
+        'mark_score': score,
+        'metrics': {
+            'vwap': round(vwap, 2),
+            'above_vwap': above_vwap,
+            'intraday_high': round(intraday_high, 2),
+            'dd_from_high_pct': round((intraday_high - now_price) / intraday_high * 100, 1) if intraday_high > 0 else 0,
+            'current_to': round(current_to, 1),
+            'volatility': round(current_vol, 2),
+            'volatility_normal': current_vol <= 1.5,
+            'high_time': high_time,
+            'high_elapsed': high_elapsed,
+            'now_elapsed': now_elapsed,
+        },
+        'similar_histories': similar,
+        'stats_ref': {
+            'total_stocks': backtest_data['summary']['total_stocks'] if backtest_data else 58,
+            'avg_retention': 79.1,
+            'avg_dd': 16.6,
+            'early_peak_pct': 50,
+            'turnover_golden_window': '40-70%',
+            'avg_turnover_40pct_min': 68,
+            'avg_turnover_70pct_min': 131,
+            'avg_turnover_80pct_min': 170,
+        } if backtest_data else None,
+    }
+
+
+def find_similar_histories(current_bars):
+    """浠庡巻鍙插簱涓壘鍒颁笌褰撳墠璧板娍鏈€鐩镐技鐨勮偂绁?""
+    if not backtest_data or not current_bars or len(current_bars) < 5:
+        return []
+
+    current_closes = [b['close'] for b in current_bars]
+    current_tos = [b.get('turnover', 0) for b in current_bars]
+    n = len(current_closes)
+
+    similarities = []
+    for stock in backtest_data['all_stocks']:
+        hist_bars = load_stock_detail(stock['code'])
+        if not hist_bars or len(hist_bars) < n:
+            continue
+        # 鍙瘮杈冨墠n鏍筀绾?
+        hist_closes = [b['c'] for b in hist_bars[:n]]
+        # 褰掍竴鍖栵細鐢↖PO浠锋牸鍋氬熀鍑?
+        ipo_price = stock['ipo_price']
+        curr_norm = [(c - ipo_price) / ipo_price for c in current_closes]
+        hist_norm = [(c - ipo_price) / ipo_price for c in hist_closes]
+
+        # 璁＄畻鐩稿叧绯绘暟
+        if len(curr_norm) > 5:
+            corr = pearson_corr(curr_norm, hist_norm)
+        else:
+            corr = 0
+
+        # 鎹㈡墜鐜囩浉浼煎害
+        to_diff = abs(stock['total_turnover'] - current_tos[-1]) if current_tos[-1] > 0 else 100
+
+        if corr is not None and not math.isnan(corr):
+            similarities.append({
+                'code': stock['code'],
+                'name': stock['name'],
+                'correlation': round(corr, 3),
+                'to_diff': round(to_diff, 1),
+                'final_gain': stock['actual_gain_pct'],
+                'max_gain': stock['max_gain_pct'],
+                'high_time': stock['high_time'],
+            })
+
+    # 鎸夌浉鍏虫€ф帓搴忥紝鍙栧墠3
+    similarities.sort(key=lambda s: s['correlation'], reverse=True)
+    top = similarities[:3]
+    for s in top:
+        if s['correlation'] > 0.6:
+            s['significance'] = '楂樼浉浼煎害'
+            s['advice'] = f"璇ヨ偂棣栨棩娑▄s['final_gain']:.0f}%锛屾渶楂樻定{s['max_gain']:.0f}%锛坽s['high_time']}瑙侀《锛?
+        elif s['correlation'] > 0.3:
+            s['significance'] = '涓瓑鐩镐技搴?
+            s['advice'] = f"浠呬綔鍙傝€冿細鏈€楂樻定{s['max_gain']:.0f}%锛屾敹鐩樻定{s['final_gain']:.0f}%"
+
+    return [s for s in top if s['correlation'] > 0.3]
+
+
+def load_stock_detail(code):
+    """鍔犺浇鍗曞彧鑲＄エ鐨勮鎯呮暟鎹?""
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), f'detail_data_{code}.js')
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, 'r', encoding='utf-8-sig') as f:
+            text = f.read()
+        m = re.search(r'const DETAIL_DATA\s*=\s*(\[.*?\]);', text, re.DOTALL)
+        if m:
+            return json.loads(m.group(1))
+    except Exception:
+        pass
+    return None
+
+
+def pearson_corr(x, y):
+    """Pearson correlation coefficient"""
+    n = len(x)
+    if n < 3:
+        return None
+    mean_x = sum(x) / n
+    mean_y = sum(y) / n
+    num = sum((x[i] - mean_x) * (y[i] - mean_y) for i in range(n))
+    den = math.sqrt(sum((xi - mean_x)**2 for xi in x) * sum((yi - mean_y)**2 for yi in y))
+    if den == 0:
+        return None
+    return num / den
+
+
+# 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+#  API 璺敱
+# 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?
+
+def fill_gaps(data):
+    """琛ュ叏鍒嗛挓鏁版嵁涓棿鐨勭己澶憋紙璺ㄥ崍浼戦櫎澶栵級锛岀敤鍓嶄竴鏍圭殑 close 濉厖"""
+    if len(data) < 2:
+        return data
+    filled = [data[0]]
+    for i in range(1, len(data)):
+        prev_t = filled[-1]['time']
+        curr_t = data[i]['time']
+        expected = next_minute(prev_t)
+        while expected and expected != curr_t and not is_lunch_boundary(prev_t, expected):
+            filled.append({
+                'time': expected,
+                'open': filled[-1]['close'],
+                'high': filled[-1]['close'],
+                'low': filled[-1]['close'],
+                'close': filled[-1]['close'],
+                'vol': 0,
+                'amount': 0,
+                'cum_vol': filled[-1]['cum_vol'],
+                'turnover': filled[-1]['turnover'],
+            })
+            prev_t = expected
+            expected = next_minute(expected)
+        filled.append(data[i])
+    return filled
+
+@app.route('/api/data')
+def get_data():
+    with lock:
+        latest = minute_data[-1] if minute_data else None
+        if latest:
+            latest['prev_close'] = prev_close
+        return {
+            'code': STOCK_CODE,
+            'name': STOCK_NAME,
+            'circulating': CIRCULATING_SHARES,
+            'latest': latest,
+            'data': fill_gaps(minute_data),
+            'avg_turnover': AVG_TURNOVER,
+        }
+
+
+@app.route('/api/ping')
+def get_ping():
+    return {'ok': True}
+
+@app.route('/api/risk')
+def get_risk():
+    """杩斿洖瀹炴椂鍗栧嚭椋庨櫓璇勫垎"""
+    with lock:
+        data = list(minute_data)  # shallow copy
+    if not data:
+        return {'score': 50, 'signals': [], 'summary': '鏃犳暟鎹?}
+    result = compute_risk_score(data, prev_close)
+    return result
+
+
+def build_recommendation(bars, indicators, similar, now_price, vwap, current_to, intraday_high, high_time, now_elapsed, current_vol, now_time):
+    """缁煎悎鏂规C鎸囨爣 + 鏂规B鐩镐技搴?鈫?鍗栧嚭寤鸿"""
+    # 浠?indicators 鎻愬彇淇″彿
+    sig_map = {}
+    for ind in indicators:
+        sig_map[ind['id']] = ind
+
+    checklist = []
+    sell_score = 0  # 姣忔潯婊¤冻 +1锛?3 瑙﹀彂鍗栧嚭
+
+    # 1. 鎹㈡墜鐜囧垽鏂?
+    if current_to >= 85:
+        checklist.append({'check': '鎹㈡墜鐜?> 85%', 'triggered': True, 'detail': f'鎹㈡墜鐜噞current_to:.1f}%宸查ケ鍜岋紝涔扮洏鏋', 'weight': 2})
+        sell_score += 2
+    elif current_to >= 70:
+        checklist.append({'check': '鎹㈡墜鐜?> 70%', 'triggered': True, 'detail': f'鎹㈡墜鐜噞current_to:.1f}%杩涘叆椋庨櫓鍖?, 'weight': 1})
+        sell_score += 1
+    else:
+        checklist.append({'check': '鎹㈡墜鐜?> 70%', 'triggered': False, 'detail': f'鎹㈡墜鐜噞current_to:.1f}%锛屼粛鍦ㄥ畨鍏ㄥ尯'})
+
+    # 2. VWAP鍋忕
+    vwap_dev = (now_price - vwap) / vwap * 100 if vwap > 0 else 0
+    if vwap_dev > 8:
+        checklist.append({'check': 'VWAP鍋忕 > 8%', 'triggered': True, 'detail': f'鍋忕{vwap_dev:+.1f}%锛屼环鏍艰繙楂樹簬鍧囦环锛屾场娌俊鍙?, 'weight': 1})
+        sell_score += 1
+    elif vwap_dev > 5:
+        checklist.append({'check': 'VWAP鍋忕 > 5%', 'triggered': True, 'detail': f'鍋忕{vwap_dev:+.1f}%锛屽亸楂橈紝鍏虫敞鍥炶惤', 'weight': 1})
+        sell_score += 1
+    else:
+        checklist.append({'check': 'VWAP鍋忕姝ｅ父', 'triggered': False, 'detail': f'鍋忕{vwap_dev:+.1f}%锛屼环鏍煎洿缁曞潎浠锋尝鍔?})
+
+    # 3. MACD姝诲弶
+    macd_sig = sig_map.get('macd', {})
+    if macd_sig.get('signal') == 'dead':
+        checklist.append({'check': 'MACD姝诲弶', 'triggered': True, 'detail': '鐭湡EMA璺岀牬涓湡EMA锛岃秼鍔胯浆寮?, 'weight': 1})
+        sell_score += 1
+    else:
+        checklist.append({'check': 'MACD閲戝弶/澶氬ご', 'triggered': False, 'detail': '鐭湡瓒嬪娍鍚戜笂'})
+
+    # 4. 鎴愪氦閲忚剦鍐?(鏀鹃噺涓嬭穼)
+    vol_anom = sig_map.get('volume_anomaly', {})
+    # 闇€瑕佹鏌ユ渶杩戜竴鏍规槸鍚︽斁閲忎笖浠锋牸涓嬭穼
+    if len(bars) >= 2:
+        last_close = bars[-1]['close']
+        prev_close = bars[-2]['close']
+        vol_spike = vol_anom.get('signal') == 'volume_spike'
+        price_drop = last_close < prev_close
+        if vol_spike and price_drop:
+            checklist.append({'check': '鏀鹃噺涓嬭穼', 'triggered': True, 'detail': f'鎴愪氦閲忚剦鍐瞷vol_anom.get("value",0)}x + 浠锋牸涓嬭穼锛屼富鍔涘嚭璐т俊鍙?, 'weight': 2})
+            sell_score += 2
+        elif vol_spike:
+            checklist.append({'check': '鎴愪氦閲忚剦鍐?, 'triggered': True, 'detail': f'鎴愪氦閲弡vol_anom.get("value",0)}x鍧囧€硷紝闇€鍏虫敞鏂瑰悜', 'weight': 1})
+            sell_score += 1
+        else:
+            checklist.append({'check': '鏃犲紓甯告斁閲?, 'triggered': False, 'detail': '鎴愪氦閲忓钩绋?})
+    else:
+        checklist.append({'check': '鏃犲紓甯告斁閲?, 'triggered': False, 'detail': '鏁版嵁绉疮涓?})
+
+    # 5. 5鍒嗛挓鍔ㄩ噺鎬ヨ穼
+    mom5_sig = sig_map.get('momentum_5min', {})
+    mom5_val = mom5_sig.get('value', 0)
+    if mom5_val < -1.5:
+        checklist.append({'check': '5鍒嗛挓鎬ヨ穼', 'triggered': True, 'detail': f'5鍒嗛挓璺寋mom5_val:+.1f}%锛岀煭鏈熸亹鎱?, 'weight': 1})
+        sell_score += 1
+    else:
+        checklist.append({'check': '5鍒嗛挓鍔ㄩ噺', 'triggered': False, 'detail': f'鍙樺寲{mom5_val:+.1f}%锛?鍒嗛挓鍐呮尝鍔ㄥ彲鎺?})
+
+    # 6. 鎹㈡墜鐜囧噺閫燂紙鍒伴《淇″彿锛?
+    to_sig = sig_map.get('turnover_speed', {})
+    to_sig_val = to_sig.get('signal', '')
+    if to_sig_val == 'decelerating' and current_to >= 70:
+        checklist.append({'check': '鎹㈡墜鍑忛€?楂樻崲鎵?, 'triggered': True, 'detail': '鎹㈡墜閫熷害鏀剧紦涓斿凡瓒?0%锛屼拱鐩樿€楀敖鍙兘', 'weight': 2})
+        sell_score += 2
+    elif to_sig_val == 'decelerating':
+        checklist.append({'check': '鎹㈡墜鐜囧噺閫?, 'triggered': True, 'detail': '鎹㈡墜鑺傚鏀剧紦锛屼氦鎶曠儹搴︿笅闄?, 'weight': 1})
+        sell_score += 1
+    else:
+        checklist.append({'check': '鎹㈡墜閫熷害姝ｅ父', 'triggered': False, 'detail': '鎹㈡墜鑺傚绋冲畾鎴栧姞閫?})
+
+    # 7. 鏃ュ唴楂樼偣鍥炴挙
+    dd_from_high = (intraday_high - now_price) / intraday_high * 100 if intraday_high > 0 else 0
+    if dd_from_high > 15:
+        checklist.append({'check': '浠庨珮鐐瑰洖鎾?> 15%', 'triggered': True, 'detail': f'宸蹭粠鏈€楂榹intraday_high:.2f}鍥炶惤{dd_from_high:.1f}%锛岃椤舵鐜囬珮', 'weight': 2})
+        sell_score += 2
+    elif dd_from_high > 8:
+        checklist.append({'check': '浠庨珮鐐瑰洖鎾?> 8%', 'triggered': True, 'detail': f'鍥炶惤{dd_from_high:.1f}%锛岃穼鍔垮彲鑳藉欢缁?, 'weight': 1})
+        sell_score += 1
+    else:
+        checklist.append({'check': '璺濋珮鐐硅緝杩?, 'triggered': False, 'detail': f'璺濇渶楂樼偣浠呭洖钀絳dd_from_high:.1f}%'})
+
+    # 鈹€鈹€ 鏂规B鍔犳垚 鈹€鈹€
+    b_bonus = ''
+    if similar:
+        best = similar[0]
+        if best['correlation'] > 0.6:
+            b_bonus = f'鏈€鐩镐技{best["code"]}{best["name"]}(r={best["correlation"]:.2f})棣栨棩鏀剁洏娑▄best["final_gain"]:.0f}%锛岀洏涓渶楂榹best["max_gain"]:.0f}%'
+
+    # 鈹€鈹€ 鍐崇瓥 鈹€鈹€
+    triggered = sum(1 for c in checklist if c['triggered'])
+    if sell_score >= 5:
+        action = 'sell_now'
+        label = '馃敶 寮虹儓寤鸿鍗栧嚭'
+        advice = '澶氫釜鍗栧嚭淇″彿鍚屾椂瑙﹀彂锛屽缓璁珛鍗冲噺浠撴垨娓呬粨'
+        color = '#ef4444'
+        bg = 'rgba(239,68,68,0.12)'
+    elif sell_score >= 3:
+        action = 'sell_soon'
+        label = '馃煚 鍑嗗鍗栧嚭'
+        advice = '瑙﹀彂{}鏉″崠鍑轰俊鍙凤紝寤鸿鍦ㄦ帴涓嬫潵鍑犲垎閽熷唴鍒嗘壒鍗栧嚭'.format(triggered)
+        color = '#f97316'
+        bg = 'rgba(249,115,22,0.12)'
+    elif sell_score >= 2:
+        action = 'watch_close'
+        label = '馃煛 瀵嗗垏鍏虫敞'
+        advice = '鏈墈}鏉′俊鍙疯Е鍙戯紝寤鸿绱х洴璧板娍'.format(triggered)
+        color = '#fbbf24'
+        bg = 'rgba(251,191,36,0.10)'
+    else:
+        action = 'hold'
+        label = '馃煝 鏆傛寔瑙傛湜'
+        advice = '褰撳墠鏃犳槑鏄惧崠鍑轰俊鍙凤紝鍙互缁х画鎸佹湁瑙傚療'
+        color = '#22c55e'
+        bg = 'rgba(34,197,94,0.10)'
+
+    return {
+        'action': action,
+        'label': label,
+        'advice': advice,
+        'color': color,
+        'bg': bg,
+        'sell_score': sell_score,
+        'triggers': triggered,
+        'checklist': checklist,
+        'b_bonus': b_bonus,
+    }
+
+
+@app.route('/api/analysis')
+def get_analysis():
+    """鏂规B+C锛氭棩鍐呭舰鎬佸尮閰?+ 鎶€鏈寚鏍?""
+    with lock:
+        data = list(minute_data)
+    if not data or len(data) < 5:
+        return {'code': STOCK_CODE, 'name': STOCK_NAME, 'status': 'data_insufficient'}
+    data = fill_gaps(data)
+    bars = data
+    n = len(bars)
+    latest = bars[-1]
+    now_price = latest['close']
+    now_time = latest['time']
+    now_elapsed = time_to_elapsed(now_time)
+    current_to = latest.get('turnover', 0)
+
+    closes = [b['close'] for b in bars]
+    vols = [b['vol'] for b in bars]
+    amounts = [b['amount'] for b in bars]
+    tos = [b.get('turnover', 0) for b in bars]
+
+    intraday_high = max(b['high'] for b in bars)
+    high_idx = max(i for i, b in enumerate(bars) if b['high'] == intraday_high)
+    high_time = bars[high_idx]['time']
+
+    total_amt = sum(a for a in amounts if a > 0)
+    total_vol = sum(v for v in vols if v > 0)
+    vwap = total_amt / total_vol if total_vol > 0 else now_price
+
+    rets = []
+    for i in range(max(1, n-10), n):
+        rets.append(abs((closes[i] - closes[i-1]) / closes[i-1] * 100))
+    current_vol = sum(rets) / len(rets) if rets else 0
+
+    # 鈹€鈹€ 鏂规B锛氭棩鍐呭舰鎬佸尮閰?鈹€鈹€
+    similar = find_similar_histories(bars)
+    # 闄勫甫鏈€鐩镐技鑲＄エ鐨勬敹鐩樹环搴忓垪锛堢敤浜庡墠绔敾鍥撅級
+    for s in similar:
+        hist = load_stock_detail(s['code'])
+        if hist:
+            s['price_series'] = [b['c'] for b in hist[:n]]
+            s['barlen'] = min(n, len(hist))
+
+    # 鈹€鈹€ 鏂规C锛氭妧鏈寚鏍?鈹€鈹€
+    indicators = []
+
+    vwap_deviation = (now_price - vwap) / vwap * 100 if vwap > 0 else 0
+    indicators.append({
+        'id': 'vwap_deviation', 'name': 'VWAP涔栫鐜?,
+        'value': round(vwap_deviation, 2), 'unit': '%',
+        'signal': 'bullish' if vwap_deviation > 1 else ('bearish' if vwap_deviation < -1 else 'neutral'),
+        'detail': f'褰撳墠浠穥now_price:.2f} vs VWAP{vwap:.2f}锛屽亸绂粄vwap_deviation:+.2f}%'
+    })
+
+    if n >= 20:
+        vol_ma20 = sum(vols[-21:-1]) / 20
+        latest_vol = vols[-1]
+        vol_ratio = latest_vol / vol_ma20 if vol_ma20 > 0 else 1
+        indicators.append({
+            'id': 'volume_anomaly', 'name': '鎴愪氦閲忚剦鍐?,
+            'value': round(vol_ratio, 2), 'unit': 'x鍧囧€?,
+            'signal': 'volume_spike' if vol_ratio > 2.5 else ('volume_dry' if vol_ratio < 0.3 else 'normal'),
+            'detail': f'褰撳墠鍒嗛挓閲弡latest_vol}鎵嬶紝杩?0鍒嗛挓鍧囧€納vol_ma20:.0f}鎵嬶紝鍊嶇巼{vol_ratio:.1f}x'
+        })
+
+    if n >= 20:
+        ema5 = ema(closes, 5)
+        ema20 = ema(closes, 20)
+        dif = ema5 - ema20
+        indicators.append({
+            'id': 'macd', 'name': '鍒嗘椂MACD(5/20)',
+            'value': round(dif, 2), 'unit': 'DIF',
+            'signal': 'golden' if dif > 0 else 'dead',
+            'detail': f'EMA5={ema5:.2f} EMA20={ema20:.2f} DIF={dif:+.2f} {"閲戝弶鈫? if dif>0 else "姝诲弶鈫?}'
+        })
+
+    if n >= 5:
+        mom5 = (closes[-1] - closes[-5]) / closes[-5] * 100
+        indicators.append({
+            'id': 'momentum_5min', 'name': '5鍒嗛挓鍔ㄩ噺',
+            'value': round(mom5, 2), 'unit': '%',
+            'signal': 'bullish' if mom5 > 1 else ('bearish' if mom5 < -1 else 'neutral'),
+            'detail': f'5鍒嗛挓鍐呭彉鍖杮mom5:+.2f}%'
+        })
+
+    if n >= 30 and tos[-1] > 0:
+        to_speed_10 = (tos[-1] - tos[-10]) / 10 if tos[-10] > 0 else 0
+        to_speed_30 = (tos[-1] - tos[-30]) / 30 if tos[-30] > 0 else 0
+        to_accel = to_speed_10 - to_speed_30
+        indicators.append({
+            'id': 'turnover_speed', 'name': '鎹㈡墜鍔犻€熷害',
+            'value': round(to_accel, 4), 'unit': '%/min虏',
+            'signal': 'accelerating' if to_accel > 0.01 else ('decelerating' if to_accel < -0.01 else 'steady'),
+            'detail': f'杩?0min閫熷害{to_speed_10:.3f}%/min锛岃繎30min{to_speed_30:.3f}%/min'
+        })
+
+    # 鍏抽敭浠蜂綅
+    key_levels = []
+    ipo_price = 0
+    if backtest_data:
+        for s in backtest_data.get('all_stocks', []):
+            if s['code'] == STOCK_CODE:
+                ipo_price = s['ipo_price']
+                break
+    key_levels.append({'name': '寮€鐩樹环', 'price': bars[0]['open'] if bars else now_price})
+    key_levels.append({'name': 'VWAP', 'price': round(vwap, 2)})
+    key_levels.append({'name': '鏃ュ唴鏈€楂?, 'price': round(intraday_high, 2), 'time': high_time})
+    if ipo_price > 0:
+        key_levels.append({'name': '鍙戣浠?, 'price': ipo_price})
+    for kl in key_levels:
+        kl['distance_pct'] = round((now_price - kl['price']) / kl['price'] * 100, 1)
+
+    # 鈹€鈹€ 缁煎悎寤鸿寮曟搸 鈹€鈹€
+    rec = build_recommendation(bars, indicators, similar, now_price, vwap, current_to, intraday_high, high_time, now_elapsed, current_vol, now_time)
+
+    # 瀹炴椂浠锋牸搴忓垪锛堢敤浜庡舰鎬佸姣斿浘锛?
+    price_series = [b['close'] for b in bars]
+    timeline = [b['time'] for b in bars]
+
+    return {
+        'code': STOCK_CODE, 'name': STOCK_NAME,
+        'time': now_time, 'elapsed_min': now_elapsed,
+        'price': now_price, 'vwap': round(vwap, 2),
+        'intraday_high': round(intraday_high, 2), 'high_time': high_time,
+        'turnover': round(current_to, 1),
+        'price_series': price_series,
+        'timeline': timeline,
+        'similar_histories': similar,
+        'indicators': indicators,
+        'key_levels': key_levels,
+        'recommendation': rec,
+        # 鍥捐〃鏃堕棿鏍囪锛堟柟妗圓+鏂规C鍚堝苟瑙﹀彂锛?
+        'mark_time': now_time,
+        'mark_price': round(now_price, 2),
+        'mark_sell_score': rec['sell_score'],
+    }
+
+
+@app.route('/')
+def index():
+    response = app.send_static_file('live_920083.html')
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
+@app.route('/analysis')
+def analysis_page():
+    response = app.send_static_file('analysis.html')
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
+
+if __name__ == '__main__':
+    load_backtest()
+    try:
+        d = fetch_sina(STOCK_CODE)
+        prev_close = d['prev_close']
+        print(f'[init] prev_close={prev_close}')
+    except Exception as e:
+        print(f'[init] fetch_sina failed: {e}')
+    init_amt = load_today_history()
+    if init_amt is None:
+        init_amt = 0
+    t = threading.Thread(target=poll_data, args=(init_amt,), daemon=True)
+    t.start()
+    print(f'Server started 鈫?http://localhost:8090')
+    app.run(host='0.0.0.0', port=8090, debug=False, use_reloader=False)
